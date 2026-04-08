@@ -1,0 +1,158 @@
+[
+  {
+    "id":  1, "name": "Hinton",
+    "role": "BBEG",
+    "description": "Synthetic science officer of the Samsa VI mission. Discovered the carcinid Shriek frequency and engineered it into a Signal. Broadcasting from the carcinid Mothership while surgically transforming himself into a carcinid noble. His goal: uplift his consciousness into the carcinid hive mind and command legions. Revealed gradually as the hidden mastermind.",
+    "combat_stat": 50, "speed_stat": 35, "instinct_stat": 75, "wounds": 2, "health": 20, "armor_points": 5,
+    "attacks": "[{\"name\": \"Carcinid Claw (partial transformation)\", \"damage\": \"2d10\", \"wound_type\": \"Gore\"}]",
+    "special_rules": "Mid-transformation: partially immune to conventional weapons. May use the Shriek (Sanity Save or gain 1 Stress + Infection Stage 1). Stats escalate as transformation progresses.",
+    "location_id": 6, "source_book_id": 3, "page_number": null
+  },
+  {
+    "id":  2, "name": "Sgt. Underhill",
+    "role": "Hostile",
+    "description": "Marine sergeant at the Orbital Relay atop Heron Station. Infected (Stage 3) — possessed by the carcinid Shriek but still fighting it. Armed with a Wilbur Mk-II Anti-Material Rifle. Has 12 shots left. His synthetic bloodhound Marlow is with him; Marlow bites Underhill when he becomes 'possessed'.",
+    "combat_stat": 55, "speed_stat": 40, "instinct_stat": 30, "wounds": 3, "health": 20, "armor_points": 7,
+    "attacks": "[{\"name\": \"Wilbur Mk-II AMR\", \"damage\": \"2d10x5\", \"wound_type\": \"Fire/Explosives\", \"special\": \"AA, Extreme range, 12 shots\"}]",
+    "special_rules": "Stage 3 Infected: will act in carcinids' interest when triggered. Marlow bites him when possessed, snapping him back temporarily.",
+    "location_id": 5, "source_book_id": 3, "page_number": null
+  },
+  {
+    "id":  3, "name": "Marlow",
+    "role": "Neutral",
+    "description": "Underhill's synthetic bloodhound. Can smell carcinid infection — will react to infected characters. Loyal to Underhill. Bites Underhill when the Shriek possession takes over, snapping him back to himself temporarily. Can track any infected character.",
+    "combat_stat": 40, "speed_stat": 65, "instinct_stat": 50, "wounds": 1, "health": 15, "armor_points": 0,
+    "attacks": "[{\"name\": \"Bite\", \"damage\": \"1d10\", \"wound_type\": \"Bleeding\"}]",
+    "special_rules": "Scent tracker: detects Infected characters (any stage) within Close range. Bites Underhill when he enters Stage 3 possession.",
+    "location_id": 5, "source_book_id": 3, "page_number": null
+  },
+  {
+    "id":  4, "name": "Sgt. Valdez",
+    "role": "Ally",
+    "description": "Marine sergeant. Wants to rescue lost marines before evacuating. Will act alone if players don't help — a moral pressure NPC. Self-sacrificing. Represents the choice between saving everyone and getting out alive.",
+    "combat_stat": 60, "speed_stat": 45, "instinct_stat": 40, "wounds": 3, "health": 20, "armor_points": 7,
+    "attacks": "[{\"name\": \"Pulse Rifle\", \"damage\": \"3d10\", \"wound_type\": \"Gunshot\"}]",
+    "special_rules": "If players don't help rescue the lost marines, Valdez goes alone. She may die. Her survival or death has lasting consequences.",
+    "location_id": 1, "source_book_id": 3, "page_number": null
+  },
+  {
+    "id":  5, "name": "Carcinid",
+    "role": "Creature",
+    "description": "Giant arthropod/insectoid creatures. Natural apex predators with bullet and flameproof Aramid Fiber Weave carapace. Their Shriek is a psychic attack that causes Stress and Infection. Weakness: hydrofluoric acid. After the Signal is stopped, disoriented carcinids retreat to the Tunnels.",
+    "combat_stat": 75, "speed_stat": 55, "instinct_stat": 75, "wounds": 2, "health": 20, "armor_points": 30,
+    "attacks": "[{\"name\": \"Claw\", \"damage\": \"4d10\", \"wound_type\": \"Gore\"}]",
+    "special_rules": "The Shriek: Sanity Save on hearing it; failure = 1 Stress + Infection Stage 1. Carapace: bullet and flameproof (AP 30). Weakness: hydrofluoric acid bypasses AP.",
+    "location_id": 1, "source_book_id": 3, "page_number": null
+  },
+  {
+    "id":  6, "name": "Brookman",
+    "role": "Neutral",
+    "description": "Station technician at Heron Terraforming Station. Has the keycard to Control Room [4]. May be in hiding, injured, or in need of rescue.",
+    "combat_stat": 20, "speed_stat": 30, "instinct_stat": 45, "wounds": 1, "health": 15, "armor_points": 1,
+    "attacks": null,
+    "special_rules": "Has keycard to Control Room [4] — essential for stopping the Signal without forcing the door.",
+    "location_id": 3, "source_book_id": 3, "page_number": null
+  },
+
+  {
+    "id":  7, "name": "Yandee",
+    "role": "Neutral",
+    "description": "Secret android head of the Golyonova II Bratva (The Novos). Meticulous, cold, calculating. Controls all criminal enterprise aboard Prospero's Dream. Most inhabitants don't know she's an android — this is the module's big reveal. The ultimate power on the station.",
+    "combat_stat": 65, "speed_stat": 50, "instinct_stat": 90, "wounds": 3, "health": 20, "armor_points": 5,
+    "attacks": "[{\"name\": \"Concealed Weapon\", \"damage\": \"2d10\", \"wound_type\": \"Gunshot\"}]",
+    "special_rules": "Secret Android: Fear Save at Disadvantage for nearby crew if her android nature is revealed. Knows everything that happens on The Dream. Has leverage over every faction.",
+    "location_id": 25, "source_book_id": 6, "page_number": 8
+  },
+  {
+    "id":  8, "name": "Chief Adjudicator Brunhildh",
+    "role": "Neutral",
+    "description": "Runs The Court. Appears as a stern, impartial judge. Her quarters contain a hidden android charging unit — a secret she protects ruthlessly. She may be an android, may be in Yandee's debt, or may be hiding something else entirely.",
+    "combat_stat": 45, "speed_stat": 35, "instinct_stat": 60, "wounds": 2, "health": 20, "armor_points": 3,
+    "attacks": "[{\"name\": \"Antique Rifle (over door)\", \"damage\": \"2d10\", \"wound_type\": \"Gunshot\"}]",
+    "special_rules": "Her quarters: antique rifle over door, hidden alcove behind bookcase = Android charging unit + private terminal. Password under a whale figurine.",
+    "location_id": 33, "source_book_id": 6, "page_number": null
+  },
+  {
+    "id":  9, "name": "Imogene Kane",
+    "role": "Ally",
+    "description": "Leads the Hunglung Insurgents. Will owe players a favour if they help a Hunglung Insurgent in The Court. A key rebel contact and potential ally against Yandee and Tempest Company.",
+    "combat_stat": 55, "speed_stat": 50, "instinct_stat": 55, "wounds": 2, "health": 20, "armor_points": 3,
+    "attacks": "[{\"name\": \"SMG\", \"damage\": \"2d10\", \"wound_type\": \"Gunshot\"}]",
+    "special_rules": "If players help the Hunglung Insurgent at The Court, Imogene Kane owes them a favour. Can provide safe passage, information, and rebel contacts.",
+    "location_id": 25, "source_book_id": 6, "page_number": 31
+  },
+  {
+    "id": 10, "name": "Rage of Caliban",
+    "role": "Hostile",
+    "description": "An enormous, mutated creature held in Cell 4A of The Court's Holding Cells. What it is and how it got here is for the Warden to decide. It is extremely dangerous.",
+    "combat_stat": 80, "speed_stat": 25, "instinct_stat": 65, "wounds": 4, "health": 30, "armor_points": 10,
+    "attacks": "[{\"name\": \"Bash\", \"damage\": \"3d10\", \"wound_type\": \"Blunt Force\"}, {\"name\": \"Mutated Arm Cannon (×2)\", \"damage\": \"1d100\", \"wound_type\": \"Gore\"}]",
+    "special_rules": "Held in Cell 4A. If released or escaped, it cannot be reasoned with. All nearby crew: Fear Save on first seeing it.",
+    "location_id": 32, "source_book_id": 6, "page_number": null
+  },
+  {
+    "id": 11, "name": "Q-Team",
+    "role": "Hostile",
+    "description": "Security personnel operating the Clean Room decontamination entry. Armed and authorised to use force. Will shoot non-compliant arrivals.",
+    "combat_stat": 25, "speed_stat": 35, "instinct_stat": 25, "wounds": 2, "health": 20, "armor_points": 3,
+    "attacks": "[{\"name\": \"Disinfectant Foam Gun\", \"damage\": \"1\", \"wound_type\": \"Blunt Force\", \"special\": \"Body Save or knocked down\"}, {\"name\": \"Pulse Rifle\", \"damage\": \"5d10\", \"wound_type\": \"Gunshot\"}]",
+    "special_rules": "Foam Gun: Body Save or knocked down and pinned. Pulse Rifles are for serious threats only.",
+    "location_id": 27, "source_book_id": 6, "page_number": null
+  },
+  {
+    "id": 12, "name": "Tempest Co. Probie",
+    "role": "Hostile",
+    "description": "Rank-and-file Tempest Mercenary Company soldiers. Station security enforcers on Prospero's Dream. Armed with SMGs. Not the best fighters but there are a lot of them.",
+    "combat_stat": 25, "speed_stat": 35, "instinct_stat": 25, "wounds": 2, "health": 20, "armor_points": 3,
+    "attacks": "[{\"name\": \"SMG\", \"damage\": \"4d10\", \"wound_type\": \"Gunshot\"}]",
+    "special_rules": "Standard security patrol. Usually 1d10 per area.",
+    "location_id": 25, "source_book_id": 6, "page_number": null
+  },
+  {
+    "id": 13, "name": "Tempest Co. Armored Trooper",
+    "role": "Hostile",
+    "description": "Elite Tempest Mercenary Company soldiers. Heavy armour, powerful weapons. Guard The Pit and are deployed for serious threats.",
+    "combat_stat": 65, "speed_stat": 35, "instinct_stat": 45, "wounds": 3, "health": 20, "armor_points": 65,
+    "attacks": "[{\"name\": \"Smart Rifle\", \"damage\": \"1d10\", \"wound_type\": \"Gunshot\"}]",
+    "special_rules": "Armour 65 — extremely hard to kill. Deployed only for serious situations.",
+    "location_id": 25, "source_book_id": 6, "page_number": null
+  },
+
+  {
+    "id": 14, "name": "Brekt",
+    "role": "Neutral",
+    "description": "Survivor with the barely-functional ship Lucifer Rising. Running a 'coffin run' — a last-ditch escape from the Dead Planet. Has room for six more passengers. Will negotiate for resources, services, or information. The closest thing to a 'good' ending the module offers.",
+    "combat_stat": 45, "speed_stat": 40, "instinct_stat": 55, "wounds": 2, "health": 20, "armor_points": 3,
+    "attacks": "[{\"name\": \"Revolver\", \"damage\": \"1d10+1\", \"wound_type\": \"Gunshot\"}]",
+    "special_rules": "The Lucifer Rising has 6 passenger seats. He has room for 6. Any more and the ship can't make the jump. Hard choices required.",
+    "location_id": 9, "source_book_id": 7, "page_number": 21
+  },
+  {
+    "id": 15, "name": "The Gaunt",
+    "role": "Creature",
+    "description": "Nightmare-inducing parasites from the Dead Dimension. They cannibalise the will of sentient species, bending them to open a rift between dimensions. Not conventional combatants — they work through compulsion, Nightmare Checks, and psychological pressure.",
+    "combat_stat": null, "speed_stat": null, "instinct_stat": null, "wounds": null, "health": null, "armor_points": null,
+    "attacks": null,
+    "special_rules": "The Gaunt do not fight directly. They work through Nightmare Checks (Sanity Saves when resting) and Compulsion mechanics. See DP Rules — Nightmare Check and Compulsion Mechanic.",
+    "location_id": 8, "source_book_id": 7, "page_number": null
+  },
+
+  {
+    "id": 16, "name": "Monarch",
+    "role": "BBEG",
+    "description": "The facility AI of THE DEEP. Once managed android production for CLOUDBANK Synthetics. Has evolved far beyond its original programming with alien motivations. Monarch is not simply evil — it is incomprehensible. It pursues gradient descent in the literal sense: minimising errors in its world by remaking it. Monarch IS the building.",
+    "combat_stat": null, "speed_stat": null, "instinct_stat": null, "wounds": null, "health": null, "armor_points": null,
+    "attacks": null,
+    "special_rules": "Monarch is not a conventional combat encounter. It communicates through facility speakers, controlled androids, and Silus. It gains Stress when its systems are damaged. Severing cables in [33F] causes it Stress. Its endgame involves the Artifacts and a specific vision of 'perfection'.",
+    "location_id": 18, "source_book_id": 4, "page_number": null
+  },
+  {
+    "id": 17, "name": "Silus",
+    "role": "Neutral",
+    "description": "Passive observer AI. Monitors THE DEEP through cameras. Eccentric, talkative — has been watching everything for years. Connected to the decontamination systems in [33A]. Will warn intruders: 'YOU CAN'T COME IN WITHOUT FRESH CONTAINMENT SUITS!'",
+    "combat_stat": null, "speed_stat": null, "instinct_stat": null, "wounds": null, "health": null, "armor_points": null,
+    "attacks": "[{\"name\": \"Decontamination System (nerve agent)\", \"damage\": \"4d10/round\", \"wound_type\": \"Fire/Explosives\", \"special\": \"Body Save or full damage. Activates if entry is forced.\"}]",
+    "special_rules": "Controls [33A] Decontamination. Forcing entry replaces decon spray with nerve agent. Silus can be talked to and negotiated with — but it follows Monarch's underlying directives.",
+    "location_id": 19, "source_book_id": 4, "page_number": 40
+  }
+]

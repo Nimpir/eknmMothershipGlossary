@@ -1,0 +1,34 @@
+# Secrets
+.env
+.env.*
+config.json
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Source book PDFs / assets
+books/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# Logs
+logs/
+
+# Claude Code session context
+_docs/
+
+# OS
+.DS_Store
+Thumbs.db

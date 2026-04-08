@@ -1,0 +1,331 @@
+[
+  {
+    "id": 1,
+    "name": "Advantage",
+    "body": "Roll the dice twice and take the *lower* result. Makes a check easier to pass. Denoted as [+].",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"[+]\", \"Advantage [+]\"]"
+  },
+  {
+    "id": 2,
+    "name": "Disadvantage",
+    "body": "Roll the dice twice and take the *higher* result. Makes a check harder to pass. Denoted as [-].",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"[-]\", \"Disadvantage [-]\"]"
+  },
+  {
+    "id": 3,
+    "name": "Stress",
+    "body": "A measure of psychological pressure. *Current Stress* starts at 2 and rises from horror, failed saves, and bad events. Whenever Current Stress equals or exceeds your *Minimum Stress*, you must make a Panic Check (Fear Save). Stress is reduced during Shore Leave.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Current Stress\"]"
+  },
+  {
+    "id": 4,
+    "name": "Minimum Stress",
+    "body": "The floor of your Stress. Starts at 2. Cannot go below this value. Whenever your Current Stress reaches or exceeds Minimum Stress, you must make a Panic Check.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 5,
+    "name": "Panic Check",
+    "body": "A Fear Save triggered when your Current Stress equals or exceeds your Minimum Stress. On a failure, roll on the Panic Table for a catastrophic result. Your class Trauma Response may cascade panic to nearby crew.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 6,
+    "name": "Panic",
+    "body": "The result of a failed Panic Check. Roll on the Panic Table to determine what your character does. Panic effects can cascade through the crew via class Trauma Responses.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Panic Table\", \"Panicking\"]"
+  },
+  {
+    "id": 7,
+    "name": "Wound",
+    "body": "Gained when your Health drops to 0. Reset Health to Maximum minus carryover damage after each Wound. When you exceed your Max Wounds, you die. Roll on the appropriate Wound Table (Bleeding, Gore, Gunshot, Blunt Force, or Fire/Explosives) determined by what hit you.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Wounds\"]"
+  },
+  {
+    "id": 8,
+    "name": "Save",
+    "body": "A special d100 roll under one of three save stats: Body, Fear, or Sanity. Saves resist specific categories of harm. 90-99 always fails. Doubles under = Critical Success; doubles over = Critical Failure.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Saves\", \"Saving Throw\"]"
+  },
+  {
+    "id": 9,
+    "name": "Stat Check",
+    "body": "Roll d100 under the relevant Stat (Strength, Speed, Intellect, or Combat) to succeed. 90-99 always fails. Matching doubles under your stat = Critical Success. Matching doubles over your stat = Critical Failure.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Check\", \"Stat check\"]"
+  },
+  {
+    "id": 10,
+    "name": "Critical Success",
+    "body": "Rolled matching doubles (e.g. 33, 44) that fall *under* your stat or save value. Something exceptionally good happens beyond normal success.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Crit Success\", \"Critical Hit\"]"
+  },
+  {
+    "id": 11,
+    "name": "Critical Failure",
+    "body": "Rolled matching doubles (e.g. 77, 88) that fall *over* your stat or save value. Something catastrophically bad happens. On a Ship Stat Check, a Critical Failure forces everyone aboard to make a Panic Check.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Crit Fail\", \"Critical Miss\"]"
+  },
+  {
+    "id": 12,
+    "name": "Auto-Attack",
+    "body": "Some weapons are marked (AA). They hit automatically — no Combat Check required. The attack deals damage without rolling to hit.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"(AA)\", \"AA\"]"
+  },
+  {
+    "id": 13,
+    "name": "Armor Points",
+    "body": "AP reduces all incoming damage. After combat, AP regenerates. Advanced Battle Dress also grants Damage Reduction 3 (reduce all damage by 3 after AP).",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"AP\"]"
+  },
+  {
+    "id": 14,
+    "name": "Shore Leave",
+    "body": "Downtime between missions where Stress is reduced. The primary means of resetting Current Stress back toward Minimum Stress.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Downtime\"]"
+  },
+  {
+    "id": 15,
+    "name": "Trauma Response",
+    "body": "Each class has a unique Trauma Response that triggers when specific panic conditions are met, cascading stress or fear effects onto nearby crewmates. Marine: nearby crew must Fear Save when you panic. Android: nearby Fear Saves at Disadvantage. Scientist: nearby crew gain 1 Stress on your failed Sanity Save. Teamster: once/session Advantage on a Panic Check.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 16,
+    "name": "Health",
+    "body": "Roll 1d10+10 for Maximum Health. When Health reaches 0, take a Wound and reset Health to Maximum minus any carryover damage. Health does not represent death — Wounds do.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"HP\", \"Hit Points\"]"
+  },
+  {
+    "id": 17,
+    "name": "Max Wounds",
+    "body": "Base 2 for all classes. Marines and Androids get +1 (total 3). When you take a Wound beyond your Max Wounds, you die. No resurrection — permadeath.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Maximum Wounds\", \"Wound limit\"]"
+  },
+  {
+    "id": 18,
+    "name": "Body Save",
+    "body": "Roll d100 under your Body save to resist physical trauma: toxins, decompression, disease, unconsciousness. Rolled with 2d10+10 at character creation. 90-99 always fails.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 19,
+    "name": "Fear Save",
+    "body": "Roll d100 under your Fear save to resist immediate dread, panic triggers, and terrifying revelations. Also used for Panic Checks. Rolled with 2d10+10 at character creation. 90-99 always fails.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 20,
+    "name": "Sanity Save",
+    "body": "Roll d100 under your Sanity save to resist psychological horror, alien incomprehensibility, and madness. Rolled with 2d10+10 at character creation. 90-99 always fails.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 21,
+    "name": "Range Band",
+    "body": "Distance brackets used in combat. In order from nearest to farthest: Adjacent → Close → Long → Extreme. Weapons have a maximum effective range band; attacks beyond it are usually impossible or penalised.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Range\", \"Adjacent\", \"Close\", \"Long\", \"Extreme\"]"
+  },
+  {
+    "id": 22,
+    "name": "Megadamage",
+    "body": "Ship-scale damage dice (MDMG). When a ship takes a critical hit, roll on the Status Report (Megadamage Track) to determine which system is damaged, from fuel leaks to complete destruction.",
+    "source_book_id": 5, "page_number": null,
+    "aliases": "[\"MDMG\", \"Ship damage\"]"
+  },
+  {
+    "id": 23,
+    "name": "Warp Core",
+    "body": "The component required for hyperspace jumps. Each jump consumes Warp Cores. Without Warp Cores, a ship is limited to sub-light travel (which takes decades between systems).",
+    "source_book_id": 5, "page_number": null,
+    "aliases": "[\"Warp Cores\", \"Jump drive\"]"
+  },
+  {
+    "id": 24,
+    "name": "Hull Points",
+    "body": "A ship's structural integrity. When Hull Points reach 0, the ship is destroyed. Ships take damage from weapons and environmental hazards.",
+    "source_book_id": 5, "page_number": null,
+    "aliases": "[\"Hull\", \"HP (ship)\"]"
+  },
+  {
+    "id": 25,
+    "name": "The Bends",
+    "body": "*Gradient Descent mechanic.* Measures how certain a character is of their own identity. Characters may secretly be Infiltrator Androids with implanted memories. As The Bends increases, a character risks losing control — ultimately refusing to leave THE DEEP and becoming an NPC. Discuss with players before using this mechanic.",
+    "source_book_id": 4, "page_number": null,
+    "aliases": "[\"Bends\"]"
+  },
+  {
+    "id": 26,
+    "name": "Nightmare Check",
+    "body": "*Dead Planet mechanic.* A Sanity Save made when resting. Failure = 1 Stress and a nightmare from the Nightmare table. Nightmares prevent healing. Recurring nightmares (same result twice) cause 1d10 Stress and become permanent nightly. Three consecutive failures = Night Terrors (permanent condition).",
+    "source_book_id": 7, "page_number": null,
+    "aliases": "[\"Nightmares\", \"Night Terrors\"]"
+  },
+  {
+    "id": 27,
+    "name": "Compulsion",
+    "body": "*Dead Planet mechanic.* After two or more failed Nightmare Checks while exposed to the Gaunt, a character wakes with a compulsion to sculpt a small terrifying object. They have 1d10 days to finish it; each day they don't, gain 1d10 Stress. Each completed sculpture risks opening a Gaunt gate (Warden rolls d100; if result ≤ total sculptures held by crew, Gaunt stream through).",
+    "source_book_id": 7, "page_number": null,
+    "aliases": "[\"Compulsive Sculpting\", \"Gaunt Compulsion\"]"
+  },
+  {
+    "id": 28,
+    "name": "Transgression",
+    "body": "*TOMBS Cycle — Act I.* Someone (knowingly or not) awakens the Horror from its slumber. A line was crossed: boarding a derelict, disturbing a holy site, leaving someone behind. Transgressions can be past or present.",
+    "source_book_id": 2, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 29,
+    "name": "Omens",
+    "body": "*TOMBS Cycle — Act II.* The Horror heralds its arrival through signs: nightmares, prophetic visions, a trail of victims, rumors. Omens give players a chance to get ahead of the Horror and build tension.",
+    "source_book_id": 2, "page_number": null,
+    "aliases": "[\"Omen\"]"
+  },
+  {
+    "id": 30,
+    "name": "Manifestation",
+    "body": "*TOMBS Cycle — Act III.* The Horror reveals its true form. First full glimpse of the threat. Think about smells, sounds, tactics. A Manifestation is a symptom, not the whole Horror.",
+    "source_book_id": 2, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 31,
+    "name": "Banishment",
+    "body": "*TOMBS Cycle — Act IV.* Players race against the clock to fight back. The Horror must be dealt with or all hell breaks loose. Can be killed, appeased, freed from torment, or contained.",
+    "source_book_id": 2, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 32,
+    "name": "Slumber",
+    "body": "*TOMBS Cycle — Act V.* The Horror relents… for now. Rarely defeated permanently — kept at bay. The Horror evolves, waits, infects, or hibernates until the next Transgression. The cycle begins again.",
+    "source_book_id": 2, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 33,
+    "name": "Bleeding",
+    "body": "A wound type. Weapons that deal Bleeding wounds cause lacerations and blood loss. When you take a Wound, roll on the Bleeding column of the Wound Table. [PSG wound tables]",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Bleed\", \"Bleeding wound\"]"
+  },
+  {
+    "id": 34,
+    "name": "Gore",
+    "body": "A wound type. Weapons that deal Gore wounds cause catastrophic tearing and trauma. When you take a Wound, roll on the Gore column of the Wound Table. [PSG wound tables]",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Gore wound\"]"
+  },
+  {
+    "id": 35,
+    "name": "Gunshot",
+    "body": "A wound type. Firearms deal Gunshot wounds. When you take a Wound, roll on the Gunshot column of the Wound Table. [PSG wound tables]",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Gunshot wound\"]"
+  },
+  {
+    "id": 36,
+    "name": "Blunt Force",
+    "body": "A wound type. Bludgeoning weapons deal Blunt Force wounds. When you take a Wound, roll on the Blunt Force column of the Wound Table. [PSG wound tables]",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Blunt\", \"Blunt Force wound\"]"
+  },
+  {
+    "id": 37,
+    "name": "Fire/Explosives",
+    "body": "A wound type. Fire, explosions, and incendiary weapons deal Fire/Explosives wounds. When you take a Wound, roll on the Fire/Explosives column of the Wound Table. [PSG wound tables]",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"Fire wound\", \"Explosion wound\"]"
+  },
+  {
+    "id": 38,
+    "name": "The Shriek",
+    "body": "*Another Bug Hunt mechanic.* The carcinid psychic frequency. Hearing a Shriek forces a Sanity Save. On failure: gain 1 Stress and become Infected (see ABH infection stages). Attempting radio contact on Samsa VI while the Signal broadcasts also risks Shriek infection.",
+    "source_book_id": 3, "page_number": 7,
+    "aliases": "[\"Shriek\", \"Carcinid Shriek\"]"
+  },
+  {
+    "id": 39,
+    "name": "Infection",
+    "body": "*Another Bug Hunt mechanic.* Carcinid infection from the Shriek progresses in stages. Infected characters exhibit escalating symptoms culminating in full carcinid control. Stage 3 = possession.",
+    "source_book_id": 3, "page_number": 7,
+    "aliases": "[\"Infected\", \"Infection stages\"]"
+  },
+  {
+    "id": 40,
+    "name": "Brainscan",
+    "body": "*Gradient Descent mechanic.* A process used to copy a human's memories into an android brain. Infiltrator Androids have been brainscanned with false human memories — they believe they are human. A modified medscanner in [33E] The Angles can brainscan users.",
+    "source_book_id": 4, "page_number": 5,
+    "aliases": "[\"Brainscanned\", \"Memory implant\"]"
+  },
+  {
+    "id": 41,
+    "name": "Infiltrator Android",
+    "body": "*Gradient Descent mechanic.* An android with brainscanned human memories who believes they are human. May be any player character. Once activated, Monarch may attempt to reclaim them. Revealed through The Bends mechanic. Discuss with players before use.",
+    "source_book_id": 4, "page_number": 10,
+    "aliases": "[\"Infiltrator\", \"Deep Android\"]"
+  },
+  {
+    "id": 42,
+    "name": "Credits",
+    "body": "The universal currency. Abbreviated 'cr'. 1,000cr = 1kcr. 1,000,000cr = 1mcr. Starting funds: 2d10×10cr plus loadout (or 2d10×100cr if forgoing loadout).",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"cr\", \"kcr\", \"mcr\", \"bcr\"]"
+  },
+  {
+    "id": 43,
+    "name": "Hardpoint",
+    "body": "A weapon mount or module slot on a ship. Each ship has a limited number of Hardpoints for attaching ship-scale weapons.",
+    "source_book_id": 5, "page_number": null,
+    "aliases": "[\"Hardpoints\"]"
+  },
+  {
+    "id": 44,
+    "name": "Jump Rating",
+    "body": "How far a ship can travel per Warp Core consumed. Combined with ship class in shorthand: e.g. J1C-II = Jump-1 Class-II ship.",
+    "source_book_id": 5, "page_number": null,
+    "aliases": "[\"Jump-1\", \"Jump-2\", \"J1\", \"J2\"]"
+  },
+  {
+    "id": 45,
+    "name": "Initiative",
+    "body": "Determines turn order in combat. Highest Speed stat acts first. Ties broken by Combat stat. Ships use Thrusters stat for initiative in ship combat.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[]"
+  },
+  {
+    "id": 46,
+    "name": "Damage Reduction",
+    "body": "Advanced Battle Dress provides Damage Reduction 3: subtract 3 from all incoming damage *after* applying AP. Only available on Advanced Battle Dress.",
+    "source_book_id": 1, "page_number": null,
+    "aliases": "[\"DR\"]"
+  },
+  {
+    "id": 47,
+    "name": "O2 Credstick",
+    "body": "*A Pound of Flesh mechanic.* Issued to all visitors boarding Prospero's Dream. Functions as wallet, passport, and locator. Debts and the daily Oxygen Tax are auto-deducted. Losing it is extremely dangerous. Jailbroken credsticks exist on the black market.",
+    "source_book_id": 6, "page_number": null,
+    "aliases": "[\"Credstick\", \"O2 cred\"]"
+  }
+]
