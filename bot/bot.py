@@ -11,7 +11,6 @@ import logging
 import os
 import random
 import re
-import time
 
 from dotenv import load_dotenv
 from telegram import Update
@@ -256,26 +255,13 @@ def _pop_page(context: ContextTypes.DEFAULT_TYPE) -> str | None:
 # NAV STATE PERSISTENCE
 # ─────────────────────────────────────────────
 
-_NAV_IDLE_FLUSH_SECONDS = 5 * 60  # flush to DB after 5 min of inactivity
-
-
-async def _flush_nav_states(context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Background job: persist nav stacks idle for > 5 minutes."""
-    now = time.time()
-    flushed = 0
-    for user_id, user_data in list(context.application.user_data.items()):
-        if not user_data.get("nav_dirty"):
-            continue
-        if now - user_data.get("nav_last_active", 0) >= _NAV_IDLE_FLUSH_SECONDS:
-            db.save_nav_state(
-                user_id,
-                user_data.get("nav_current"),
-                user_data.get("nav_stack", []),
-            )
-            user_data["nav_dirty"] = False
-            flushed += 1
-    if flushed:
-        logger.debug("nav flush  saved %d user(s)", flushed)
+def _save_nav(user_id: int, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Write the current nav state to DB immediately. Called on every nav change."""
+    db.save_nav_state(
+        user_id,
+        context.user_data.get("nav_current"),
+        context.user_data.get("nav_stack", []),
+    )
 
 
 # ─────────────────────────────────────────────
@@ -301,7 +287,6 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
             logger.debug("nav restore  user_id=%s current=%s depth=%d",
                          user.id, saved["nav_current"], len(saved["nav_stack"]))
         context.user_data["nav_loaded"] = True
-        context.user_data["nav_dirty"] = False
 
     # ── Stack management ───────────────────────
     if data == "noop":
@@ -313,6 +298,7 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
             data = prev
         else:
             context.user_data["nav_current"] = None  # clear stale current before showing main menu
+            _save_nav(user.id, context)
             await _show_main_menu(update, edit=True, context=context)
             return
     elif data == "menu":
@@ -325,9 +311,8 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         else:
             _push_page(context, data)
 
-    # Mark nav state as changed; idle flush job will persist it after 5 min
-    context.user_data["nav_dirty"] = True
-    context.user_data["nav_last_active"] = time.time()
+    # Persist nav state immediately — crash-safe, no flush delay
+    _save_nav(user.id, context)
 
     try:
         await _dispatch_callback(update, query, data, context=context)
@@ -602,9 +587,6 @@ def main() -> None:
 
     # Application-level error handler
     app.add_error_handler(error_handler)
-
-    # Background job: flush idle nav stacks to DB every 60 seconds
-    app.job_queue.run_repeating(_flush_nav_states, interval=60, first=60)
 
     logger.info("Mothership bot starting…")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
