@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS rules (
     body            TEXT NOT NULL,
     body_ua         TEXT,
     body_ru         TEXT,
+    icon            TEXT,
     category_id     INTEGER NOT NULL REFERENCES categories(id),
     source_book_id  INTEGER REFERENCES source_books(id),
     page_number     INTEGER,

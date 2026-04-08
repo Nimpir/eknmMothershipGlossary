@@ -63,7 +63,8 @@ def category_menu(
     content: list[tuple[str, str, str]] = []
 
     for r in rules:
-        content.append((f"📄 {r['title']}", "rule", str(r["id"])))
+        icon = f"{r['icon']} " if r.get("icon") else "📄 "
+        content.append((f"{icon}{r['title']}", "rule", str(r["id"])))
     for tb in tables:
         content.append((f"🎲 {tb['name']}", "table", str(tb["id"])))
     if items:
