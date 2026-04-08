@@ -47,9 +47,9 @@ Still in the BotFather chat, send `/setcommands`, select your bot, then paste:
 
 ```
 start - Open the main menu
-search - Search all content (usage: /search <term>)
-roll - Roll dice (usage: /roll d10)
-lang - Change language (EN / UA / RU)
+search - Search all content, e.g. /search wound
+roll - Roll dice, e.g. /roll d10 or /roll 2d10
+lang - Change language EN / UA / RU
 ```
 
 This makes the commands appear in the Telegram command menu (the `/` button).
