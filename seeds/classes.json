@@ -11,7 +11,15 @@
     "max_wounds_bonus": 1,
     "health_dice": "1d10+10",
     "source_book_id": 1,
-    "page_number": null
+    "page_number": null,
+    "name_ua": "",
+    "name_ru": "",
+    "description_ua": "",
+    "description_ru": "",
+    "special_abilities_ua": "",
+    "special_abilities_ru": "",
+    "trauma_response_ua": "",
+    "trauma_response_ru": ""
   },
   {
     "id": 2,
@@ -25,7 +33,15 @@
     "max_wounds_bonus": 1,
     "health_dice": "1d10+10",
     "source_book_id": 1,
-    "page_number": null
+    "page_number": null,
+    "name_ua": "",
+    "name_ru": "",
+    "description_ua": "",
+    "description_ru": "",
+    "special_abilities_ua": "",
+    "special_abilities_ru": "",
+    "trauma_response_ua": "",
+    "trauma_response_ru": ""
   },
   {
     "id": 3,
@@ -39,7 +55,15 @@
     "max_wounds_bonus": 0,
     "health_dice": "1d10+10",
     "source_book_id": 1,
-    "page_number": null
+    "page_number": null,
+    "name_ua": "",
+    "name_ru": "",
+    "description_ua": "",
+    "description_ru": "",
+    "special_abilities_ua": "",
+    "special_abilities_ru": "",
+    "trauma_response_ua": "",
+    "trauma_response_ru": ""
   },
   {
     "id": 4,
@@ -53,6 +77,14 @@
     "max_wounds_bonus": 0,
     "health_dice": "1d10+10",
     "source_book_id": 1,
-    "page_number": null
+    "page_number": null,
+    "name_ua": "",
+    "name_ru": "",
+    "description_ua": "",
+    "description_ru": "",
+    "special_abilities_ua": "",
+    "special_abilities_ru": "",
+    "trauma_response_ua": "",
+    "trauma_response_ru": ""
   }
 ]

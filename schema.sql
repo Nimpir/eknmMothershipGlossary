@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS source_books (
 CREATE TABLE IF NOT EXISTS categories (
     id          INTEGER PRIMARY KEY,
     name        TEXT NOT NULL,
+    name_ua     TEXT,
+    name_ru     TEXT,
     slug        TEXT NOT NULL UNIQUE,
     parent_id   INTEGER REFERENCES categories(id),
     sort_order  INTEGER DEFAULT 0,
@@ -28,7 +30,11 @@ CREATE TABLE IF NOT EXISTS categories (
 CREATE TABLE IF NOT EXISTS terms (
     id              INTEGER PRIMARY KEY,
     name            TEXT NOT NULL UNIQUE,
+    name_ua         TEXT,
+    name_ru         TEXT,
     body            TEXT NOT NULL,
+    body_ua         TEXT,
+    body_ru         TEXT,
     source_book_id  INTEGER REFERENCES source_books(id),
     page_number     INTEGER,
     aliases         TEXT    -- JSON array of alternate names / symbols
@@ -40,7 +46,12 @@ CREATE TABLE IF NOT EXISTS terms (
 CREATE TABLE IF NOT EXISTS rules (
     id              INTEGER PRIMARY KEY,
     title           TEXT NOT NULL,
+    title_ua        TEXT,
+    title_ru        TEXT,
     body            TEXT NOT NULL,
+    body_ua         TEXT,
+    body_ru         TEXT,
+    icon            TEXT,
     category_id     INTEGER NOT NULL REFERENCES categories(id),
     source_book_id  INTEGER REFERENCES source_books(id),
     page_number     INTEGER,
@@ -53,7 +64,12 @@ CREATE TABLE IF NOT EXISTS rules (
 CREATE TABLE IF NOT EXISTS roll_tables (
     id              INTEGER PRIMARY KEY,
     name            TEXT NOT NULL,
+    name_ua         TEXT,
+    name_ru         TEXT,
+    icon            TEXT,
     description     TEXT,
+    description_ua  TEXT,
+    description_ru  TEXT,
     dice_notation   TEXT NOT NULL,
     category_id     INTEGER REFERENCES categories(id),
     source_book_id  INTEGER REFERENCES source_books(id),
@@ -68,6 +84,8 @@ CREATE TABLE IF NOT EXISTS roll_table_entries (
     roll_max        INTEGER NOT NULL,
     label           TEXT,
     result_text     TEXT NOT NULL,
+    result_text_ua  TEXT,
+    result_text_ru  TEXT,
     extra_data      TEXT,               -- JSON for multi-column tables
     linked_term_id  INTEGER REFERENCES terms(id)
 );
@@ -78,10 +96,14 @@ CREATE TABLE IF NOT EXISTS roll_table_entries (
 CREATE TABLE IF NOT EXISTS items (
     id               INTEGER PRIMARY KEY,
     name             TEXT NOT NULL,
+    name_ua          TEXT,
+    name_ru          TEXT,
     item_type        TEXT NOT NULL CHECK(item_type IN ('weapon','armor','gear','trinket')),
     cost_cr          INTEGER,
     cost_display     TEXT,
     description      TEXT,
+    description_ua   TEXT,
+    description_ru   TEXT,
     -- weapon columns
     damage_dice      TEXT,
     damage_modifier  TEXT,
@@ -91,6 +113,8 @@ CREATE TABLE IF NOT EXISTS items (
     wound_modifier   TEXT,
     is_auto_attack   INTEGER DEFAULT 0,
     special_rules    TEXT,
+    special_rules_ua TEXT,
+    special_rules_ru TEXT,
     -- armor columns
     armor_points     INTEGER,
     o2_hours         REAL,
@@ -107,9 +131,13 @@ CREATE TABLE IF NOT EXISTS items (
 CREATE TABLE IF NOT EXISTS skills (
     id              INTEGER PRIMARY KEY,
     name            TEXT NOT NULL UNIQUE,
+    name_ua         TEXT,
+    name_ru         TEXT,
     tier            TEXT NOT NULL CHECK(tier IN ('trained','expert','master')),
     bonus           INTEGER NOT NULL,
     description     TEXT,
+    description_ua  TEXT,
+    description_ru  TEXT,
     source_book_id  INTEGER REFERENCES source_books(id),
     page_number     INTEGER
 );
@@ -124,18 +152,26 @@ CREATE TABLE IF NOT EXISTS skill_prerequisites (
 -- CLASSES
 -- ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS classes (
-    id                INTEGER PRIMARY KEY,
-    name              TEXT NOT NULL UNIQUE,
-    description       TEXT,
-    stat_bonuses      TEXT NOT NULL,   -- JSON
-    save_bonuses      TEXT NOT NULL,   -- JSON
-    special_abilities TEXT,
-    trauma_response   TEXT NOT NULL,
-    starting_skills   TEXT NOT NULL,   -- JSON
-    max_wounds_bonus  INTEGER DEFAULT 0,
-    health_dice       TEXT DEFAULT '1d10+10',
-    source_book_id    INTEGER REFERENCES source_books(id),
-    page_number       INTEGER
+    id                      INTEGER PRIMARY KEY,
+    name                    TEXT NOT NULL UNIQUE,
+    name_ua                 TEXT,
+    name_ru                 TEXT,
+    description             TEXT,
+    description_ua          TEXT,
+    description_ru          TEXT,
+    stat_bonuses            TEXT NOT NULL,   -- JSON
+    save_bonuses            TEXT NOT NULL,   -- JSON
+    special_abilities       TEXT,
+    special_abilities_ua    TEXT,
+    special_abilities_ru    TEXT,
+    trauma_response         TEXT NOT NULL,
+    trauma_response_ua      TEXT,
+    trauma_response_ru      TEXT,
+    starting_skills         TEXT NOT NULL,   -- JSON
+    max_wounds_bonus        INTEGER DEFAULT 0,
+    health_dice             TEXT DEFAULT '1d10+10',
+    source_book_id          INTEGER REFERENCES source_books(id),
+    page_number             INTEGER
 );
 
 -- ─────────────────────────────────────────────
@@ -144,6 +180,8 @@ CREATE TABLE IF NOT EXISTS classes (
 CREATE TABLE IF NOT EXISTS ships (
     id               INTEGER PRIMARY KEY,
     name             TEXT NOT NULL,
+    name_ua          TEXT,
+    name_ru          TEXT,
     class            TEXT,
     ship_type        TEXT,
     manufacturer     TEXT,
@@ -159,6 +197,8 @@ CREATE TABLE IF NOT EXISTS ships (
     hardpoints       INTEGER,
     upgrade_slots    INTEGER,
     description      TEXT,
+    description_ua   TEXT,
+    description_ru   TEXT,
     source_book_id   INTEGER REFERENCES source_books(id),
     page_number      INTEGER
 );
@@ -169,8 +209,12 @@ CREATE TABLE IF NOT EXISTS ships (
 CREATE TABLE IF NOT EXISTS locations (
     id              INTEGER PRIMARY KEY,
     name            TEXT NOT NULL,
+    name_ua         TEXT,
+    name_ru         TEXT,
     location_type   TEXT,   -- planet / station / ship / building / area / room
     description     TEXT,
+    description_ua  TEXT,
+    description_ru  TEXT,
     parent_id       INTEGER REFERENCES locations(id),
     source_book_id  INTEGER NOT NULL REFERENCES source_books(id),
     page_number     INTEGER
@@ -182,8 +226,14 @@ CREATE TABLE IF NOT EXISTS locations (
 CREATE TABLE IF NOT EXISTS npcs (
     id              INTEGER PRIMARY KEY,
     name            TEXT NOT NULL,
+    name_ua         TEXT,
+    name_ru         TEXT,
     role            TEXT,   -- BBEG / Ally / Hostile / Neutral / Creature
+    role_ua         TEXT,
+    role_ru         TEXT,
     description     TEXT,
+    description_ua  TEXT,
+    description_ru  TEXT,
     combat_stat     INTEGER,
     speed_stat      INTEGER,
     instinct_stat   INTEGER,
@@ -192,6 +242,8 @@ CREATE TABLE IF NOT EXISTS npcs (
     armor_points    INTEGER,
     attacks         TEXT,   -- JSON array
     special_rules   TEXT,
+    special_rules_ua TEXT,
+    special_rules_ru TEXT,
     location_id     INTEGER REFERENCES locations(id),
     source_book_id  INTEGER NOT NULL REFERENCES source_books(id),
     page_number     INTEGER
@@ -217,6 +269,7 @@ CREATE TABLE IF NOT EXISTS user_nav_state (
     user_id     INTEGER PRIMARY KEY,
     nav_current TEXT,
     nav_stack   TEXT NOT NULL DEFAULT '[]',  -- JSON array of callback_data strings
+    language    TEXT NOT NULL DEFAULT 'en',  -- user's preferred language
     saved_at    INTEGER NOT NULL DEFAULT 0   -- unix timestamp
 );
 
