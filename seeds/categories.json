@@ -121,8 +121,8 @@
     "id": 12,
     "name": "Equipment",
     "slug": "equipment",
-    "parent_id": null,
-    "sort_order": 4,
+    "parent_id": 1,
+    "sort_order": 5,
     "icon": "🔫",
     "name_ua": "",
     "name_ru": ""

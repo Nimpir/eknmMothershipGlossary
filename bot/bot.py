@@ -169,10 +169,12 @@ async def _show_category(update: Update, cat_id: int, page: int = 0, context=Non
             await _dispatch_callback(update, update.callback_query, f"{cb_type}:{item_id}", context=context)
             return
 
+    cat_terms = db.get_linked_terms("category", cat_id, lang)
     keyboard = kb.category_menu(
         cat, subcats, rules, tables,
         items=items, npcs=npcs, locations=locations,
         classes=classes, ships=ships, skills=skills,
+        terms=cat_terms or None,
         page=page, lang=lang,
     )
     await _edit(update, header, keyboard, context=context)

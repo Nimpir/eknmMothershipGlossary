@@ -562,5 +562,17 @@
     "name_ru": "",
     "body_ua": "",
     "body_ru": ""
+  },
+  {
+    "id": 48,
+    "name": "Train a Skill",
+    "body": "*To learn a new Skill you need to spend the requisite amount of time and credits:*\n• *Trained:* 2 years + 10,000cr in materials.\n• *Expert:* 4 years + 50,000cr in materials.\n• *Master:* 6 years + 200,000cr in materials.\n\nTraining an Expert Skill requires one Trained prerequisite. Training a Master Skill requires one Expert prerequisite.\n\nSkill Training assumes characters are working full time, going on missions, and generally living life. If studying full-time (e.g., going to school), training takes half as long. The Warden may allow additional resources (private tutoring, AI assistance, cybermods, slickware) to decrease time required.\n\n*Military Training* is a special exception — it is free. Characters must sign a 6-year contract with the local Colonial Marine regiment. Make a Combat Check:\n• *Success:* Gain Military Training, Athletics, and 2 Trained Skills. Gain +40 Combat, reduce another Stat by 10. Gain the Marine Trauma Response.\n• *Critical Success:* As success, but take an Expert Skill instead of 2 Trained Skills.\n• *Failure:* Gain Military Training, Athletics, and 1 Trained Skill, and the Marine Trauma Response.\n• *Critical Failure:* Killed in action.",
+    "source_book_id": 1,
+    "page_number": 24,
+    "aliases": "[\"Skill Training\", \"Military Training\"]",
+    "name_ua": "",
+    "name_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   }
 ]

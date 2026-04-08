@@ -51,6 +51,7 @@ def category_menu(
     classes: list[dict] | None = None,
     ships: list[dict] | None = None,
     skills: list[dict] | None = None,
+    terms: list[dict] | None = None,
     page: int = 0,
     lang: str = "en",
 ) -> InlineKeyboardMarkup:
@@ -104,6 +105,10 @@ def category_menu(
         nav.append(_btn(t(lang, "btn_next"), f"cat:{category['id']}:page:{page + 1}"))
     if nav:
         rows.append(nav)
+
+    if terms:
+        for t_ in terms:
+            rows.append([_btn(f"📖 {t_['name']}", f"term:{t_['id']}")])
 
     rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)

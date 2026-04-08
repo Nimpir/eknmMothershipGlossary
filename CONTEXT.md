@@ -52,7 +52,7 @@ CONTEXT.md          This file — permanent AI project overview
 |-------|---------|
 | `source_books` | 7 books (PSG, WOM, ABH, GD, ST, APF, DP) |
 | `categories` | Navigation tree — 56 nodes, self-referencing `parent_id` |
-| `terms` | Glossary entries (47 terms), optional JSON aliases array |
+| `terms` | Glossary entries (48 terms), optional JSON aliases array |
 | `rules` | Rule text blocks, each linked to a category |
 | `roll_tables` | Named dice tables with `dice_notation` and `sort_order` |
 | `roll_table_entries` | Rows per table (`roll_min`/`roll_max`, optional `linked_term_id`) |
@@ -63,7 +63,7 @@ CONTEXT.md          This file — permanent AI project overview
 | `ships` | Ship catalogue entries |
 | `locations` | Module locations, self-referencing `parent_id` for rooms/areas |
 | `npcs` | Module NPCs with stat block and JSON `attacks` array |
-| `content_term_links` | Many-to-many: any content row ↔ terms |
+| `content_term_links` | Many-to-many: any content row ↔ terms (content_type: rule/item/class/ship/location/npc/roll_table/category) |
 | `user_nav_state` | Persisted nav stack + language per Telegram user_id (crash-safe) |
 
 ### Translation columns
@@ -142,6 +142,9 @@ Certain category slugs trigger custom data loaders instead of the default child-
 **Single-item auto-navigation:** if a category has no subcategories and exactly one content
 item, `_show_category` skips the list and navigates directly to that item.
 
+**Category term shortcuts:** `content_term_links` supports `content_type='category'`.
+`_show_category` loads and renders term buttons for the category itself (e.g. "Train a Skill" on Character Creation).
+
 ---
 
 ## Language Support (i18n)
@@ -168,8 +171,8 @@ the current `nav_current` and full `nav_stack` (top→bottom). Useful for debugg
 |------|------|
 | source_books.json | 7 |
 | categories.json | 56 |
-| terms.json | 47 |
-| rules.json | 50 |
+| terms.json | 48 |
+| rules.json | 49 |
 | roll_tables.json | 22 |
 | roll_table_entries.json | 456 |
 | items.json | 73 |
@@ -179,7 +182,7 @@ the current `nav_current` and full `nav_stack` (top→bottom). Useful for debugg
 | ships.json | 4 |
 | locations.json | 34 |
 | npcs.json | 17 |
-| content_term_links.json | 112 |
+| content_term_links.json | 107 |
 
 ---
 
@@ -198,13 +201,11 @@ the current `nav_current` and full `nav_stack` (top→bottom). Useful for debugg
 | Branch | Purpose |
 |--------|---------|
 | `main` | Production — deployed to server via `update.sh` |
-| `feature/i18n` | Multi-language support (EN/UA/RU) — pending merge to main |
 
 ---
 
 ## Known Gaps (as of 2026-04-08)
 
-- `feature/i18n` not yet merged to `main` — server still runs EN-only
 - Translation content (`_ua`/`_ru` seed fields) all empty — falls back to English
 - Wound table entries (tables 2–6) have placeholder content — need replacing with PSG data
 - Trinket table missing entries at rolls 64, 67, 72, 80, 82–84, 91, 99

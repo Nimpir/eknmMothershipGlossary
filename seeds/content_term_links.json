@@ -132,18 +132,6 @@
     "term_id": 5
   },
   {
-    "id": 23,
-    "content_type": "rule",
-    "content_id": 12,
-    "term_id": 19
-  },
-  {
-    "id": 24,
-    "content_type": "rule",
-    "content_id": 12,
-    "term_id": 6
-  },
-  {
     "id": 29,
     "content_type": "rule",
     "content_id": 15,
@@ -646,5 +634,11 @@
     "content_type": "roll_table",
     "content_id": 1,
     "term_id": 5
+  },
+  {
+    "id": 113,
+    "content_type": "category",
+    "content_id": 1,
+    "term_id": 48
   }
 ]
