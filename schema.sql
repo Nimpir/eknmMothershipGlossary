@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS roll_tables (
     name            TEXT NOT NULL,
     name_ua         TEXT,
     name_ru         TEXT,
+    icon            TEXT,
     description     TEXT,
     description_ua  TEXT,
     description_ru  TEXT,

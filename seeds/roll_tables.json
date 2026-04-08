@@ -11,7 +11,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "😱"
   },
   {
     "id": 2,
@@ -25,7 +26,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🩸"
   },
   {
     "id": 3,
@@ -39,7 +41,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "💀"
   },
   {
     "id": 4,
@@ -53,7 +56,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🔫"
   },
   {
     "id": 5,
@@ -67,7 +71,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🥊"
   },
   {
     "id": 6,
@@ -81,7 +86,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🔥"
   },
   {
     "id": 7,
@@ -95,7 +101,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🪖"
   },
   {
     "id": 8,
@@ -109,7 +116,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🤖"
   },
   {
     "id": 9,
@@ -123,7 +131,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🔬"
   },
   {
     "id": 10,
@@ -137,7 +146,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🔧"
   },
   {
     "id": 11,
@@ -151,7 +161,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "✨"
   },
   {
     "id": 12,
@@ -165,7 +176,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "💣"
   },
   {
     "id": 13,
@@ -179,7 +191,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "👾"
   },
   {
     "id": 14,
@@ -193,7 +206,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🎭"
   },
   {
     "id": 15,
@@ -207,7 +221,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "📜"
   },
   {
     "id": 16,
@@ -221,7 +236,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🎬"
   },
   {
     "id": 17,
@@ -235,7 +251,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🗺️"
   },
   {
     "id": 18,
@@ -249,7 +266,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🗿"
   },
   {
     "id": 19,
@@ -263,7 +281,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🧊"
   },
   {
     "id": 20,
@@ -277,7 +296,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🦎"
   },
   {
     "id": 21,
@@ -291,7 +311,8 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "⚖️"
   },
   {
     "id": 22,
@@ -305,6 +326,7 @@
     "name_ua": "",
     "name_ru": "",
     "description_ua": "",
-    "description_ru": ""
+    "description_ru": "",
+    "icon": "🩹"
   }
 ]

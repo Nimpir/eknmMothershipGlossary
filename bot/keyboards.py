@@ -66,10 +66,13 @@ def category_menu(
         icon = f"{r['icon']} " if r.get("icon") else "📄 "
         content.append((f"{icon}{r['title']}", "rule", str(r["id"])))
     for tb in tables:
-        content.append((f"🎲 {tb['name']}", "table", str(tb["id"])))
+        icon = f"{tb['icon']} " if tb.get("icon") else "🎲 "
+        content.append((f"{icon}{tb['name']}", "table", str(tb["id"])))
+    _item_icons = {"weapon": "🔫", "armor": "🛡️", "gear": "⚙️", "trinket": "✨"}
     if items:
         for i in items:
-            content.append((f"⚙️ {i['name']}", "item", str(i["id"])))
+            icon = _item_icons.get(i.get("item_type", ""), "⚙️")
+            content.append((f"{icon} {i['name']}", "item", str(i["id"])))
     if npcs:
         for n in npcs:
             content.append((f"👤 {n['name']}", "npc", str(n["id"])))
