@@ -317,13 +317,16 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     try:
         await _dispatch_callback(update, query, data, context=context)
     except Exception:
-        logger.exception("Unhandled error in callback  user_id=%s data=%r", user.id, data)
+        logger.exception(
+            "Unhandled error in callback  user_id=%s username=%s data=%r",
+            user.id, user.username, data,
+        )
+        # Reset nav state to main menu so the user lands somewhere clean
+        context.user_data["nav_stack"] = []
+        context.user_data["nav_current"] = None
+        _save_nav(user.id, context)
         try:
-            await query.edit_message_text(
-                "⚠️ Something went wrong. Please try again or return to the main menu.",
-                reply_markup=kb.back_only(),
-                parse_mode=ParseMode.HTML,
-            )
+            await _show_main_menu(update, edit=True, context=context)
         except Exception:
             pass
 
@@ -562,8 +565,23 @@ async def _dispatch_callback(update: Update, query, data: str, context=None) -> 
 # ─────────────────────────────────────────────
 
 async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Log errors raised by the PTB framework (network issues, timeouts, etc.)."""
-    logger.error("PTB error  update=%s", update, exc_info=context.error)
+    """Log PTB framework errors (network issues, timeouts, etc.) with full traceback."""
+    logger.exception(
+        "PTB framework error  update=%s",
+        update,
+        exc_info=context.error,
+    )
+    # If the error came from a callback query, reset nav and show main menu
+    if isinstance(update, Update) and update.callback_query:
+        user = update.effective_user
+        if user:
+            context.user_data["nav_stack"] = []
+            context.user_data["nav_current"] = None
+            _save_nav(user.id, context)
+        try:
+            await _show_main_menu(update, edit=True, context=context)
+        except Exception:
+            pass
 
 
 # ─────────────────────────────────────────────
