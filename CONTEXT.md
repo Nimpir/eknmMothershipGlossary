@@ -36,10 +36,12 @@ bot/bot.py          Entry point: PTB Application, all handlers, callback router,
 bot/db.py           All database access functions (read-only queries + nav state upsert)
 bot/formatters.py   Build HTML message strings for each content type
 bot/keyboards.py    Build InlineKeyboardMarkup for each content type
+bot/i18n.py         UI string translations (en/ua/ru); t(lang, key) helper with EN fallback
 bot/logging_setup.py  Rotating log configuration (bot.log + errors.log)
 schema.sql          Authoritative DB schema — all CREATE TABLE and indexes
 seed.py             Drops and recreates the DB; loads all JSON seed files in order
 seeds/              One JSON file per DB table; source of truth for all content
+CONTEXT.md          This file — permanent AI project overview
 ```
 
 ---
@@ -62,7 +64,13 @@ seeds/              One JSON file per DB table; source of truth for all content
 | `locations` | Module locations, self-referencing `parent_id` for rooms/areas |
 | `npcs` | Module NPCs with stat block and JSON `attacks` array |
 | `content_term_links` | Many-to-many: any content row ↔ terms |
-| `user_nav_state` | Persisted nav stack per Telegram user_id (crash-safe) |
+| `user_nav_state` | Persisted nav stack + language per Telegram user_id (crash-safe) |
+
+### Translation columns
+
+All 11 content tables have `_ua` and `_ru` suffix columns for every translatable field
+(e.g. `name_ua`, `name_ru`, `body_ua`, `body_ru`). Currently all empty — bot falls back
+to English automatically via `_localize()` in `db.py`. Fill these in seed JSONs to translate.
 
 ---
 
@@ -75,6 +83,7 @@ The bot uses a **navigation stack** stored in `context.user_data` per user and p
 context.user_data["nav_stack"]    # list of previous callback_data strings
 context.user_data["nav_current"]  # what is currently on screen
 context.user_data["nav_loaded"]   # flag: DB load attempted this session
+context.user_data["language"]     # active language code ("en"/"ua"/"ru")
 ```
 
 **Key rules:**
@@ -97,6 +106,7 @@ All inline buttons use `type:id` or `type:id:page:N`.
 | `menu` | Main menu |
 | `back` | Pop nav stack |
 | `noop` | Display-only, no action |
+| `setlang:XX` | Set user language (en/ua/ru) |
 | `cat:ID[:page:N]` | Category page |
 | `glossary:page:N` | Glossary pagination |
 | `rule:ID` | Rule detail |
@@ -134,6 +144,17 @@ item, `_show_category` skips the list and navigates directly to that item.
 
 ---
 
+## Language Support (i18n)
+
+- `bot/i18n.py` — `_STRINGS` dict with `en`, `ua`, `ru` keys; `t(lang, key, **kwargs)` helper
+- Fallback chain: translated string → English string → key name
+- Language stored in `user_nav_state.language` (default `'en'`)
+- `/lang` command shows flag keyboard; `setlang:XX` callback saves and re-renders main menu
+- Content translations: `_ua`/`_ru` columns in all seed tables; `db._localize()` applies them
+- All translations currently empty — fill seed JSONs and reseed to activate
+
+---
+
 ## Dev Mode
 
 Set `DEV_MODE=true` in `.env`. Every rendered message gets a `<code>` block appended showing
@@ -166,14 +187,26 @@ the current `nav_current` and full `nav_stack` (top→bottom). Useful for debugg
 
 - **Docker image** seeds the DB at build time (`RUN python seed.py` in Dockerfile).
 - The `.env` file is injected at runtime via `env_file` in docker-compose.yml.
-- `update.sh` — git pull + docker-compose up --build + status check.
-- Reseeding in production destroys all `user_nav_state` rows. Back up DB first.
+- `update.sh` — `docker-compose down` + git pull + `docker-compose up --build` + status check.
+  The `down` step is required to avoid a docker-compose 1.29.2 bug (`KeyError: 'ContainerConfig'`).
+- Reseeding in production destroys all `user_nav_state` rows (nav history + language prefs).
+
+---
+
+## Git Branches
+
+| Branch | Purpose |
+|--------|---------|
+| `main` | Production — deployed to server via `update.sh` |
+| `feature/i18n` | Multi-language support (EN/UA/RU) — pending merge to main |
 
 ---
 
 ## Known Gaps (as of 2026-04-08)
 
-- Wound table entries (tables 2–6) have placeholder content — need replacing with PSG data.
-- Trinket table missing entries at rolls 64, 67, 72, 80, 82–84, 91, 99.
-- No admin commands (reload DB, usage stats, broadcast).
-- `roll_table_entries.extra_data` JSON has no structured display in the bot.
+- `feature/i18n` not yet merged to `main` — server still runs EN-only
+- Translation content (`_ua`/`_ru` seed fields) all empty — falls back to English
+- Wound table entries (tables 2–6) have placeholder content — need replacing with PSG data
+- Trinket table missing entries at rolls 64, 67, 72, 80, 82–84, 91, 99
+- No admin commands (reload DB, usage stats, broadcast)
+- `roll_table_entries.extra_data` JSON has no structured display in the bot
