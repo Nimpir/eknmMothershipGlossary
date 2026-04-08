@@ -35,12 +35,26 @@ A Telegram inline-keyboard bot that serves as a table-side handbook for the **Mo
 
 ## Setup
 
-### Prerequisites
+### 1. Create a Telegram Bot and get a token
 
-- Python 3.11+
-- A Telegram bot token (from [@BotFather](https://t.me/BotFather))
+1. Open Telegram and start a chat with [@BotFather](https://t.me/BotFather)
+2. Send `/newbot` and follow the prompts (choose a name and username)
+3. BotFather will reply with your **bot token** — copy it, you'll need it in `.env`
 
-### Environment Variables
+### 2. Register bot commands (optional but recommended)
+
+Still in the BotFather chat, send `/setcommands`, select your bot, then paste:
+
+```
+start - Open the main menu
+search - Search all content, e.g. /search wound
+roll - Roll dice, e.g. /roll d10 or /roll 2d10
+lang - Change language EN / UA / RU
+```
+
+This makes the commands appear in the Telegram command menu (the `/` button).
+
+### 3. Environment Variables
 
 Copy `.env.example` to `.env` and fill in:
 
@@ -120,6 +134,7 @@ mothership/
 | `/start` | Open the main menu |
 | `/search <term>` | Full-text search across all content |
 | `/roll <notation>` | Roll dice (e.g. `d10`, `2d10`, `d100`) |
+| `/lang` | Change language (🇬🇧 EN / 🇺🇦 UA / 🇷🇺 RU) |
 
 ---
 
