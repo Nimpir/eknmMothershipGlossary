@@ -127,6 +127,17 @@ def get_term(term_id: int) -> dict | None:
         ).fetchone())
 
 
+def get_term_by_name(name: str) -> dict | None:
+    with _conn() as conn:
+        return _row(conn.execute(
+            """SELECT t.*, s.short_code AS book_code
+               FROM terms t
+               LEFT JOIN source_books s ON s.id = t.source_book_id
+               WHERE LOWER(t.name) = LOWER(?)""",
+            (name,)
+        ).fetchone())
+
+
 def get_linked_terms(content_type: str, content_id: int) -> list[dict]:
     with _conn() as conn:
         return _rows(conn.execute(
@@ -136,6 +147,19 @@ def get_linked_terms(content_type: str, content_id: int) -> list[dict]:
                WHERE ctl.content_type = ? AND ctl.content_id = ?
                ORDER BY t.name""",
             (content_type, content_id)
+        ).fetchall())
+
+
+def get_roll_tables_for_term(term_id: int) -> list[dict]:
+    """Return roll tables linked to a term via content_term_links."""
+    with _conn() as conn:
+        return _rows(conn.execute(
+            """SELECT rt.id, rt.name, rt.dice_notation
+               FROM content_term_links ctl
+               JOIN roll_tables rt ON rt.id = ctl.content_id
+               WHERE ctl.content_type = 'roll_table' AND ctl.term_id = ?
+               ORDER BY rt.name""",
+            (term_id,)
         ).fetchall())
 
 
@@ -150,7 +174,7 @@ def get_roll_tables_by_category(cat_id: int) -> list[dict]:
                FROM roll_tables rt
                LEFT JOIN source_books s ON s.id = rt.source_book_id
                WHERE rt.category_id = ?
-               ORDER BY rt.name""",
+               ORDER BY rt.sort_order, rt.name""",
             (cat_id,)
         ).fetchall())
 
@@ -183,6 +207,14 @@ def get_table_entries(table_id: int) -> list[dict]:
             "SELECT * FROM roll_table_entries WHERE table_id = ? ORDER BY roll_min",
             (table_id,)
         ).fetchall())
+
+
+def get_entry(entry_id: int) -> dict | None:
+    with _conn() as conn:
+        return _row(conn.execute(
+            "SELECT * FROM roll_table_entries WHERE id = ?",
+            (entry_id,)
+        ).fetchone())
 
 
 def get_entry_for_roll(table_id: int, roll: int) -> dict | None:
@@ -221,6 +253,19 @@ def get_item(item_id: int) -> dict | None:
         ).fetchone())
 
 
+def find_items_in_text(text: str) -> list[dict]:
+    """Return items whose name appears (case-insensitive) in the given text."""
+    with _conn() as conn:
+        return _rows(conn.execute(
+            """SELECT i.*, s.short_code AS book_code
+               FROM items i
+               LEFT JOIN source_books s ON s.id = i.source_book_id
+               WHERE INSTR(LOWER(?), LOWER(i.name)) > 0
+               ORDER BY i.name""",
+            (text,)
+        ).fetchall())
+
+
 # ─────────────────────────────────────────────
 # SKILLS
 # ─────────────────────────────────────────────
@@ -234,26 +279,38 @@ def get_all_skills() -> list[dict]:
 
 def get_skill(skill_id: int) -> dict | None:
     with _conn() as conn:
-        row = conn.execute(
-            """SELECT s.*, p.name AS prerequisite_name
-               FROM skills s
-               LEFT JOIN skills p ON p.id = s.prerequisite_id
-               WHERE s.id = ?""",
+        row = conn.execute("SELECT * FROM skills WHERE id = ?", (skill_id,)).fetchone()
+        if not row:
+            return None
+        skill = dict(row)
+        prereqs = conn.execute(
+            """SELECT s.name FROM skill_prerequisites sp
+               JOIN skills s ON s.id = sp.prerequisite_id
+               WHERE sp.skill_id = ?
+               ORDER BY s.name""",
             (skill_id,)
-        ).fetchone()
-        return _row(row)
+        ).fetchall()
+        skill["prerequisite_names"] = [r["name"] for r in prereqs]
+        return skill
 
 
 def get_skill_tree() -> list[dict]:
-    """Returns all skills with their full tree structure."""
+    """Returns all skills with their full prerequisite structure."""
     with _conn() as conn:
-        rows = _rows(conn.execute(
-            """SELECT s.*, p.name AS prerequisite_name
-               FROM skills s
-               LEFT JOIN skills p ON p.id = s.prerequisite_id
-               ORDER BY (s.prerequisite_id IS NOT NULL), s.tier, s.name"""
+        skills = _rows(conn.execute(
+            "SELECT * FROM skills ORDER BY tier, name"
         ).fetchall())
-    return rows
+        prereq_rows = _rows(conn.execute(
+            """SELECT sp.skill_id, s.name AS prereq_name
+               FROM skill_prerequisites sp
+               JOIN skills s ON s.id = sp.prerequisite_id"""
+        ).fetchall())
+    prereq_map: dict[int, list[str]] = {}
+    for r in prereq_rows:
+        prereq_map.setdefault(r["skill_id"], []).append(r["prereq_name"])
+    for skill in skills:
+        skill["prerequisite_names"] = prereq_map.get(skill["id"], [])
+    return skills
 
 
 # ─────────────────────────────────────────────

@@ -104,10 +104,17 @@
   {"id":  99, "content_type": "ship",  "content_id":  4, "term_id": 22},
   {"id": 100, "content_type": "ship",  "content_id":  4, "term_id": 43},
 
-  {"id": 101, "content_type": "location", "content_id": 27, "term_id": 47},
-  {"id": 102, "content_type": "location", "content_id": 28, "term_id": 47},
-  {"id": 103, "content_type": "location", "content_id": 34, "term_id": 47},
-  {"id": 104, "content_type": "location", "content_id": 21, "term_id": 41},
-  {"id": 105, "content_type": "location", "content_id": 21, "term_id": 40},
-  {"id": 106, "content_type": "location", "content_id": 23, "term_id": 40}
+  {"id": 101, "content_type": "location",   "content_id": 27, "term_id": 47},
+  {"id": 102, "content_type": "location",   "content_id": 28, "term_id": 47},
+  {"id": 103, "content_type": "location",   "content_id": 34, "term_id": 47},
+  {"id": 104, "content_type": "location",   "content_id": 21, "term_id": 41},
+  {"id": 105, "content_type": "location",   "content_id": 21, "term_id": 40},
+  {"id": 106, "content_type": "location",   "content_id": 23, "term_id": 40},
+
+  {"id": 107, "content_type": "roll_table", "content_id":  2, "term_id": 33},
+  {"id": 108, "content_type": "roll_table", "content_id":  3, "term_id": 34},
+  {"id": 109, "content_type": "roll_table", "content_id":  4, "term_id": 35},
+  {"id": 110, "content_type": "roll_table", "content_id":  5, "term_id": 36},
+  {"id": 111, "content_type": "roll_table", "content_id":  6, "term_id": 37},
+  {"id": 112, "content_type": "roll_table", "content_id":  1, "term_id":  5}
 ]

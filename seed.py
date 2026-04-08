@@ -22,6 +22,7 @@ SEED_ORDER = [
     "roll_table_entries",
     "items",
     "skills",
+    "skill_prerequisites",
     "classes",
     "ships",
     "locations",

@@ -15,6 +15,7 @@ import re
 from dotenv import load_dotenv
 from telegram import Update
 from telegram.constants import ParseMode
+from telegram.error import BadRequest
 from telegram.ext import (
     Application,
     CallbackQueryHandler,
@@ -40,11 +41,15 @@ _GLOSSARY_CAT_ID = 21
 
 async def _edit(update: Update, text: str, keyboard, parse_mode=ParseMode.HTML) -> None:
     """Edit the current message in-place."""
-    await update.callback_query.edit_message_text(
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=parse_mode,
-    )
+    try:
+        await update.callback_query.edit_message_text(
+            text=text,
+            reply_markup=keyboard,
+            parse_mode=parse_mode,
+        )
+    except BadRequest as e:
+        if "Message is not modified" not in str(e):
+            raise
 
 
 async def _reply(update: Update, text: str, keyboard, parse_mode=ParseMode.HTML) -> None:
@@ -125,6 +130,8 @@ async def _show_category(update: Update, cat_id: int, page: int = 0) -> None:
         terms = db.get_all_terms()
         await _edit(update, f"{header}\n\nSelect a term:", kb.glossary_keyboard(terms, 0))
         return
+    elif slug == "roll-tables":
+        tables = db.get_all_roll_tables()
 
     # Module NPC and location sub-categories
     elif slug in ("abh-npcs", "dp-npcs", "gd-npcs", "apf-npcs"):
@@ -133,6 +140,24 @@ async def _show_category(update: Update, cat_id: int, page: int = 0) -> None:
     elif slug in ("abh-locations", "dp-locations", "gd-locations", "apf-locations"):
         book_map = {"abh-locations": 3, "dp-locations": 7, "gd-locations": 4, "apf-locations": 6}
         locations = db.get_locations_by_book(book_map[slug])
+
+    # If the category has no subcategories and exactly one content item, skip
+    # the intermediate menu and go directly to that item.
+    if not subcats and page == 0:
+        all_content: list[tuple[str, int]] = (
+            [("rule", r["id"]) for r in rules]
+            + [("table", t["id"]) for t in tables]
+            + [("item", i["id"]) for i in (items or [])]
+            + [("npc", n["id"]) for n in (npcs or [])]
+            + [("loc", l["id"]) for l in (locations or [])]
+            + [("cls", c["id"]) for c in (classes or [])]
+            + [("ship", s["id"]) for s in (ships or [])]
+            + [("skill", sk["id"]) for sk in (skills or [])]
+        )
+        if len(all_content) == 1:
+            cb_type, item_id = all_content[0]
+            await _dispatch_callback(update, update.callback_query, f"{cb_type}:{item_id}")
+            return
 
     keyboard = kb.category_menu(
         cat, subcats, rules, tables,
@@ -182,15 +207,71 @@ async def cmd_roll(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 # ─────────────────────────────────────────────
+# NAVIGATION STACK
+# ─────────────────────────────────────────────
+
+_NAV_STACK_MAX = 10
+
+# Callbacks that are not real pages and must never be pushed onto the stack
+_NAV_SKIP = {"noop", "back", "menu", "search"}
+
+
+def _push_page(context: ContextTypes.DEFAULT_TYPE, new_data: str) -> None:
+    """Push the current page onto the history stack, then update current."""
+    current = context.user_data.get("nav_current")
+    if current:
+        stack: list = context.user_data.setdefault("nav_stack", [])
+        if not stack or stack[-1] != current:
+            stack.append(current)
+        if len(stack) > _NAV_STACK_MAX:
+            stack.pop(0)
+    # roll: callbacks are transient — store their table as the "page" so back
+    # returns to the table instead of triggering a re-roll
+    if new_data.startswith("roll:"):
+        context.user_data["nav_current"] = f"table:{new_data.split(':')[1]}"
+    else:
+        context.user_data["nav_current"] = new_data
+
+
+def _pop_page(context: ContextTypes.DEFAULT_TYPE) -> str | None:
+    stack: list = context.user_data.get("nav_stack", [])
+    if stack:
+        prev = stack.pop()
+        context.user_data["nav_current"] = prev
+        return prev
+    return None
+
+
+# ─────────────────────────────────────────────
 # CALLBACK ROUTER
 # ─────────────────────────────────────────────
 
 async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
-    await query.answer()
+    try:
+        await query.answer()
+    except BadRequest:
+        pass  # Query too old — already expired, safe to ignore
     data = query.data
     user = update.effective_user
     logger.info("callback  user_id=%s data=%r", user.id, data)
+
+    # ── Stack management ───────────────────────
+    if data == "noop":
+        return
+
+    if data == "back":
+        prev = _pop_page(context)
+        if prev:
+            data = prev
+        else:
+            await _show_main_menu(update, edit=True)
+            return
+    elif data == "menu":
+        context.user_data["nav_stack"] = []
+        context.user_data["nav_current"] = None
+    elif data not in _NAV_SKIP:
+        _push_page(context, data)
 
     try:
         await _dispatch_callback(update, query, data)
@@ -199,7 +280,7 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         try:
             await query.edit_message_text(
                 "⚠️ Something went wrong. Please try again or return to the main menu.",
-                reply_markup=kb.back_only("menu"),
+                reply_markup=kb.back_only(),
                 parse_mode=ParseMode.HTML,
             )
         except Exception:
@@ -216,7 +297,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
     if data == "search":
         await _edit(update,
             "🔍 <b>Search</b>\n\nSend: <code>/search &lt;term&gt;</code>\n\nExample: <code>/search stress</code>",
-            kb.back_only("menu")
+            kb.back_only()
         )
         return
 
@@ -247,8 +328,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             return
         terms = db.get_linked_terms("rule", rule_id)
         text = fmt.format_rule(rule)
-        back = f"cat:{rule['category_id']}"
-        keyboard = kb.term_buttons(terms, back)
+        keyboard = kb.term_buttons(terms)
         await _edit(update, text, keyboard)
         return
 
@@ -260,8 +340,9 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             await query.answer("Term not found.")
             return
         text = fmt.format_term(term)
-        # Generic back to glossary
-        await _edit(update, text, kb.back_only(f"cat:{_GLOSSARY_CAT_ID}"))
+        tables = db.get_roll_tables_for_term(term["id"])
+        keyboard = kb.term_with_tables(tables)
+        await _edit(update, text, keyboard)
         return
 
     # ── Item ───────────────────────────────────
@@ -272,11 +353,18 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             await query.answer("Item not found.")
             return
         terms = db.get_linked_terms("item", item_id)
+        # For weapons: inject wound type and range band as term buttons
+        if item["item_type"] == "weapon":
+            if item.get("wound_type"):
+                wound_term = db.get_term_by_name(item["wound_type"])
+                if wound_term and not any(t["id"] == wound_term["id"] for t in terms):
+                    terms = [wound_term] + terms
+            if item.get("range_band"):
+                range_term = db.get_term_by_name("Range Band")
+                if range_term and not any(t["id"] == range_term["id"] for t in terms):
+                    terms = terms + [range_term]
         text = fmt.format_item(item)
-        # Back to the appropriate sub-category
-        type_cat_map = {"weapon": 13, "armor": 14, "gear": 15, "trinket": 15}
-        back_cat = type_cat_map.get(item["item_type"], 12)
-        keyboard = kb.term_buttons(terms, f"cat:{back_cat}")
+        keyboard = kb.term_buttons(terms)
         await _edit(update, text, keyboard)
         return
 
@@ -288,7 +376,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             await query.answer("Table not found.")
             return
         text = fmt.format_roll_table(table)
-        keyboard = kb.roll_table_keyboard(table, table.get("category_id"))
+        keyboard = kb.roll_table_keyboard(table)
         await _edit(update, text, keyboard)
         return
 
@@ -310,24 +398,42 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             await query.answer("No entry found for this roll.")
             return
         linked_term = db.get_term(entry["linked_term_id"]) if entry.get("linked_term_id") else None
+        items = db.find_items_in_text(entry["result_text"]) if table.get("category_id") == 5 else None
         text = fmt.format_roll_result(table, entry, roll_value)
-        keyboard = kb.roll_result_keyboard(table, entry, linked_term)
+        keyboard = kb.roll_result_keyboard(table, entry, linked_term, items=items)
         await _edit(update, text, keyboard)
         return
 
     # ── Roll Table — show all entries ──────────
     if data.startswith("entries:"):
-        table_id = int(data.split(":")[1])
+        parts = data.split(":")
+        table_id = int(parts[1])
+        page = int(parts[3]) if len(parts) == 4 and parts[2] == "page" else 0
         table = db.get_roll_table(table_id)
         entries = db.get_table_entries(table_id)
         if not table or not entries:
             await query.answer("No entries found.")
             return
-        text = fmt.format_entries_list(table, entries)
-        # Telegram message limit: truncate if too long
-        if len(text) > 4000:
-            text = text[:3950] + "\n\n<i>…[truncated — see source book for full table]</i>"
-        keyboard = kb.entries_list(table, entries)
+        total = len(entries)
+        text = fmt.format_roll_table_header(table, total)
+        keyboard = kb.entries_list(table, entries, page)
+        await _edit(update, text, keyboard)
+        return
+
+    # ── Roll Table — single entry detail ───────
+    if data.startswith("entry:"):
+        _, table_id_str, entry_id_str = data.split(":")
+        table_id = int(table_id_str)
+        entry_id = int(entry_id_str)
+        table = db.get_roll_table(table_id)
+        entry = db.get_entry(entry_id)
+        if not table or not entry:
+            await query.answer("Entry not found.")
+            return
+        linked_term = db.get_term(entry["linked_term_id"]) if entry.get("linked_term_id") else None
+        items = db.find_items_in_text(entry["result_text"]) if table.get("category_id") == 5 else None
+        text = fmt.format_roll_result(table, entry, entry["roll_min"])
+        keyboard = kb.roll_result_keyboard(table, entry, linked_term, items=items)
         await _edit(update, text, keyboard)
         return
 
@@ -340,7 +446,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             return
         terms = db.get_linked_terms("class", class_id)
         text = fmt.format_class(cls)
-        keyboard = kb.term_buttons(terms, "cat:3")
+        keyboard = kb.term_buttons(terms)
         await _edit(update, text, keyboard)
         return
 
@@ -352,7 +458,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             await query.answer("Skill not found.")
             return
         text = fmt.format_skill(skill)
-        await _edit(update, text, kb.back_only("cat:4"))
+        await _edit(update, text, kb.back_only())
         return
 
     # ── Ship ───────────────────────────────────
@@ -364,7 +470,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             return
         terms = db.get_linked_terms("ship", ship_id)
         text = fmt.format_ship(ship)
-        keyboard = kb.term_buttons(terms, "cat:19")
+        keyboard = kb.term_buttons(terms)
         await _edit(update, text, keyboard)
         return
 
@@ -381,14 +487,12 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
 
         # If location has child rooms/areas, offer them as buttons
         if children:
+            from telegram import InlineKeyboardMarkup
             child_btns = [[kb._btn(f"📍 {c['name']}", f"loc:{c['id']}")] for c in children]
             term_btns = [[kb._btn(f"📖 {t['name']}", f"term:{t['id']}")] for t in terms]
-            back_btn = [kb._btn("← Back", f"cat:{_loc_back_cat(loc)}")] if True else []
-            from telegram import InlineKeyboardMarkup
-            keyboard = InlineKeyboardMarkup(child_btns + term_btns + [back_btn])
+            keyboard = InlineKeyboardMarkup(child_btns + term_btns + [kb._back()])
         else:
-            back = f"cat:{_loc_back_cat(loc)}"
-            keyboard = kb.term_buttons(terms, back)
+            keyboard = kb.term_buttons(terms)
 
         await _edit(update, text, keyboard)
         return
@@ -402,8 +506,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             return
         terms = db.get_linked_terms("npc", npc_id)
         text = fmt.format_npc(npc)
-        back = f"cat:{_npc_back_cat(npc)}"
-        keyboard = kb.npc_with_terms(npc, terms, back)
+        keyboard = kb.npc_with_terms(npc, terms)
         await _edit(update, text, keyboard)
         return
 
@@ -419,22 +522,6 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
 async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Log errors raised by the PTB framework (network issues, timeouts, etc.)."""
     logger.error("PTB error  update=%s", update, exc_info=context.error)
-
-
-# ─────────────────────────────────────────────
-# BACK-ROUTE HELPERS
-# ─────────────────────────────────────────────
-
-_BOOK_NPC_CAT = {3: 30, 7: 36, 4: 42, 6: 48}  # source_book_id → NPC category_id
-_BOOK_LOC_CAT = {3: 29, 7: 35, 4: 41, 6: 47}
-
-
-def _npc_back_cat(npc: dict) -> int:
-    return _BOOK_NPC_CAT.get(npc.get("source_book_id"), 26)
-
-
-def _loc_back_cat(loc: dict) -> int:
-    return _BOOK_LOC_CAT.get(loc.get("source_book_id"), 26)
 
 
 # ─────────────────────────────────────────────

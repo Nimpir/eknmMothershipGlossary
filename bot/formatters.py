@@ -127,6 +127,15 @@ def format_roll_table(table: dict) -> str:
     )
 
 
+def format_roll_table_header(table: dict, total_entries: int) -> str:
+    """Compact header shown above the selectable entries list."""
+    src = _src(table.get("book_code"), table.get("page_number"))
+    return (
+        f"🎲 <b>{table['name']}</b> ({table['dice_notation'].upper()}){src}\n\n"
+        f"<i>{total_entries} entries — tap one to view details.</i>"
+    )
+
+
 def format_roll_result(table: dict, entry: dict, roll_value: int) -> str:
     src = _src(table.get("book_code"), table.get("page_number"))
     label = entry.get("label") or str(roll_value)
@@ -217,8 +226,9 @@ def format_skill(skill: dict) -> str:
         skill["tier"], skill["tier"]
     )
     lines = [f"<b>{skill['name']}</b>  <i>[{tier_label}]</i>"]
-    if skill.get("prerequisite_name"):
-        lines.append(f"<b>Prerequisite:</b> {skill['prerequisite_name']}")
+    prereqs = skill.get("prerequisite_names") or []
+    if prereqs:
+        lines.append(f"<b>Prerequisite:</b> {' or '.join(prereqs)}")
     if skill.get("description"):
         lines.append(f"\n{skill['description']}")
     return "\n".join(lines)

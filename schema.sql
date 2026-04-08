@@ -57,7 +57,8 @@ CREATE TABLE IF NOT EXISTS roll_tables (
     dice_notation   TEXT NOT NULL,
     category_id     INTEGER REFERENCES categories(id),
     source_book_id  INTEGER REFERENCES source_books(id),
-    page_number     INTEGER
+    page_number     INTEGER,
+    sort_order      INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS roll_table_entries (
@@ -109,9 +110,14 @@ CREATE TABLE IF NOT EXISTS skills (
     tier            TEXT NOT NULL CHECK(tier IN ('trained','expert','master')),
     bonus           INTEGER NOT NULL,
     description     TEXT,
-    prerequisite_id INTEGER REFERENCES skills(id),
     source_book_id  INTEGER REFERENCES source_books(id),
     page_number     INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS skill_prerequisites (
+    skill_id        INTEGER NOT NULL REFERENCES skills(id) ON DELETE CASCADE,
+    prerequisite_id INTEGER NOT NULL REFERENCES skills(id) ON DELETE CASCADE,
+    PRIMARY KEY (skill_id, prerequisite_id)
 );
 
 -- ─────────────────────────────────────────────
@@ -212,7 +218,8 @@ CREATE INDEX IF NOT EXISTS idx_rules_category         ON rules(category_id);
 CREATE INDEX IF NOT EXISTS idx_items_type             ON items(item_type);
 CREATE INDEX IF NOT EXISTS idx_rte_table              ON roll_table_entries(table_id);
 CREATE INDEX IF NOT EXISTS idx_roll_tables_category   ON roll_tables(category_id);
-CREATE INDEX IF NOT EXISTS idx_skills_prereq          ON skills(prerequisite_id);
+CREATE INDEX IF NOT EXISTS idx_skill_prereq_skill     ON skill_prerequisites(skill_id);
+CREATE INDEX IF NOT EXISTS idx_skill_prereq_prereq    ON skill_prerequisites(prerequisite_id);
 CREATE INDEX IF NOT EXISTS idx_locations_parent       ON locations(parent_id);
 CREATE INDEX IF NOT EXISTS idx_locations_source_book  ON locations(source_book_id);
 CREATE INDEX IF NOT EXISTS idx_npcs_location          ON npcs(location_id);

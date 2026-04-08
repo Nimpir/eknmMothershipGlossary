@@ -142,7 +142,7 @@
   {
     "id": 21,
     "name": "Range Band",
-    "body": "Distance brackets used in combat. In order from nearest to farthest: Adjacent → Close → Long → Extreme. Weapons have a maximum effective range band; attacks beyond it are usually impossible or penalised.",
+    "body": "Distance brackets used in combat. Each weapon lists its effective range band.\n\n*Adjacent* — Arm's reach. Melee weapons only.\n*Close* — Same room or short corridor (~10m). Most sidearms and shotguns.\n*Long* — Across a large space (~50m). Rifles and automatic weapons.\n*Extreme* — Very far (~100m+). Sniper rifles and heavy weapons.\n\nAttacking beyond a weapon's listed range band is at the Warden's discretion — usually impossible or with heavy penalties.",
     "source_book_id": 1, "page_number": null,
     "aliases": "[\"Range\", \"Adjacent\", \"Close\", \"Long\", \"Extreme\"]"
   },
