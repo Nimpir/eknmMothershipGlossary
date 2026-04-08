@@ -611,4 +611,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass  # Clean Ctrl+C shutdown — Windows asyncio lets this escape run_until_complete
