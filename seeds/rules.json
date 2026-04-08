@@ -11,7 +11,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🎲"
   },
   {
     "id": 2,
@@ -25,7 +25,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "📊"
   },
   {
     "id": 3,
@@ -39,7 +39,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🛡️"
   },
   {
     "id": 4,
@@ -53,7 +53,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "📝"
   },
   {
     "id": 5,
@@ -67,7 +67,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "💰"
   },
   {
     "id": 6,
@@ -81,7 +81,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "⚡"
   },
   {
     "id": 7,
@@ -95,7 +95,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🎯"
   },
   {
     "id": 8,
@@ -109,7 +109,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "💥"
   },
   {
     "id": 9,
@@ -123,7 +123,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🩹"
   },
   {
     "id": 10,
@@ -137,7 +137,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🩸"
   },
   {
     "id": 11,
@@ -151,7 +151,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "😰"
   },
   {
     "id": 12,
@@ -165,7 +165,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "😱"
   },
   {
     "id": 13,
@@ -179,21 +179,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
-  },
-  {
-    "id": 14,
-    "title": "Oxygen & Survival",
-    "category_id": 9,
-    "source_book_id": 1,
-    "page_number": null,
-    "sort_order": 3,
-    "body": "Track O2 carefully in hostile environments:\n\n• *Vaccsuit* — 12 hours O2. Short-range comms, headlamp, radiation shielding. If punctured, decompression within 1d5 rounds.\n• *Hazard Suit* — 1 hour O2. Air filter, extreme temperature protection.\n• *Advanced Battle Dress* — 1 hour O2.\n\n*Decompression in vacuum:* Body Save or take 1 Wound (Fire/Explosives) per round.",
-    "title_ua": "",
-    "title_ru": "",
-    "body_ua": "",
-    "body_ru": "",
-    "icon": ""
+    "icon": "🧠"
   },
   {
     "id": 15,
@@ -207,7 +193,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "⬆️"
   },
   {
     "id": 16,
@@ -221,7 +207,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🌳"
   },
   {
     "id": 17,
@@ -235,7 +221,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🎓"
   },
   {
     "id": 18,
@@ -249,7 +235,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "📊"
   },
   {
     "id": 19,
@@ -263,7 +249,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "💣"
   },
   {
     "id": 20,
@@ -277,7 +263,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "📡"
   },
   {
     "id": 21,
@@ -291,7 +277,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🔄"
   },
   {
     "id": 22,
@@ -305,7 +291,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "📝"
   },
   {
     "id": 23,
@@ -319,7 +305,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "⚖️"
   },
   {
     "id": 24,
@@ -333,7 +319,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🧩"
   },
   {
     "id": 25,
@@ -347,7 +333,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🗺️"
   },
   {
     "id": 26,
@@ -361,7 +347,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🦂"
   },
   {
     "id": 27,
@@ -375,7 +361,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🦠"
   },
   {
     "id": 28,
@@ -389,7 +375,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "📡"
   },
   {
     "id": 29,
@@ -403,7 +389,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "💀"
   },
   {
     "id": 30,
@@ -417,7 +403,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "😨"
   },
   {
     "id": 31,
@@ -431,7 +417,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "💊"
   },
   {
     "id": 32,
@@ -445,7 +431,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🤖"
   },
   {
     "id": 33,
@@ -459,7 +445,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🌀"
   },
   {
     "id": 34,
@@ -473,7 +459,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🏛️"
   },
   {
     "id": 35,
@@ -487,7 +473,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "⚖️"
   },
   {
     "id": 36,
@@ -501,7 +487,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "👑"
   },
   {
     "id": 37,
@@ -515,7 +501,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "🗺️"
   },
   {
     "id": 38,
@@ -529,7 +515,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "📏"
   },
   {
     "id": 39,
@@ -543,7 +529,7 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": "",
-    "icon": ""
+    "icon": "💀"
   },
   {
     "id": 40,

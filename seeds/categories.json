@@ -65,9 +65,11 @@
     "slug": "initiative",
     "parent_id": 6,
     "sort_order": 1,
-    "icon": null,
+    "icon": "⚡",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 8,
@@ -75,9 +77,11 @@
     "slug": "attacks",
     "parent_id": 6,
     "sort_order": 2,
-    "icon": null,
+    "icon": "🎯",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 9,
@@ -85,9 +89,11 @@
     "slug": "damage-wounds",
     "parent_id": 6,
     "sort_order": 3,
-    "icon": null,
+    "icon": "💥",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 10,
@@ -95,9 +101,11 @@
     "slug": "wound-tables",
     "parent_id": 6,
     "sort_order": 4,
-    "icon": null,
+    "icon": "🩸",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 11,
@@ -125,9 +133,11 @@
     "slug": "weapons",
     "parent_id": 12,
     "sort_order": 1,
-    "icon": null,
+    "icon": "🔫",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 14,
@@ -135,9 +145,11 @@
     "slug": "armor",
     "parent_id": 12,
     "sort_order": 2,
-    "icon": null,
+    "icon": "🛡️",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 15,
@@ -145,9 +157,11 @@
     "slug": "gear-tools",
     "parent_id": 12,
     "sort_order": 3,
-    "icon": null,
+    "icon": "⚙️",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 16,
@@ -165,9 +179,11 @@
     "slug": "ship-stats",
     "parent_id": 16,
     "sort_order": 1,
-    "icon": null,
+    "icon": "📊",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 18,
@@ -175,9 +191,11 @@
     "slug": "ship-combat",
     "parent_id": 16,
     "sort_order": 2,
-    "icon": null,
+    "icon": "💣",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 19,
@@ -185,9 +203,11 @@
     "slug": "ship-catalogue",
     "parent_id": 16,
     "sort_order": 3,
-    "icon": null,
+    "icon": "🚀",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 20,
@@ -225,9 +245,11 @@
     "slug": "tombs-cycle",
     "parent_id": 22,
     "sort_order": 1,
-    "icon": null,
+    "icon": "🔄",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 24,
@@ -235,9 +257,11 @@
     "slug": "warden-random",
     "parent_id": 22,
     "sort_order": 2,
-    "icon": null,
+    "icon": "🎲",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 25,
@@ -245,9 +269,11 @@
     "slug": "session-prep",
     "parent_id": 22,
     "sort_order": 3,
-    "icon": null,
+    "icon": "📝",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 26,
@@ -275,9 +301,11 @@
     "slug": "abh-overview",
     "parent_id": 27,
     "sort_order": 1,
-    "icon": null,
+    "icon": "🗺️",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 29,
@@ -285,9 +313,11 @@
     "slug": "abh-locations",
     "parent_id": 27,
     "sort_order": 2,
-    "icon": null,
+    "icon": "📍",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 30,
@@ -295,9 +325,11 @@
     "slug": "abh-npcs",
     "parent_id": 27,
     "sort_order": 3,
-    "icon": null,
+    "icon": "👤",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 31,
@@ -305,9 +337,11 @@
     "slug": "abh-tables",
     "parent_id": 27,
     "sort_order": 4,
-    "icon": null,
+    "icon": "🎲",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 32,
@@ -315,9 +349,11 @@
     "slug": "abh-rules",
     "parent_id": 27,
     "sort_order": 5,
-    "icon": null,
+    "icon": "📜",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 33,
@@ -335,9 +371,11 @@
     "slug": "dp-overview",
     "parent_id": 33,
     "sort_order": 1,
-    "icon": null,
+    "icon": "🗺️",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 35,
@@ -345,9 +383,11 @@
     "slug": "dp-locations",
     "parent_id": 33,
     "sort_order": 2,
-    "icon": null,
+    "icon": "📍",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 36,
@@ -355,9 +395,11 @@
     "slug": "dp-npcs",
     "parent_id": 33,
     "sort_order": 3,
-    "icon": null,
+    "icon": "👤",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 37,
@@ -365,9 +407,11 @@
     "slug": "dp-tables",
     "parent_id": 33,
     "sort_order": 4,
-    "icon": null,
+    "icon": "🎲",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 38,
@@ -375,9 +419,11 @@
     "slug": "dp-rules",
     "parent_id": 33,
     "sort_order": 5,
-    "icon": null,
+    "icon": "📜",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 39,
@@ -395,9 +441,11 @@
     "slug": "gd-overview",
     "parent_id": 39,
     "sort_order": 1,
-    "icon": null,
+    "icon": "🗺️",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 41,
@@ -405,9 +453,11 @@
     "slug": "gd-locations",
     "parent_id": 39,
     "sort_order": 2,
-    "icon": null,
+    "icon": "📍",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 42,
@@ -415,9 +465,11 @@
     "slug": "gd-npcs",
     "parent_id": 39,
     "sort_order": 3,
-    "icon": null,
+    "icon": "👤",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 43,
@@ -425,9 +477,11 @@
     "slug": "gd-tables",
     "parent_id": 39,
     "sort_order": 4,
-    "icon": null,
+    "icon": "🎲",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 44,
@@ -435,9 +489,11 @@
     "slug": "gd-rules",
     "parent_id": 39,
     "sort_order": 5,
-    "icon": null,
+    "icon": "📜",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 45,
@@ -455,9 +511,11 @@
     "slug": "apf-overview",
     "parent_id": 45,
     "sort_order": 1,
-    "icon": null,
+    "icon": "🗺️",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 47,
@@ -465,9 +523,11 @@
     "slug": "apf-locations",
     "parent_id": 45,
     "sort_order": 2,
-    "icon": null,
+    "icon": "📍",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 48,
@@ -475,9 +535,11 @@
     "slug": "apf-npcs",
     "parent_id": 45,
     "sort_order": 3,
-    "icon": null,
+    "icon": "👤",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 49,
@@ -485,9 +547,11 @@
     "slug": "apf-tables",
     "parent_id": 45,
     "sort_order": 4,
-    "icon": null,
+    "icon": "🎲",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 50,
@@ -495,9 +559,11 @@
     "slug": "apf-rules",
     "parent_id": 45,
     "sort_order": 5,
-    "icon": null,
+    "icon": "📜",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 51,
@@ -515,9 +581,11 @@
     "slug": "st-overview",
     "parent_id": 51,
     "sort_order": 1,
-    "icon": null,
+    "icon": "🗺️",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 53,
@@ -525,9 +593,11 @@
     "slug": "st-catalogue",
     "parent_id": 51,
     "sort_order": 2,
-    "icon": null,
+    "icon": "🚀",
     "name_ua": "",
-    "name_ru": ""
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   },
   {
     "id": 54,
