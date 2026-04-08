@@ -5,7 +5,9 @@
     "slug": "char-creation",
     "parent_id": null,
     "sort_order": 1,
-    "icon": "🧑‍🚀"
+    "icon": "🧑‍🚀",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 2,
@@ -13,7 +15,9 @@
     "slug": "stats-saves",
     "parent_id": 1,
     "sort_order": 1,
-    "icon": "🎲"
+    "icon": "🎲",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 3,
@@ -21,7 +25,9 @@
     "slug": "classes",
     "parent_id": 1,
     "sort_order": 2,
-    "icon": "🪖"
+    "icon": "🪖",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 4,
@@ -29,7 +35,9 @@
     "slug": "skills",
     "parent_id": 1,
     "sort_order": 3,
-    "icon": "🔧"
+    "icon": "🔧",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 5,
@@ -37,7 +45,9 @@
     "slug": "loadouts",
     "parent_id": 1,
     "sort_order": 4,
-    "icon": "🎒"
+    "icon": "🎒",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 6,
@@ -45,7 +55,9 @@
     "slug": "combat",
     "parent_id": null,
     "sort_order": 2,
-    "icon": "⚔️"
+    "icon": "⚔️",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 7,
@@ -53,7 +65,9 @@
     "slug": "initiative",
     "parent_id": 6,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 8,
@@ -61,7 +75,9 @@
     "slug": "attacks",
     "parent_id": 6,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 9,
@@ -69,7 +85,9 @@
     "slug": "damage-wounds",
     "parent_id": 6,
     "sort_order": 3,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 10,
@@ -77,7 +95,9 @@
     "slug": "wound-tables",
     "parent_id": 6,
     "sort_order": 4,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 11,
@@ -85,7 +105,9 @@
     "slug": "stress-panic",
     "parent_id": null,
     "sort_order": 3,
-    "icon": "😰"
+    "icon": "😰",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 12,
@@ -93,7 +115,9 @@
     "slug": "equipment",
     "parent_id": null,
     "sort_order": 4,
-    "icon": "🔫"
+    "icon": "🔫",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 13,
@@ -101,7 +125,9 @@
     "slug": "weapons",
     "parent_id": 12,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 14,
@@ -109,7 +135,9 @@
     "slug": "armor",
     "parent_id": 12,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 15,
@@ -117,7 +145,9 @@
     "slug": "gear-tools",
     "parent_id": 12,
     "sort_order": 3,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 16,
@@ -125,7 +155,9 @@
     "slug": "ships",
     "parent_id": null,
     "sort_order": 5,
-    "icon": "🚀"
+    "icon": "🚀",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 17,
@@ -133,7 +165,9 @@
     "slug": "ship-stats",
     "parent_id": 16,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 18,
@@ -141,7 +175,9 @@
     "slug": "ship-combat",
     "parent_id": 16,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 19,
@@ -149,7 +185,9 @@
     "slug": "ship-catalogue",
     "parent_id": 16,
     "sort_order": 3,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 20,
@@ -157,7 +195,9 @@
     "slug": "roll-tables",
     "parent_id": null,
     "sort_order": 6,
-    "icon": "🎲"
+    "icon": "🎲",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 21,
@@ -165,7 +205,9 @@
     "slug": "glossary",
     "parent_id": null,
     "sort_order": 7,
-    "icon": "📖"
+    "icon": "📖",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 22,
@@ -173,7 +215,9 @@
     "slug": "warden-tools",
     "parent_id": null,
     "sort_order": 8,
-    "icon": "📋"
+    "icon": "📋",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 23,
@@ -181,7 +225,9 @@
     "slug": "tombs-cycle",
     "parent_id": 22,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 24,
@@ -189,7 +235,9 @@
     "slug": "warden-random",
     "parent_id": 22,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 25,
@@ -197,7 +245,9 @@
     "slug": "session-prep",
     "parent_id": 22,
     "sort_order": 3,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 26,
@@ -205,7 +255,9 @@
     "slug": "modules",
     "parent_id": null,
     "sort_order": 9,
-    "icon": "📦"
+    "icon": "📦",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 27,
@@ -213,7 +265,9 @@
     "slug": "mod-abh",
     "parent_id": 26,
     "sort_order": 1,
-    "icon": "🦂"
+    "icon": "🦂",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 28,
@@ -221,7 +275,9 @@
     "slug": "abh-overview",
     "parent_id": 27,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 29,
@@ -229,7 +285,9 @@
     "slug": "abh-locations",
     "parent_id": 27,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 30,
@@ -237,7 +295,9 @@
     "slug": "abh-npcs",
     "parent_id": 27,
     "sort_order": 3,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 31,
@@ -245,7 +305,9 @@
     "slug": "abh-tables",
     "parent_id": 27,
     "sort_order": 4,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 32,
@@ -253,7 +315,9 @@
     "slug": "abh-rules",
     "parent_id": 27,
     "sort_order": 5,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 33,
@@ -261,7 +325,9 @@
     "slug": "mod-dp",
     "parent_id": 26,
     "sort_order": 2,
-    "icon": "💀"
+    "icon": "💀",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 34,
@@ -269,7 +335,9 @@
     "slug": "dp-overview",
     "parent_id": 33,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 35,
@@ -277,7 +345,9 @@
     "slug": "dp-locations",
     "parent_id": 33,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 36,
@@ -285,7 +355,9 @@
     "slug": "dp-npcs",
     "parent_id": 33,
     "sort_order": 3,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 37,
@@ -293,7 +365,9 @@
     "slug": "dp-tables",
     "parent_id": 33,
     "sort_order": 4,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 38,
@@ -301,7 +375,9 @@
     "slug": "dp-rules",
     "parent_id": 33,
     "sort_order": 5,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 39,
@@ -309,7 +385,9 @@
     "slug": "mod-gd",
     "parent_id": 26,
     "sort_order": 3,
-    "icon": "🤖"
+    "icon": "🤖",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 40,
@@ -317,7 +395,9 @@
     "slug": "gd-overview",
     "parent_id": 39,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 41,
@@ -325,7 +405,9 @@
     "slug": "gd-locations",
     "parent_id": 39,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 42,
@@ -333,7 +415,9 @@
     "slug": "gd-npcs",
     "parent_id": 39,
     "sort_order": 3,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 43,
@@ -341,7 +425,9 @@
     "slug": "gd-tables",
     "parent_id": 39,
     "sort_order": 4,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 44,
@@ -349,7 +435,9 @@
     "slug": "gd-rules",
     "parent_id": 39,
     "sort_order": 5,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 45,
@@ -357,7 +445,9 @@
     "slug": "mod-apf",
     "parent_id": 26,
     "sort_order": 4,
-    "icon": "🏛️"
+    "icon": "🏛️",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 46,
@@ -365,7 +455,9 @@
     "slug": "apf-overview",
     "parent_id": 45,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 47,
@@ -373,7 +465,9 @@
     "slug": "apf-locations",
     "parent_id": 45,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 48,
@@ -381,7 +475,9 @@
     "slug": "apf-npcs",
     "parent_id": 45,
     "sort_order": 3,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 49,
@@ -389,7 +485,9 @@
     "slug": "apf-tables",
     "parent_id": 45,
     "sort_order": 4,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 50,
@@ -397,7 +495,9 @@
     "slug": "apf-rules",
     "parent_id": 45,
     "sort_order": 5,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 51,
@@ -405,7 +505,9 @@
     "slug": "mod-st",
     "parent_id": 26,
     "sort_order": 5,
-    "icon": "🛸"
+    "icon": "🛸",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 52,
@@ -413,7 +515,9 @@
     "slug": "st-overview",
     "parent_id": 51,
     "sort_order": 1,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 53,
@@ -421,7 +525,9 @@
     "slug": "st-catalogue",
     "parent_id": 51,
     "sort_order": 2,
-    "icon": null
+    "icon": null,
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 54,
@@ -429,7 +535,9 @@
     "slug": "death-dying",
     "parent_id": 6,
     "sort_order": 5,
-    "icon": "💀"
+    "icon": "💀",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 55,
@@ -437,7 +545,9 @@
     "slug": "survival",
     "parent_id": null,
     "sort_order": 10,
-    "icon": "🌡️"
+    "icon": "🌡️",
+    "name_ua": "",
+    "name_ru": ""
   },
   {
     "id": 56,
@@ -445,6 +555,8 @@
     "slug": "medical-care",
     "parent_id": null,
     "sort_order": 11,
-    "icon": "🩺"
+    "icon": "🩺",
+    "name_ua": "",
+    "name_ru": ""
   }
 ]

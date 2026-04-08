@@ -6,6 +6,8 @@ Back navigation is handled by the nav stack — all back buttons use "back".
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
+from .i18n import t, SUPPORTED_LANGS
+
 # Maximum items before pagination (Telegram message limit ~4096 chars)
 PAGE_SIZE = 15
 # Entries per page in roll table entry lists
@@ -18,16 +20,23 @@ def _btn(label: str, data: str) -> InlineKeyboardButton:
     return InlineKeyboardButton(label, callback_data=data)
 
 
-def _back() -> list[InlineKeyboardButton]:
-    return [_btn("← Back", "back")]
+def _back(lang: str = "en") -> list[InlineKeyboardButton]:
+    return [_btn(t(lang, "btn_back"), "back")]
 
 
-def main_menu(categories: list[dict]) -> InlineKeyboardMarkup:
+def lang_keyboard() -> InlineKeyboardMarkup:
+    """Language selection keyboard — shown for /lang command."""
+    flags = {"en": "🇬🇧 English", "ua": "🇺🇦 Українська", "ru": "🇷🇺 Русский"}
+    rows = [[_btn(label, f"setlang:{code}")] for code, label in flags.items()]
+    return InlineKeyboardMarkup(rows)
+
+
+def main_menu(categories: list[dict], lang: str = "en") -> InlineKeyboardMarkup:
     rows = []
     for cat in categories:
         icon = f"{cat['icon']} " if cat.get("icon") else ""
         rows.append([_btn(f"{icon}{cat['name']}", f"cat:{cat['id']}")])
-    rows.append([_btn("🔍 Search", "search")])
+    rows.append([_btn(t(lang, "search_btn"), "search")])
     return InlineKeyboardMarkup(rows)
 
 
@@ -43,6 +52,7 @@ def category_menu(
     ships: list[dict] | None = None,
     skills: list[dict] | None = None,
     page: int = 0,
+    lang: str = "en",
 ) -> InlineKeyboardMarkup:
     rows = []
 
@@ -54,8 +64,8 @@ def category_menu(
 
     for r in rules:
         content.append((f"📄 {r['title']}", "rule", str(r["id"])))
-    for t in tables:
-        content.append((f"🎲 {t['name']}", "table", str(t["id"])))
+    for tb in tables:
+        content.append((f"🎲 {tb['name']}", "table", str(tb["id"])))
     if items:
         for i in items:
             content.append((f"⚙️ {i['name']}", "item", str(i["id"])))
@@ -85,39 +95,40 @@ def category_menu(
 
     nav = []
     if page > 0:
-        nav.append(_btn("◀ Prev", f"cat:{category['id']}:page:{page - 1}"))
+        nav.append(_btn(t(lang, "btn_prev"), f"cat:{category['id']}:page:{page - 1}"))
     if end < total:
-        nav.append(_btn("Next ▶", f"cat:{category['id']}:page:{page + 1}"))
+        nav.append(_btn(t(lang, "btn_next"), f"cat:{category['id']}:page:{page + 1}"))
     if nav:
         rows.append(nav)
 
-    rows.append(_back())
+    rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)
 
 
-def term_buttons(terms: list[dict]) -> InlineKeyboardMarkup:
+def term_buttons(terms: list[dict], lang: str = "en") -> InlineKeyboardMarkup:
     """Term quick-access buttons shown below content entries."""
-    rows = [[_btn(f"📖 {t['name']}", f"term:{t['id']}")] for t in terms]
-    rows.append(_back())
+    rows = [[_btn(f"📖 {t_['name']}", f"term:{t_['id']}")] for t_ in terms]
+    rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)
 
 
-def back_only() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup([_back()])
+def back_only(lang: str = "en") -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup([_back(lang)])
 
 
-def term_with_tables(tables: list[dict]) -> InlineKeyboardMarkup:
+def term_with_tables(tables: list[dict], lang: str = "en") -> InlineKeyboardMarkup:
     """Term detail keyboard — optional roll table shortcuts + back."""
-    rows = [[_btn(f"🎲 {t['name']} ({t['dice_notation'].upper()})", f"table:{t['id']}")] for t in tables]
-    rows.append(_back())
+    rows = [[_btn(f"🎲 {tb['name']} ({tb['dice_notation'].upper()})", f"table:{tb['id']}")] for tb in tables]
+    rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)
 
 
-def roll_table_keyboard(table: dict) -> InlineKeyboardMarkup:
+def roll_table_keyboard(table: dict, lang: str = "en") -> InlineKeyboardMarkup:
+    dice = table["dice_notation"].upper()
     rows = [
-        [_btn(f"🎲 Roll on {table['dice_notation'].upper()}!", f"roll:{table['id']}")],
-        [_btn("📋 Show All Entries", f"entries:{table['id']}")],
-        _back(),
+        [_btn(t(lang, "btn_roll", dice=dice), f"roll:{table['id']}")],
+        [_btn(t(lang, "btn_show_entries"), f"entries:{table['id']}")],
+        _back(lang),
     ]
     return InlineKeyboardMarkup(rows)
 
@@ -127,9 +138,11 @@ def roll_result_keyboard(
     entry: dict,
     linked_term: dict | None,
     items: list[dict] | None = None,
+    lang: str = "en",
 ) -> InlineKeyboardMarkup:
+    dice = table["dice_notation"].upper()
     rows = [
-        [_btn(f"🎲 Roll Again ({table['dice_notation'].upper()})", f"roll:{table['id']}")],
+        [_btn(t(lang, "btn_roll_again", dice=dice), f"roll:{table['id']}")],
     ]
     if items:
         icon_map = {"weapon": "🔫", "armor": "🛡️", "gear": "⚙️", "trinket": "✨"}
@@ -138,54 +151,63 @@ def roll_result_keyboard(
             rows.append([_btn(f"{icon} {item['name']}", f"item:{item['id']}")])
     if linked_term:
         rows.append([_btn(f"📖 {linked_term['name']}", f"term:{linked_term['id']}")])
-    rows.append(_back())
+    rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)
 
 
-def glossary_keyboard(terms: list[dict], page: int = 0) -> InlineKeyboardMarkup:
+def glossary_keyboard(terms: list[dict], page: int = 0, lang: str = "en") -> InlineKeyboardMarkup:
     start = page * PAGE_SIZE
     end = start + PAGE_SIZE
     page_terms = terms[start:end]
 
-    rows = [[_btn(f"📖 {t['name']}", f"term:{t['id']}")] for t in page_terms]
+    rows = [[_btn(f"📖 {t_['name']}", f"term:{t_['id']}")] for t_ in page_terms]
 
     nav = []
     if page > 0:
-        nav.append(_btn("◀ Prev", f"glossary:page:{page - 1}"))
+        nav.append(_btn(t(lang, "btn_prev"), f"glossary:page:{page - 1}"))
     if end < len(terms):
-        nav.append(_btn("Next ▶", f"glossary:page:{page + 1}"))
+        nav.append(_btn(t(lang, "btn_next"), f"glossary:page:{page + 1}"))
     if nav:
         rows.append(nav)
 
-    rows.append(_back())
+    rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)
 
 
-def npc_with_terms(npc: dict, terms: list[dict]) -> InlineKeyboardMarkup:
-    rows = [[_btn(f"📖 {t['name']}", f"term:{t['id']}")] for t in terms]
-    rows.append(_back())
+def npc_with_terms(npc: dict, terms: list[dict], lang: str = "en") -> InlineKeyboardMarkup:
+    rows = [[_btn(f"📖 {t_['name']}", f"term:{t_['id']}")] for t_ in terms]
+    rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)
 
 
-def search_results(results: dict[str, list[dict]]) -> InlineKeyboardMarkup:
+def search_results(results: dict[str, list[dict]], lang: str = "en") -> InlineKeyboardMarkup:
     rows = []
     type_map = {
-        "Rules": "rule",
-        "Glossary": "term",
-        "Equipment": "item",
-        "NPCs": "npc",
-        "Locations": "loc",
+        "Rules":       "rule",
+        "Glossary":    "term",
+        "Equipment":   "item",
+        "NPCs":        "npc",
+        "Locations":   "loc",
         "Roll Tables": "table",
+    }
+    section_keys = {
+        "Rules":       "search_section_rules",
+        "Glossary":    "search_section_glossary",
+        "Equipment":   "search_section_equipment",
+        "NPCs":        "search_section_npcs",
+        "Locations":   "search_section_locations",
+        "Roll Tables": "search_section_tables",
     }
     for section, items in results.items():
         cb_type = type_map.get(section, "rule")
+        section_label = t(lang, section_keys.get(section, "search_section_rules"))
         for item in items[:5]:
-            rows.append([_btn(f"[{section}] {item['title']}", f"{cb_type}:{item['id']}")])
-    rows.append([_btn("← Main Menu", "menu")])
+            rows.append([_btn(f"[{section_label}] {item['title']}", f"{cb_type}:{item['id']}")])
+    rows.append([_btn(t(lang, "btn_main_menu"), "menu")])
     return InlineKeyboardMarkup(rows)
 
 
-def entries_list(table: dict, entries: list[dict], page: int = 0) -> InlineKeyboardMarkup:
+def entries_list(table: dict, entries: list[dict], page: int = 0, lang: str = "en") -> InlineKeyboardMarkup:
     """Selectable entry list with pagination, roll button, and back."""
     start = page * ENTRIES_PAGE_SIZE
     end = start + ENTRIES_PAGE_SIZE
@@ -205,16 +227,17 @@ def entries_list(table: dict, entries: list[dict], page: int = 0) -> InlineKeybo
 
     nav = []
     if page > 0:
-        nav.append(_btn("◀ Prev", f"entries:{table['id']}:page:{page - 1}"))
+        nav.append(_btn(t(lang, "btn_prev"), f"entries:{table['id']}:page:{page - 1}"))
     if end < len(entries):
-        nav.append(_btn("Next ▶", f"entries:{table['id']}:page:{page + 1}"))
+        nav.append(_btn(t(lang, "btn_next"), f"entries:{table['id']}:page:{page + 1}"))
     if nav:
         rows.append(nav)
 
     total_pages = (len(entries) + ENTRIES_PAGE_SIZE - 1) // ENTRIES_PAGE_SIZE
     if total_pages > 1:
-        rows.append([_btn(f"Page {page + 1} / {total_pages}", "noop")])
+        rows.append([_btn(t(lang, "btn_page", page=page + 1, total=total_pages), "noop")])
 
-    rows.append([_btn(f"🎲 Roll ({table['dice_notation'].upper()})", f"roll:{table['id']}")])
-    rows.append(_back())
+    dice = table["dice_notation"].upper()
+    rows.append([_btn(t(lang, "btn_roll", dice=dice), f"roll:{table['id']}")])
+    rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)

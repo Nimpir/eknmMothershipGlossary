@@ -6,7 +6,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 1,
-    "body": "Roll *d100* (two ten-sided dice read as a percentage, 00–99) under your relevant Stat or Save to succeed.\n\n• *Advantage [+]:* Roll twice, take the lower result.\n• *Disadvantage [-]:* Roll twice, take the higher result.\n• *90–99 always fails*, even with Advantage.\n• *Critical Success:* matching doubles that fall under your stat (e.g. 33 when stat is 45).\n• *Critical Failure:* matching doubles that fall over your stat (e.g. 77 when stat is 45)."
+    "body": "Roll *d100* (two ten-sided dice read as a percentage, 00–99) under your relevant Stat or Save to succeed.\n\n• *Advantage [+]:* Roll twice, take the lower result.\n• *Disadvantage [-]:* Roll twice, take the higher result.\n• *90–99 always fails*, even with Advantage.\n• *Critical Success:* matching doubles that fall under your stat (e.g. 33 when stat is 45).\n• *Critical Failure:* matching doubles that fall over your stat (e.g. 77 when stat is 45).",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 2,
@@ -15,7 +19,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 2,
-    "body": "Roll *2d10+25* for each of the four stats at character creation. Average result: 36.\n\n• *Strength* — Physical feats, melee damage base (Str ÷ 10, round down).\n• *Speed* — Initiative order, evasion, chases.\n• *Intellect* — Knowledge, problem-solving, technology.\n• *Combat* — Accuracy when attacking with weapons."
+    "body": "Roll *2d10+25* for each of the four stats at character creation. Average result: 36.\n\n• *Strength* — Physical feats, melee damage base (Str ÷ 10, round down).\n• *Speed* — Initiative order, evasion, chases.\n• *Intellect* — Knowledge, problem-solving, technology.\n• *Combat* — Accuracy when attacking with weapons.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 3,
@@ -24,7 +32,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 3,
-    "body": "Roll *2d10+10* for each save at character creation.\n\n• *Sanity* — Resists psychological horror, alien incomprehensibility, madness.\n• *Fear* — Resists immediate dread, panic triggers, terrifying revelations. Also used for Panic Checks.\n• *Body* — Resists physical trauma, toxins, decompression, disease."
+    "body": "Roll *2d10+10* for each save at character creation.\n\n• *Sanity* — Resists psychological horror, alien incomprehensibility, madness.\n• *Fear* — Resists immediate dread, panic triggers, terrifying revelations. Also used for Panic Checks.\n• *Body* — Resists physical trauma, toxins, decompression, disease.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 4,
@@ -33,7 +45,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 1,
-    "body": "1. *Roll Stats* — 2d10+25 each for Strength, Speed, Intellect, Combat.\n2. *Roll Saves* — 2d10+10 each for Sanity, Fear, Body.\n3. *Choose Class* — Apply class stat/save bonuses.\n4. *Roll Health* — 1d10+10 = Maximum Health. Start at Max with 0 Wounds.\n5. *Gain Stress* — Current Stress and Minimum Stress both start at 2.\n6. *Note Trauma Response* — Mark your class Trauma Response.\n7. *Choose Skills* — Each class has preloaded skills plus bonus picks.\n8. *Roll Loadout, Trinket & Patch* — d10 on class table; d100 for Trinket and Patch.\n9. *Finishing* — Write name and pronouns. Mark 0 above High Score. Ready to play."
+    "body": "1. *Roll Stats* — 2d10+25 each for Strength, Speed, Intellect, Combat.\n2. *Roll Saves* — 2d10+10 each for Sanity, Fear, Body.\n3. *Choose Class* — Apply class stat/save bonuses.\n4. *Roll Health* — 1d10+10 = Maximum Health. Start at Max with 0 Wounds.\n5. *Gain Stress* — Current Stress and Minimum Stress both start at 2.\n6. *Note Trauma Response* — Mark your class Trauma Response.\n7. *Choose Skills* — Each class has preloaded skills plus bonus picks.\n8. *Roll Loadout, Trinket & Patch* — d10 on class table; d100 for Trinket and Patch.\n9. *Finishing* — Write name and pronouns. Mark 0 above High Score. Ready to play.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 5,
@@ -42,7 +58,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 2,
-    "body": "Roll *2d10×10cr* in addition to your Starting Loadout.\n\nIf you forgo your Loadout entirely, roll *2d10×100cr* instead.\n\nCredits are tight — you are working-class spacers, not heroes."
+    "body": "Roll *2d10×10cr* in addition to your Starting Loadout.\n\nIf you forgo your Loadout entirely, roll *2d10×100cr* instead.\n\nCredits are tight — you are working-class spacers, not heroes.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 6,
@@ -51,7 +71,11 @@
     "source_book_id": 1,
     "page_number": 26,
     "sort_order": 1,
-    "body": "*Rounds* — Combat runs in ~10 second intervals. Everything in a round happens at roughly the same time.\n\n*Each Round:*\n1. Warden describes the situation and likely outcome if no one acts.\n2. Players describe how their characters react.\n3. Everyone commits to a course of action.\n4. Warden resolves all actions simultaneously, calling for any Stat Checks or Saves.\n5. Everyone rolls. Damage and Wounds are rolled after.\n6. Warden describes the new situation. Next round begins.\n\n*Strict Turn Order (optional):* At the start of an encounter, everyone makes a *Speed Check*. Those who succeed act before enemy hostiles; those who fail act after. If the situation changes dramatically, Speed Checks can be called again.\n\n*Surprise:* If characters may be ambushed or shocked, the Warden calls for a *Fear Save*. Those who succeed can react. Those who fail are too shocked to act until the next round."
+    "body": "*Rounds* — Combat runs in ~10 second intervals. Everything in a round happens at roughly the same time.\n\n*Each Round:*\n1. Warden describes the situation and likely outcome if no one acts.\n2. Players describe how their characters react.\n3. Everyone commits to a course of action.\n4. Warden resolves all actions simultaneously, calling for any Stat Checks or Saves.\n5. Everyone rolls. Damage and Wounds are rolled after.\n6. Warden describes the new situation. Next round begins.\n\n*Strict Turn Order (optional):* At the start of an encounter, everyone makes a *Speed Check*. Those who succeed act before enemy hostiles; those who fail act after. If the situation changes dramatically, Speed Checks can be called again.\n\n*Surprise:* If characters may be ambushed or shocked, the Warden calls for a *Fear Save*. Those who succeed can react. Those who fail are too shocked to act until the next round.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 7,
@@ -60,7 +84,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 1,
-    "body": "On your turn, make a *Combat Check*: roll d100 under your Combat stat.\n\n• *Success* → roll weapon damage.\n• *Failure* → the attack misses.\n• *Critical Success* (matching doubles under) → something exceptional happens.\n• *Critical Failure* (matching doubles over) → something bad happens (weapon jams, friendly fire, etc.).\n• *(AA) Auto-Attack weapons* hit automatically — no Combat Check needed, just roll damage."
+    "body": "On your turn, make a *Combat Check*: roll d100 under your Combat stat.\n\n• *Success* → roll weapon damage.\n• *Failure* → the attack misses.\n• *Critical Success* (matching doubles under) → something exceptional happens.\n• *Critical Failure* (matching doubles over) → something bad happens (weapon jams, friendly fire, etc.).\n• *(AA) Auto-Attack weapons* hit automatically — no Combat Check needed, just roll damage.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 8,
@@ -69,7 +97,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 1,
-    "body": "After a successful hit:\n\n1. Roll the weapon's damage dice.\n2. Subtract the target's *AP (Armor Points)*.\n3. Remaining damage is dealt to *Health*.\n\nAP regenerates between encounters. Advanced Battle Dress also applies *Damage Reduction 3* after AP (subtract another 3 from the remaining damage)."
+    "body": "After a successful hit:\n\n1. Roll the weapon's damage dice.\n2. Subtract the target's *AP (Armor Points)*.\n3. Remaining damage is dealt to *Health*.\n\nAP regenerates between encounters. Advanced Battle Dress also applies *Damage Reduction 3* after AP (subtract another 3 from the remaining damage).",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 9,
@@ -78,7 +110,11 @@
     "source_book_id": 1,
     "page_number": 29,
     "sort_order": 2,
-    "body": "When Health drops to *0*, take 1 Wound:\n1. Roll 1d10 on the *Wound Table* for the damage type (Blunt Force, Bleeding, Gunshot, Fire/Explosives, or Gore).\n2. Reset Health to Maximum minus any carryover damage.\n\nIf Wounds exceed *Max Wounds* (base 2; Marines & Androids: 3) → you die.\n\n*Severity guide:*\n• *Flesh Wound* — Minor inconvenience.\n• *Minor Injury* — Lasting issue; needs medical attention.\n• *Major Injury* — Serious; requires surgery.\n• *Lethal Injury* — Death Save in 10d10 rounds without treatment.\n• *Fatal Injury* — Death Save immediately.\n\n*Bleeding +N* — Each round without treatment, ongoing damage. Stop with First Aid Kit or Field Medicine.\n\nSome attacks deal Wounds directly, bypassing Armor and Damage Reduction."
+    "body": "When Health drops to *0*, take 1 Wound:\n1. Roll 1d10 on the *Wound Table* for the damage type (Blunt Force, Bleeding, Gunshot, Fire/Explosives, or Gore).\n2. Reset Health to Maximum minus any carryover damage.\n\nIf Wounds exceed *Max Wounds* (base 2; Marines & Androids: 3) → you die.\n\n*Severity guide:*\n• *Flesh Wound* — Minor inconvenience.\n• *Minor Injury* — Lasting issue; needs medical attention.\n• *Major Injury* — Serious; requires surgery.\n• *Lethal Injury* — Death Save in 10d10 rounds without treatment.\n• *Fatal Injury* — Death Save immediately.\n\n*Bleeding +N* — Each round without treatment, ongoing damage. Stop with First Aid Kit or Field Medicine.\n\nSome attacks deal Wounds directly, bypassing Armor and Damage Reduction.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 10,
@@ -87,7 +123,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 1,
-    "body": "Each weapon deals a specific wound type on the Wound Table:\n\n• *Bleeding* — Scalpel, Hand Welder, Rigging Gun, Laser Cutter, Vibechete\n• *Gore* — Boarding Axe, Laser Cutter [+], Vibechete\n• *Gunshot* — Combat Shotgun, Revolver, Pulse Rifle, SMG, Smart Rifle, GPMG\n• *Blunt Force* — Crowbar, Foam Gun, Stun Baton, Tranq Pistol, Unarmed\n• *Fire/Explosives* — Flamethrower, Flare Gun, Frag Grenade\n\nSome weapons specify [+] or [-] on the wound roll. Vibechete causes a Wound on *both* Bleeding AND Gore columns simultaneously."
+    "body": "Each weapon deals a specific wound type on the Wound Table:\n\n• *Bleeding* — Scalpel, Hand Welder, Rigging Gun, Laser Cutter, Vibechete\n• *Gore* — Boarding Axe, Laser Cutter [+], Vibechete\n• *Gunshot* — Combat Shotgun, Revolver, Pulse Rifle, SMG, Smart Rifle, GPMG\n• *Blunt Force* — Crowbar, Foam Gun, Stun Baton, Tranq Pistol, Unarmed\n• *Fire/Explosives* — Flamethrower, Flare Gun, Frag Grenade\n\nSome weapons specify [+] or [-] on the wound roll. Vibechete causes a Wound on *both* Bleeding AND Gore columns simultaneously.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 11,
@@ -96,7 +136,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 1,
-    "body": "Stress is the core tension engine of Mothership.\n\n• *Current Stress* starts at 2.\n• *Minimum Stress* starts at 2 — it cannot go lower.\n• Stress *increases* from horror, failed saves, and bad events.\n• Whenever Current Stress *equals or exceeds* Minimum Stress, make a *Panic Check* (Fear Save).\n• On a failed Panic Check, roll on the *Panic Table*.\n• Stress *decreases* during Shore Leave between missions."
+    "body": "Stress is the core tension engine of Mothership.\n\n• *Current Stress* starts at 2.\n• *Minimum Stress* starts at 2 — it cannot go lower.\n• Stress *increases* from horror, failed saves, and bad events.\n• Whenever Current Stress *equals or exceeds* Minimum Stress, make a *Panic Check* (Fear Save).\n• On a failed Panic Check, roll on the *Panic Table*.\n• Stress *decreases* during Shore Leave between missions.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 12,
@@ -105,7 +149,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 2,
-    "body": "1. Your Current Stress equals or exceeds your Minimum Stress.\n2. Make a *Fear Save* (roll d100 under your Fear stat).\n3. *Success* → No panic. Breathe.\n4. *Failure* → Roll on the *Panic Table* and apply the result immediately.\n5. Your class *Trauma Response* may force nearby crew to make their own Fear Saves.\n\n*Teamster bonus:* Once per session, may take Advantage [+] on a Panic Check."
+    "body": "1. Your Current Stress equals or exceeds your Minimum Stress.\n2. Make a *Fear Save* (roll d100 under your Fear stat).\n3. *Success* → No panic. Breathe.\n4. *Failure* → Roll on the *Panic Table* and apply the result immediately.\n5. Your class *Trauma Response* may force nearby crew to make their own Fear Saves.\n\n*Teamster bonus:* Once per session, may take Advantage [+] on a Panic Check.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 13,
@@ -114,7 +162,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 3,
-    "body": "Each class has a Trauma Response that cascades panic to nearby crew:\n\n• *Marine* — When you panic, every nearby friendly crew must make a Fear Save.\n• *Android* — Fear Saves made by nearby crew are at Disadvantage [-].\n• *Scientist* — When you fail a Sanity Save, all nearby crew gain 1 Stress.\n• *Teamster* — Once per session, may take Advantage [+] on one Panic Check (beneficial, not harmful)."
+    "body": "Each class has a Trauma Response that cascades panic to nearby crew:\n\n• *Marine* — When you panic, every nearby friendly crew must make a Fear Save.\n• *Android* — Fear Saves made by nearby crew are at Disadvantage [-].\n• *Scientist* — When you fail a Sanity Save, all nearby crew gain 1 Stress.\n• *Teamster* — Once per session, may take Advantage [+] on one Panic Check (beneficial, not harmful).",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 14,
@@ -123,7 +175,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 3,
-    "body": "Track O2 carefully in hostile environments:\n\n• *Vaccsuit* — 12 hours O2. Short-range comms, headlamp, radiation shielding. If punctured, decompression within 1d5 rounds.\n• *Hazard Suit* — 1 hour O2. Air filter, extreme temperature protection.\n• *Advanced Battle Dress* — 1 hour O2.\n\n*Decompression in vacuum:* Body Save or take 1 Wound (Fire/Explosives) per round."
+    "body": "Track O2 carefully in hostile environments:\n\n• *Vaccsuit* — 12 hours O2. Short-range comms, headlamp, radiation shielding. If punctured, decompression within 1d5 rounds.\n• *Hazard Suit* — 1 hour O2. Air filter, extreme temperature protection.\n• *Advanced Battle Dress* — 1 hour O2.\n\n*Decompression in vacuum:* Body Save or take 1 Wound (Fire/Explosives) per round.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 15,
@@ -132,7 +188,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 1,
-    "body": "Skills have three tiers. You must take the prerequisite tier first:\n\n• *Trained (+10)* — Basic competency. Adds +10 to the relevant stat check.\n• *Expert (+15)* — Advanced competency. Adds +15. Requires Trained in the tree.\n• *Master (+20)* — Specialist. Adds +20. Requires Expert in the tree.\n\nSkill bonuses stack with stat values. You can only add one Skill Bonus to a Ship Stat Check at a time."
+    "body": "Skills have three tiers. You must take the prerequisite tier first:\n\n• *Trained (+10)* — Basic competency. Adds +10 to the relevant stat check.\n• *Expert (+15)* — Advanced competency. Adds +15. Requires Trained in the tree.\n• *Master (+20)* — Specialist. Adds +20. Requires Expert in the tree.\n\nSkill bonuses stack with stat values. You can only add one Skill Bonus to a Ship Stat Check at a time.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 16,
@@ -141,7 +201,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 2,
-    "body": "Three tiers: *Trained* (+10), *Expert* (+15), *Master* (+20). Any listed prerequisite is sufficient.\n\n*Trained → Expert*\nLinguistics or Zoology → Psychology\nZoology or Botany → Pathology\nZoology → Field Medicine\nBotany or Geology → Ecology\nBotany → Wilderness Survival\nGeology or Industrial Equipment → Asteroid Mining\nIndustrial Equipment or Jury-Rigging → Mechanical Repair\nJury-Rigging or Chemistry or Military Training → Explosives\nChemistry → Pharmacology\nComputers → Hacking\nZero-G → Piloting\nMathematics → Physics\nArt or Archaeology or Theology → Mysticism\nMilitary Training or Rimwise → Firearms\nMilitary Training or Rimwise or Athletics → Hand-to-Hand Combat\n\n*Expert → Master*\nPsychology → Sophontology\nPathology → Exobiology\nPathology or Field Medicine → Surgery\nEcology or Asteroid Mining → Planetology\nMechanical Repair → Robotics, Engineering, Cybernetics\nHacking → Artificial Intelligence\nPiloting or Physics or Mysticism → Hyperspace\nPiloting or Firearms → Command\nMysticism → Xenoesotericism"
+    "body": "Three tiers: *Trained* (+10), *Expert* (+15), *Master* (+20). Any listed prerequisite is sufficient.\n\n*Trained → Expert*\nLinguistics or Zoology → Psychology\nZoology or Botany → Pathology\nZoology → Field Medicine\nBotany or Geology → Ecology\nBotany → Wilderness Survival\nGeology or Industrial Equipment → Asteroid Mining\nIndustrial Equipment or Jury-Rigging → Mechanical Repair\nJury-Rigging or Chemistry or Military Training → Explosives\nChemistry → Pharmacology\nComputers → Hacking\nZero-G → Piloting\nMathematics → Physics\nArt or Archaeology or Theology → Mysticism\nMilitary Training or Rimwise → Firearms\nMilitary Training or Rimwise or Athletics → Hand-to-Hand Combat\n\n*Expert → Master*\nPsychology → Sophontology\nPathology → Exobiology\nPathology or Field Medicine → Surgery\nEcology or Asteroid Mining → Planetology\nMechanical Repair → Robotics, Engineering, Cybernetics\nHacking → Artificial Intelligence\nPiloting or Physics or Mysticism → Hyperspace\nPiloting or Firearms → Command\nMysticism → Xenoesotericism",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 17,
@@ -150,7 +214,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 5,
-    "body": "Each class starts with preloaded skills and additional picks:\n\n• *Marine* — Preloaded: Military Training, Athletics. Bonus: 1 Expert Skill OR 2 Trained Skills.\n• *Android* — Preloaded: Linguistics, Computers, Mathematics. Bonus: 1 Expert Skill OR 2 Trained Skills.\n• *Scientist* — Preloaded: 1 Master Skill + 1 Expert + 1 Trained. Bonus: 1 Trained Skill.\n• *Teamster* — Preloaded: Industrial Equipment, Zero-G. Bonus: 1 Trained + 1 Expert Skill."
+    "body": "Each class starts with preloaded skills and additional picks:\n\n• *Marine* — Preloaded: Military Training, Athletics. Bonus: 1 Expert Skill OR 2 Trained Skills.\n• *Android* — Preloaded: Linguistics, Computers, Mathematics. Bonus: 1 Expert Skill OR 2 Trained Skills.\n• *Scientist* — Preloaded: 1 Master Skill + 1 Expert + 1 Trained. Bonus: 1 Trained Skill.\n• *Teamster* — Preloaded: Industrial Equipment, Zero-G. Bonus: 1 Trained + 1 Expert Skill.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 18,
@@ -159,7 +227,11 @@
     "source_book_id": 5,
     "page_number": null,
     "sort_order": 1,
-    "body": "Ships have three stats that function as both stats and saves:\n\n• *Thrusters* — Maneuvering and acceleration. Like Speed.\n• *Weapons* — Targeting and attacking other ships. Like Combat.\n• *Systems* — Sensors, computers, maintenance, other subsystems.\n\nWhenever a ship *fails* a Stat Check, *everyone aboard gains 1 Stress*.\n90–99 always fails. Critical Failure = everyone aboard makes a Panic Check.\n\nOne crew member may add their relevant Skill Bonus to a Ship Stat Check at a time."
+    "body": "Ships have three stats that function as both stats and saves:\n\n• *Thrusters* — Maneuvering and acceleration. Like Speed.\n• *Weapons* — Targeting and attacking other ships. Like Combat.\n• *Systems* — Sensors, computers, maintenance, other subsystems.\n\nWhenever a ship *fails* a Stat Check, *everyone aboard gains 1 Stress*.\n90–99 always fails. Critical Failure = everyone aboard makes a Panic Check.\n\nOne crew member may add their relevant Skill Bonus to a Ship Stat Check at a time.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 19,
@@ -168,7 +240,11 @@
     "source_book_id": 5,
     "page_number": null,
     "sort_order": 1,
-    "body": "Ship combat follows the same structure as personal combat:\n\n1. *Initiative* — Highest Thrusters acts first.\n2. *Attack* — Roll d100 under Weapons stat.\n3. *Damage* — Ship weapons deal Megadamage (MDMG) dice.\n4. *Critical Hits* — Roll on the Status Report (Megadamage Track).\n5. *Failed Ship Saves* — Everyone aboard gains 1 Stress.\n6. *Critical Failure* — Everyone makes a Panic Check.\n7. *Escape* — Thrusters Check to disengage."
+    "body": "Ship combat follows the same structure as personal combat:\n\n1. *Initiative* — Highest Thrusters acts first.\n2. *Attack* — Roll d100 under Weapons stat.\n3. *Damage* — Ship weapons deal Megadamage (MDMG) dice.\n4. *Critical Hits* — Roll on the Status Report (Megadamage Track).\n5. *Failed Ship Saves* — Everyone aboard gains 1 Stress.\n6. *Critical Failure* — Everyone makes a Panic Check.\n7. *Escape* — Thrusters Check to disengage.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 20,
@@ -177,7 +253,11 @@
     "source_book_id": 5,
     "page_number": null,
     "sort_order": 2,
-    "body": "Every ship broadcasts an automated Transponder signal containing: Ship Identifier/name, make/model, jump drive info, ship class and type.\n\n*Illegal (or highly suspect) to turn off* in most star systems. Disabling a transponder is a red flag to authorities and other ships."
+    "body": "Every ship broadcasts an automated Transponder signal containing: Ship Identifier/name, make/model, jump drive info, ship class and type.\n\n*Illegal (or highly suspect) to turn off* in most star systems. Disabling a transponder is a red flag to authorities and other ships.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 21,
@@ -186,7 +266,11 @@
     "source_book_id": 2,
     "page_number": null,
     "sort_order": 1,
-    "body": "Every Horror in Mothership follows this 5-act structure:\n\n• *Act I — Transgression:* Someone awakens the Horror. A line was crossed.\n• *Act II — Omens:* Signs of the Horror's approach. Build tension.\n• *Act III — Manifestation:* The Horror reveals its true form.\n• *Act IV — Banishment:* Players race to fight back. Stakes escalate.\n• *Act V — Slumber:* The Horror relents — for now. The cycle begins again.\n\nEvery Horror, in every module, follows this structure. Design your scenario around it."
+    "body": "Every Horror in Mothership follows this 5-act structure:\n\n• *Act I — Transgression:* Someone awakens the Horror. A line was crossed.\n• *Act II — Omens:* Signs of the Horror's approach. Build tension.\n• *Act III — Manifestation:* The Horror reveals its true form.\n• *Act IV — Banishment:* Players race to fight back. Stakes escalate.\n• *Act V — Slumber:* The Horror relents — for now. The cycle begins again.\n\nEvery Horror, in every module, follows this structure. Design your scenario around it.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 22,
@@ -195,7 +279,11 @@
     "source_book_id": 2,
     "page_number": null,
     "sort_order": 1,
-    "body": "1. Get organized — label notebook: Index, Roster, Session Prep.\n2. Invite 3–4 friends. Schedule 3–4 hours.\n3. Read the Player's Survival Guide.\n4. Choose a Starting Scenario.\n5. Note the Setting (roll d10 or choose).\n6. Find the Horror — use the Random Horrors Table.\n7. Create a Survival Obstacle.\n8. Something to Solve / Someone to Save.\n9. Map it out with shorthand notes.\n10. Find hidden connections, discard weak ideas."
+    "body": "1. Get organized — label notebook: Index, Roster, Session Prep.\n2. Invite 3–4 friends. Schedule 3–4 hours.\n3. Read the Player's Survival Guide.\n4. Choose a Starting Scenario.\n5. Note the Setting (roll d10 or choose).\n6. Find the Horror — use the Random Horrors Table.\n7. Create a Survival Obstacle.\n8. Something to Solve / Someone to Save.\n9. Map it out with shorthand notes.\n10. Find hidden connections, discard weak ideas.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 23,
@@ -204,7 +292,11 @@
     "source_book_id": 2,
     "page_number": null,
     "sort_order": 2,
-    "body": "Players can usually only accomplish one, maybe two:\n\n• *Survive the Nightmare* — Outlast the Horror, escape with your lives.\n• *Solve the Mystery* — Understand what is happening and why.\n• *Save the Day* — Rescue someone, stop the Horror, protect others.\n\nDesign scenarios with hard problems and escalating threats. A good story only happens in retrospect — design *situations*, not plots."
+    "body": "Players can usually only accomplish one, maybe two:\n\n• *Survive the Nightmare* — Outlast the Horror, escape with your lives.\n• *Solve the Mystery* — Understand what is happening and why.\n• *Save the Day* — Rescue someone, stop the Horror, protect others.\n\nDesign scenarios with hard problems and escalating threats. A good story only happens in retrospect — design *situations*, not plots.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 24,
@@ -213,7 +305,11 @@
     "source_book_id": 2,
     "page_number": null,
     "sort_order": 3,
-    "body": "Five categories of obstacles for scenarios:\n\n• *Psychological Trauma* — Creepy environments, isolation, evidence of violence, Omens.\n• *Violent Encounters* — Combat. Use sparingly and brutally.\n• *Environmental Hazards* — Toxic atmosphere, radiation, zero-G, lack of O2.\n• *Social Pressures* — Negotiation, factions, allies, enemies.\n• *Resource Scarcity* — O2, food, ammo, fuel, Warp Cores, credits."
+    "body": "Five categories of obstacles for scenarios:\n\n• *Psychological Trauma* — Creepy environments, isolation, evidence of violence, Omens.\n• *Violent Encounters* — Combat. Use sparingly and brutally.\n• *Environmental Hazards* — Toxic atmosphere, radiation, zero-G, lack of O2.\n• *Social Pressures* — Negotiation, factions, allies, enemies.\n• *Resource Scarcity* — O2, food, ammo, fuel, Warp Cores, credits.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 25,
@@ -222,7 +318,11 @@
     "source_book_id": 3,
     "page_number": null,
     "sort_order": 1,
-    "body": "*Planet:* Samsa VI — colonized world with active terraforming.\n\n*The Signal:* Hinton (synthetic science officer) discovered the carcinid Shriek frequency and engineered it into a Signal that expands carcinid reproduction. He broadcasts it from the Orbital Relay, jamming all radio communications on Samsa VI. Anyone attempting radio contact risks Shriek infection.\n\n*Goal:* Discover what's happening, stop the Signal, survive.\n\n*Key locations:* Greta Base (pg.10), Heron Terraforming Station (pg.16), The Carcinid Mothership (pg.30).\n\n*Recommended play:* Scenario 1 → 2 → 3 → 4, but players drive the path."
+    "body": "*Planet:* Samsa VI — colonized world with active terraforming.\n\n*The Signal:* Hinton (synthetic science officer) discovered the carcinid Shriek frequency and engineered it into a Signal that expands carcinid reproduction. He broadcasts it from the Orbital Relay, jamming all radio communications on Samsa VI. Anyone attempting radio contact risks Shriek infection.\n\n*Goal:* Discover what's happening, stop the Signal, survive.\n\n*Key locations:* Greta Base (pg.10), Heron Terraforming Station (pg.16), The Carcinid Mothership (pg.30).\n\n*Recommended play:* Scenario 1 → 2 → 3 → 4, but players drive the path.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 26,
@@ -231,7 +331,11 @@
     "source_book_id": 3,
     "page_number": null,
     "sort_order": 1,
-    "body": "*Giant arthropod-insectoid creatures.* Natural weapons and near-impenetrable carapace.\n\n*Carapace:* Bullet and flameproof Aramid Fiber Weave — AP 30. *Weakness:* Hydrofluoric acid.\n\n*The Shriek:* Their primary horror weapon. Triggers a Sanity Save. On failure: +1 Stress and Infection begins (see ABH Rules — Infection Stages).\n\n*Stat block:* Combat 75 / Instinct 75 / Claw 4d10 DMG / Wounds 2 (20 HP) / AP 30."
+    "body": "*Giant arthropod-insectoid creatures.* Natural weapons and near-impenetrable carapace.\n\n*Carapace:* Bullet and flameproof Aramid Fiber Weave — AP 30. *Weakness:* Hydrofluoric acid.\n\n*The Shriek:* Their primary horror weapon. Triggers a Sanity Save. On failure: +1 Stress and Infection begins (see ABH Rules — Infection Stages).\n\n*Stat block:* Combat 75 / Instinct 75 / Claw 4d10 DMG / Wounds 2 (20 HP) / AP 30.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 27,
@@ -240,7 +344,11 @@
     "source_book_id": 3,
     "page_number": 7,
     "sort_order": 2,
-    "body": "Characters exposed to the Shriek who fail a Sanity Save become Infected. Infection progresses in stages:\n\n• *Stage 1:* Recurring headaches, strange compulsions, slight personality shifts.\n• *Stage 2:* Hearing the Shriek even in silence, acting in the carcinids' interest without realising.\n• *Stage 3:* Full carcinid psychic possession. Character becomes an NPC hostile to the crew.\n\nRadio contact on Samsa VI while the Signal broadcasts: Sanity Save or begin Stage 1."
+    "body": "Characters exposed to the Shriek who fail a Sanity Save become Infected. Infection progresses in stages:\n\n• *Stage 1:* Recurring headaches, strange compulsions, slight personality shifts.\n• *Stage 2:* Hearing the Shriek even in silence, acting in the carcinids' interest without realising.\n• *Stage 3:* Full carcinid psychic possession. Character becomes an NPC hostile to the crew.\n\nRadio contact on Samsa VI while the Signal broadcasts: Sanity Save or begin Stage 1.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 28,
@@ -249,7 +357,11 @@
     "source_book_id": 3,
     "page_number": null,
     "sort_order": 3,
-    "body": "Two actions required to stop the Signal:\n\n1. *Remove the carc from the controls* in the Control Room [4] at Heron Station — one round action.\n2. *Manually reset the Orbital Relay [5]* on the roof — one round action.\n\nOnce both are done, radio communications return. Disoriented carcinids retreat: Chimney [11] → Tunnels [15] → The Mothership.\n\n*Roof hazard:* Heavy rain, slippery surface. Falls are lethal."
+    "body": "Two actions required to stop the Signal:\n\n1. *Remove the carc from the controls* in the Control Room [4] at Heron Station — one round action.\n2. *Manually reset the Orbital Relay [5]* on the roof — one round action.\n\nOnce both are done, radio communications return. Disoriented carcinids retreat: Chimney [11] → Tunnels [15] → The Mothership.\n\n*Roof hazard:* Heavy rain, slippery surface. Falls are lethal.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 29,
@@ -258,7 +370,11 @@
     "source_book_id": 7,
     "page_number": null,
     "sort_order": 1,
-    "body": "*Premise:* Somewhere in the universe there is a planet with a dark energy that sucks ships out of hyperspace and strands them in orbit. Jump drives don't work here — only thrusters, which would take hundreds of years to escape.\n\n*The Gaunt:* Nightmare-inducing parasites from a Dead Dimension. Their goal: escape the Dead Planet and flood the universe with necrosis. They do this by compelling captive species to build and open the Dead Gateway.\n\n*Ways to win:* De-power the Dead Gateway, destroy it, blow up the planet, or hitch a ride with Brekt (6 seats)."
+    "body": "*Premise:* Somewhere in the universe there is a planet with a dark energy that sucks ships out of hyperspace and strands them in orbit. Jump drives don't work here — only thrusters, which would take hundreds of years to escape.\n\n*The Gaunt:* Nightmare-inducing parasites from a Dead Dimension. Their goal: escape the Dead Planet and flood the universe with necrosis. They do this by compelling captive species to build and open the Dead Gateway.\n\n*Ways to win:* De-power the Dead Gateway, destroy it, blow up the planet, or hitch a ride with Brekt (6 seats).",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 30,
@@ -267,7 +383,11 @@
     "source_book_id": 7,
     "page_number": null,
     "sort_order": 1,
-    "body": "A *Sanity Save* made when resting. Frequency depends on location:\n\n• *On the Moon (orbit):* Once a week.\n• *On Tyrant Beggar Moon Colony:* Every other night.\n• *On the Dead Planet surface:* Every night.\n\n*Failure:* Gain 1 Stress and roll a result from the Nightmare Table.\n*Nightmares prevent healing* and the benefits of rest.\n*Same nightmare twice:* 1d10 Stress; it becomes your only recurring dream.\n*Three failures in a row:* Permanent Night Terrors — gain 1d10[+] Stress every nightmare."
+    "body": "A *Sanity Save* made when resting. Frequency depends on location:\n\n• *On the Moon (orbit):* Once a week.\n• *On Tyrant Beggar Moon Colony:* Every other night.\n• *On the Dead Planet surface:* Every night.\n\n*Failure:* Gain 1 Stress and roll a result from the Nightmare Table.\n*Nightmares prevent healing* and the benefits of rest.\n*Same nightmare twice:* 1d10 Stress; it becomes your only recurring dream.\n*Three failures in a row:* Permanent Night Terrors — gain 1d10[+] Stress every nightmare.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 31,
@@ -276,7 +396,11 @@
     "source_book_id": 7,
     "page_number": null,
     "sort_order": 2,
-    "body": "After two or more failed Nightmare Checks while significantly exposed to the Gaunt:\n\n1. Wake up with a *Compulsion to sculpt* a small terrifying object.\n2. Roll on the *Compulsive Nightmarish Sculpture Table* (d10).\n3. Have *1d10 days* to complete it. Each day you don't: gain 1d10 Stress.\n4. After completing, future Nightmare Checks: take no Stress but must build another, OR take Stress equal to number of sculptures already made.\n5. Each sculpture created: Warden rolls d100. If result ≤ total sculptures held by crew → *Gaunt gate opens*.\n6. Losing/destroying a sculpture: 1d10 permanent damage to Sanity Save."
+    "body": "After two or more failed Nightmare Checks while significantly exposed to the Gaunt:\n\n1. Wake up with a *Compulsion to sculpt* a small terrifying object.\n2. Roll on the *Compulsive Nightmarish Sculpture Table* (d10).\n3. Have *1d10 days* to complete it. Each day you don't: gain 1d10 Stress.\n4. After completing, future Nightmare Checks: take no Stress but must build another, OR take Stress equal to number of sculptures already made.\n5. Each sculpture created: Warden rolls d100. If result ≤ total sculptures held by crew → *Gaunt gate opens*.\n6. Losing/destroying a sculpture: 1d10 permanent damage to Sanity Save.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 32,
@@ -285,7 +409,11 @@
     "source_book_id": 4,
     "page_number": null,
     "sort_order": 1,
-    "body": "*Location:* THE DEEP — formerly CLOUDBANK Synthetics Production Facility, now controlled by the rogue AI *Monarch*. A megadungeon android factory in rimspace, surrounded by a corporate blockade of Troubleshooters.\n\n*Theme:* Identity horror. Are you who you think you are? Are androids people?\n\n*The Bends mechanic:* Characters may secretly be Infiltrator Androids with implanted human memories. Discuss with all players before using.\n\n*Monarch:* Not simply hostile — alien motivations. It *is* the building. It gains Stress when systems are damaged."
+    "body": "*Location:* THE DEEP — formerly CLOUDBANK Synthetics Production Facility, now controlled by the rogue AI *Monarch*. A megadungeon android factory in rimspace, surrounded by a corporate blockade of Troubleshooters.\n\n*Theme:* Identity horror. Are you who you think you are? Are androids people?\n\n*The Bends mechanic:* Characters may secretly be Infiltrator Androids with implanted human memories. Discuss with all players before using.\n\n*Monarch:* Not simply hostile — alien motivations. It *is* the building. It gains Stress when systems are damaged.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 33,
@@ -294,7 +422,11 @@
     "source_book_id": 4,
     "page_number": null,
     "sort_order": 1,
-    "body": "The Bends measures how certain a character is of their own identity. It operates like Stress but targets identity rather than sanity.\n\nAs The Bends increases, a character may:\n• Doubt their own memories.\n• Act against the group's interests.\n• Ultimately *refuse to leave THE DEEP* — becoming an NPC permanently.\n\n*Important:* Talk to all players before introducing Infiltrator Androids or The Bends mechanic. It can be deeply unsettling and is not for every table."
+    "body": "The Bends measures how certain a character is of their own identity. It operates like Stress but targets identity rather than sanity.\n\nAs The Bends increases, a character may:\n• Doubt their own memories.\n• Act against the group's interests.\n• Ultimately *refuse to leave THE DEEP* — becoming an NPC permanently.\n\n*Important:* Talk to all players before introducing Infiltrator Androids or The Bends mechanic. It can be deeply unsettling and is not for every table.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 34,
@@ -303,7 +435,11 @@
     "source_book_id": 6,
     "page_number": null,
     "sort_order": 1,
-    "body": "*Prospero's Dream* is a massive space station with 8,000,000+ inhabitants. Overcrowded, haphazard, criminal.\n\n*Controlled by:* Golyonova II Bratva (The Novos) — a criminal syndicate run by the secret android *Yandee*.\n*Security:* Tempest Mercenary Company.\n*Primary economy:* Sycorax drug trade (supplied by Solarian Church, distributed by Teamsters Local 32819L).\n\n*On arrival:* Ships with Hull ≤70 enter dry dock. Hull 71+ moor at piers. All ships need a current manifest. All crew receive an *O2 Credstick* after passing through the Clean Room."
+    "body": "*Prospero's Dream* is a massive space station with 8,000,000+ inhabitants. Overcrowded, haphazard, criminal.\n\n*Controlled by:* Golyonova II Bratva (The Novos) — a criminal syndicate run by the secret android *Yandee*.\n*Security:* Tempest Mercenary Company.\n*Primary economy:* Sycorax drug trade (supplied by Solarian Church, distributed by Teamsters Local 32819L).\n\n*On arrival:* Ships with Hull ≤70 enter dry dock. Hull 71+ moor at piers. All ships need a current manifest. All crew receive an *O2 Credstick* after passing through the Clean Room.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 35,
@@ -312,7 +448,11 @@
     "source_book_id": 6,
     "page_number": null,
     "sort_order": 1,
-    "body": "*The Laws of The Dream:*\n\n• Have your O2 Credstick at all times. Movements tracked.\n• *Contraband (banned):* Laser Cutters, Explosives, Signal Jammers, Contagious Bioweapons, EMP tech.\n• Non-hull-piercing weapons permitted. Hull-breaching weapons go in a *rented locker* (1cr/day/weapon).\n• Don't enter unauthorized areas, especially The Choke.\n• Street justice is pervasive. Major breaches handled by Tempest Co. and The Court.\n\n*Oxygen Tax:* 10cr/day/person. 50cr/day during major events."
+    "body": "*The Laws of The Dream:*\n\n• Have your O2 Credstick at all times. Movements tracked.\n• *Contraband (banned):* Laser Cutters, Explosives, Signal Jammers, Contagious Bioweapons, EMP tech.\n• Non-hull-piercing weapons permitted. Hull-breaching weapons go in a *rented locker* (1cr/day/weapon).\n• Don't enter unauthorized areas, especially The Choke.\n• Street justice is pervasive. Major breaches handled by Tempest Co. and The Court.\n\n*Oxygen Tax:* 10cr/day/person. 50cr/day during major events.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 36,
@@ -321,7 +461,11 @@
     "source_book_id": 6,
     "page_number": 26,
     "sort_order": 2,
-    "body": "Prospero's Dream's legal system: *trial by combat*.\n\nThose who can't pay fees or are arrested appear before Chief Adjudicator *Brunhildh*. Fight in *The Cage* (electrified, revolving stage — Body Save or 1d10 DMG and lose an action).\n\n*Losing* = death or *The Choke* (O2 debtors' prison).\n*Winning* = charges dropped.\n\nPower brokers watch from *The Bench:* Angus (Databroker), Reidmar (Teamster Rep.), Cmdr. Cutter (Tempest Co.), Yandee."
+    "body": "Prospero's Dream's legal system: *trial by combat*.\n\nThose who can't pay fees or are arrested appear before Chief Adjudicator *Brunhildh*. Fight in *The Cage* (electrified, revolving stage — Body Save or 1d10 DMG and lose an action).\n\n*Losing* = death or *The Choke* (O2 debtors' prison).\n*Winning* = charges dropped.\n\nPower brokers watch from *The Bench:* Angus (Databroker), Reidmar (Teamster Rep.), Cmdr. Cutter (Tempest Co.), Yandee.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 37,
@@ -330,7 +474,11 @@
     "source_book_id": 5,
     "page_number": null,
     "sort_order": 3,
-    "body": "• Ships use *Warp Cores* to jump through hyperspace between systems.\n• *Jump Rating* determines how far per Warp Core consumed.\n• Navigation checks use the *Systems* stat.\n• Ships spend Fuel each month of travel.\n• *Failed navigation:* 10% chance all navigation data wiped.\n• Cryosleep is standard for long journeys.\n\nWithout Warp Cores, sub-light travel between systems takes *decades*."
+    "body": "• Ships use *Warp Cores* to jump through hyperspace between systems.\n• *Jump Rating* determines how far per Warp Core consumed.\n• Navigation checks use the *Systems* stat.\n• Ships spend Fuel each month of travel.\n• *Failed navigation:* 10% chance all navigation data wiped.\n• Cryosleep is standard for long journeys.\n\nWithout Warp Cores, sub-light travel between systems takes *decades*.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 38,
@@ -339,7 +487,11 @@
     "source_book_id": 1,
     "page_number": null,
     "sort_order": 5,
-    "body": "All weapons have a maximum effective range band. Attacks beyond that range are at the Warden's discretion — usually impossible or heavily penalised.\n\n*Adjacent* — Arm's reach (melee). Unarmed, knives, hand tools.\n\n*Close* — Same room or short corridor (~10m). Revolvers, shotguns, SMGs.\n\n*Long* — Across a large open space (~50m). Pulse rifles, smart rifles, GPMGs.\n\n*Extreme* — Very far (~100m+). Sniper rifles and heavy weapons.\n\nRange is listed on each weapon's stat block. When in doubt: if you can throw something at it, it's Close. If you need a scope, it's Long or Extreme."
+    "body": "All weapons have a maximum effective range band. Attacks beyond that range are at the Warden's discretion — usually impossible or heavily penalised.\n\n*Adjacent* — Arm's reach (melee). Unarmed, knives, hand tools.\n\n*Close* — Same room or short corridor (~10m). Revolvers, shotguns, SMGs.\n\n*Long* — Across a large open space (~50m). Pulse rifles, smart rifles, GPMGs.\n\n*Extreme* — Very far (~100m+). Sniper rifles and heavy weapons.\n\nRange is listed on each weapon's stat block. When in doubt: if you can throw something at it, it's Close. If you need a scope, it's Long or Extreme.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 39,
@@ -348,7 +500,11 @@
     "source_book_id": 1,
     "page_number": 29,
     "sort_order": 3,
-    "body": "If death seems imminent, make your last moments count: save someone's life, solve a mystery, buy the others time to escape.\n\nWhen you die, the Warden makes a *Death Save*: place 1d10 in a cup, shake it, set it face down on the table. As soon as someone spends a turn checking your vitals, the die is revealed and looked up on the *Death Table* (d10).\n\n*Death Table:*\n• *Roll 1 (00):* Unconscious. Wake in 2d10 min. Reduce Max Health by 1d5.\n• *Roll 2–3 (01–02):* Unconscious and dying. Die in 1d5 rounds without intervention.\n• *Roll 4–5 (03–04):* Comatose. Only extraordinary measures can return you.\n• *Roll 6–10 (05–09):* You have died. Roll up a new character."
+    "body": "If death seems imminent, make your last moments count: save someone's life, solve a mystery, buy the others time to escape.\n\nWhen you die, the Warden makes a *Death Save*: place 1d10 in a cup, shake it, set it face down on the table. As soon as someone spends a turn checking your vitals, the die is revealed and looked up on the *Death Table* (d10).\n\n*Death Table:*\n• *Roll 1 (00):* Unconscious. Wake in 2d10 min. Reduce Max Health by 1d5.\n• *Roll 2–3 (01–02):* Unconscious and dying. Die in 1d5 rounds without intervention.\n• *Roll 4–5 (03–04):* Comatose. Only extraordinary measures can return you.\n• *Roll 6–10 (05–09):* You have died. Roll up a new character.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 40,
@@ -357,7 +513,11 @@
     "source_book_id": 1,
     "page_number": 32,
     "sort_order": 1,
-    "body": "*Toxic Atmosphere:* Planet air is unbreathable but not corrosive. Requires a rebreather or armor with its own O2 supply. Without protection: *1d10 DMG per round, Body Save for half.*\n\n*Corrosive Atmosphere:* Deals damage every round. Ranges from *1 DMG/round (Mildly Corrosive)* to *10 DMG/round (Highly Corrosive)*. Anything higher is impossible to traverse without specialised equipment."
+    "body": "*Toxic Atmosphere:* Planet air is unbreathable but not corrosive. Requires a rebreather or armor with its own O2 supply. Without protection: *1d10 DMG per round, Body Save for half.*\n\n*Corrosive Atmosphere:* Deals damage every round. Ranges from *1 DMG/round (Mildly Corrosive)* to *10 DMG/round (Highly Corrosive)*. Anything higher is impossible to traverse without specialised equipment.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 41,
@@ -366,7 +526,11 @@
     "source_book_id": 1,
     "page_number": 32,
     "sort_order": 2,
-    "body": "Some weapons and Wounds cause *Bleeding*: take *1 Damage every round* until stopped. This is cumulative — if already bleeding 1/round and gain *Bleeding +1*, now take 2/round.\n\nBleeding damage *ignores Armor and Damage Reduction.*\n\nStop bleeding with a First Aid Kit or a successful Field Medicine check."
+    "body": "Some weapons and Wounds cause *Bleeding*: take *1 Damage every round* until stopped. This is cumulative — if already bleeding 1/round and gain *Bleeding +1*, now take 2/round.\n\nBleeding damage *ignores Armor and Damage Reduction.*\n\nStop bleeding with a First Aid Kit or a successful Field Medicine check.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 42,
@@ -375,7 +539,11 @@
     "source_book_id": 1,
     "page_number": 32,
     "sort_order": 3,
-    "body": "After emerging from cryosleep, you experience a hangover-like state: *[-] on all rolls for 1 week.*\n\nUpgraded cryochambers can mitigate these effects. A *Stimpak* cures cryosickness instantly."
+    "body": "After emerging from cryosleep, you experience a hangover-like state: *[-] on all rolls for 1 week.*\n\nUpgraded cryochambers can mitigate these effects. A *Stimpak* cures cryosickness instantly.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 43,
@@ -384,7 +552,11 @@
     "source_book_id": 1,
     "page_number": 32,
     "sort_order": 4,
-    "body": "After *12 hours of activity*, make a *Body Save every hour*. On failure: gain 1 Stress and take 1 Damage.\n\nAfter *24 hours of exhaustion*: *[-] on all rolls* until you rest for 8 hours."
+    "body": "After *12 hours of activity*, make a *Body Save every hour*. On failure: gain 1 Stress and take 1 Damage.\n\nAfter *24 hours of exhaustion*: *[-] on all rolls* until you rest for 8 hours.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 44,
@@ -393,7 +565,11 @@
     "source_book_id": 1,
     "page_number": 32,
     "sort_order": 5,
-    "body": "*Food:* Humans survive ~3 weeks without food. After *24 hours without food*: *[-] on all rolls.*\n\n*Water:* Minimum 1 litre/day. At this bare minimum, any strenuous activity (running, combat, repairs) requires a *Body Save or pass out.*\n\nWhen water is being tracked closely: *[-] on all rolls.*"
+    "body": "*Food:* Humans survive ~3 weeks without food. After *24 hours without food*: *[-] on all rolls.*\n\n*Water:* Minimum 1 litre/day. At this bare minimum, any strenuous activity (running, combat, repairs) requires a *Body Save or pass out.*\n\nWhen water is being tracked closely: *[-] on all rolls.*",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 45,
@@ -402,7 +578,11 @@
     "source_book_id": 1,
     "page_number": 33,
     "sort_order": 6,
-    "body": "In space: *15 seconds without O2 before falling unconscious.* After unconscious: *1d5 minutes before dying.*\n\nIf ship Life Support goes offline: roll *1d10 × max crew capacity* = remaining O2 supply. Subtract active crew count every 24 hours. Strenuous activity (combat, repairs) reduces O2 by *2 extra per person.*\n\n• *O2 < 2× breathing crew:* [-] on all rolls (headaches, fatigue).\n• *O2 < breathing crew:* Body Save or Death Save (dizziness, impaired vision).\n• *O2 = 0:* 15 sec to unconscious, 1d5 min to death.\n\nAndroids and cryosleeping crew do not consume O2."
+    "body": "In space: *15 seconds without O2 before falling unconscious.* After unconscious: *1d5 minutes before dying.*\n\nIf ship Life Support goes offline: roll *1d10 × max crew capacity* = remaining O2 supply. Subtract active crew count every 24 hours. Strenuous activity (combat, repairs) reduces O2 by *2 extra per person.*\n\n• *O2 < 2× breathing crew:* [-] on all rolls (headaches, fatigue).\n• *O2 < breathing crew:* Body Save or Death Save (dizziness, impaired vision).\n• *O2 = 0:* 15 sec to unconscious, 1d5 min to death.\n\nAndroids and cryosleeping crew do not consume O2.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 46,
@@ -411,7 +591,11 @@
     "source_book_id": 1,
     "page_number": 33,
     "sort_order": 7,
-    "body": "*Radiation Table:*\n• *Level 1 — TRACE:* Cosmic rays, everyday sources. No immediate damage. Possible long-term effects (cancer).\n• *Level 2 — ACUTE:* Unshielded reactors / Warp Cores. *Reduce all Stats and Saves by 1 every round.*\n• *Level 3 — LETHAL:* Atomic weapons, direct Warp Core handling. Every round: *Body Save or lethal dose (death in 1d5 days).*\n\nArmor with *Radiation Shielding* (e.g. Hazard Suit) blocks all three levels."
+    "body": "*Radiation Table:*\n• *Level 1 — TRACE:* Cosmic rays, everyday sources. No immediate damage. Possible long-term effects (cancer).\n• *Level 2 — ACUTE:* Unshielded reactors / Warp Cores. *Reduce all Stats and Saves by 1 every round.*\n• *Level 3 — LETHAL:* Atomic weapons, direct Warp Core handling. Every round: *Body Save or lethal dose (death in 1d5 days).*\n\nArmor with *Radiation Shielding* (e.g. Hazard Suit) blocks all three levels.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 47,
@@ -420,7 +604,11 @@
     "source_book_id": 1,
     "page_number": 33,
     "sort_order": 8,
-    "body": "Taking more than *one Stimpak per day* risks overdose.\n\nWhenever a character takes more than 1 Stimpak in 24 hours: roll *1d10*. If you roll *under the number of doses taken in the past 24 hours* → make a *Death Save.*"
+    "body": "Taking more than *one Stimpak per day* risks overdose.\n\nWhenever a character takes more than 1 Stimpak in 24 hours: roll *1d10*. If you roll *under the number of doses taken in the past 24 hours* → make a *Death Save.*",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 48,
@@ -429,7 +617,11 @@
     "source_book_id": 1,
     "page_number": 33,
     "sort_order": 9,
-    "body": "In most climates temperature has no notable effect. In *extreme* conditions, make a *Body Save every hour* or succumb.\n\n*Extreme Cold:* Hypothermia and frostbite set in within 10–30 min without proper gear. Can kill in 30 min to 6 hours.\n\n*Extreme Heat (100°F / 40°C+):* Heat stroke can kill within hours. Victim must move to a cooler location immediately."
+    "body": "In most climates temperature has no notable effect. In *extreme* conditions, make a *Body Save every hour* or succumb.\n\n*Extreme Cold:* Hypothermia and frostbite set in within 10–30 min without proper gear. Can kill in 30 min to 6 hours.\n\n*Extreme Heat (100°F / 40°C+):* Heat stroke can kill within hours. Victim must move to a cooler location immediately.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 49,
@@ -438,7 +630,11 @@
     "source_book_id": 1,
     "page_number": 34,
     "sort_order": 1,
-    "body": "Once per day, after *6+ hours of rest*: make a *Body Save*. On success, reset Health to Maximum.\n\nWounds are *not* healed by rest — they require medical treatment."
+    "body": "Once per day, after *6+ hours of rest*: make a *Body Save*. On success, reset Health to Maximum.\n\nWounds are *not* healed by rest — they require medical treatment.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   },
   {
     "id": 50,
@@ -447,6 +643,10 @@
     "source_book_id": 1,
     "page_number": 34,
     "sort_order": 2,
-    "body": "Recovering Wounds, Conditions, or lost Stats/Saves requires paid treatment:\n\n• *Artificial Wellness Counselor* — 150cr. 1 hr session (max 1/wk). Restores 1 Sanity Save. 1% chance: random Condition.\n• *Immersive Slicksim Therapy* — 1kcr. 4 hr virtual session. Restores 1d10 Combat or 1d10 Fear Save. 1% chance: stuck 1d10 days, lose 1d5 Sanity Save.\n• *Deep Tissue Nanogel Massage* — 24kcr. 1 hr (max 1/wk). Reduces Minimum Stress by 1. [-] all actions 24 hrs.\n• *Medpod* — 6kcr. 1 week in pod. Restores 1 Wound. Does not restore lost limbs/digits.\n• *Cognitive Defragmentation* — 100kcr. 24 hr surgery. Removes 1 Condition. 1% chance: total amnesia. [-] on Intellect, Sanity, Fear for 4 weeks.\n• *Pseudoflesh Injection* — 18kcr. 8 hr surgery. Restores 2d10 Speed, 2d10 Strength, 2d10 Body Save, or all Wounds. [-] all rolls 2 wks + 4 wks convalescence.\n• *Psychosurgery* — 28kcr. 8 hr surgery. Restores Intellect, Sanity Save, or Fear Save to max, or reduces Min Stress to 2. [-] all rolls 4 weeks."
+    "body": "Recovering Wounds, Conditions, or lost Stats/Saves requires paid treatment:\n\n• *Artificial Wellness Counselor* — 150cr. 1 hr session (max 1/wk). Restores 1 Sanity Save. 1% chance: random Condition.\n• *Immersive Slicksim Therapy* — 1kcr. 4 hr virtual session. Restores 1d10 Combat or 1d10 Fear Save. 1% chance: stuck 1d10 days, lose 1d5 Sanity Save.\n• *Deep Tissue Nanogel Massage* — 24kcr. 1 hr (max 1/wk). Reduces Minimum Stress by 1. [-] all actions 24 hrs.\n• *Medpod* — 6kcr. 1 week in pod. Restores 1 Wound. Does not restore lost limbs/digits.\n• *Cognitive Defragmentation* — 100kcr. 24 hr surgery. Removes 1 Condition. 1% chance: total amnesia. [-] on Intellect, Sanity, Fear for 4 weeks.\n• *Pseudoflesh Injection* — 18kcr. 8 hr surgery. Restores 2d10 Speed, 2d10 Strength, 2d10 Body Save, or all Wounds. [-] all rolls 2 wks + 4 wks convalescence.\n• *Psychosurgery* — 28kcr. 8 hr surgery. Restores Intellect, Sanity Save, or Fear Save to max, or reduces Min Stress to 2. [-] all rolls 4 weeks.",
+    "title_ua": "",
+    "title_ru": "",
+    "body_ua": "",
+    "body_ru": ""
   }
 ]

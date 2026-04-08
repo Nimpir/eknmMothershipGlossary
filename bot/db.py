@@ -27,32 +27,62 @@ def _rows(rows: list[sqlite3.Row]) -> list[dict]:
 
 
 # ─────────────────────────────────────────────
+# LOCALISATION HELPER
+# ─────────────────────────────────────────────
+
+def _localize(row: dict, lang: str, fields: list[str]) -> dict:
+    """
+    For each field, replace its value with the translated version when available.
+    Falls back to the base English value if the translation is missing or empty.
+
+    Example: _localize(row, "ua", ["name", "body"])
+      → row["name"] = row["name_ua"] if non-empty, else keeps row["name"]
+    """
+    if lang == "en":
+        return row
+    for field in fields:
+        translated = row.get(f"{field}_{lang}")
+        if translated:
+            row[field] = translated
+    return row
+
+
+def _localize_many(rows: list[dict], lang: str, fields: list[str]) -> list[dict]:
+    return [_localize(r, lang, fields) for r in rows]
+
+
+# ─────────────────────────────────────────────
 # CATEGORIES
 # ─────────────────────────────────────────────
 
-def get_top_level_categories() -> list[dict]:
+def get_top_level_categories(lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             "SELECT * FROM categories WHERE parent_id IS NULL ORDER BY sort_order, name"
         ).fetchall())
+    return _localize_many(rows, lang, ["name"])
 
 
-def get_subcategories(parent_id: int) -> list[dict]:
+def get_subcategories(parent_id: int, lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             "SELECT * FROM categories WHERE parent_id = ? ORDER BY sort_order, name",
             (parent_id,)
         ).fetchall())
+    return _localize_many(rows, lang, ["name"])
 
 
-def get_category(cat_id: int) -> dict | None:
+def get_category(cat_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             "SELECT * FROM categories WHERE id = ?", (cat_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["name"])
+    return row
 
 
-def get_category_breadcrumb(cat_id: int) -> list[dict]:
+def get_category_breadcrumb(cat_id: int, lang: str = "en") -> list[dict]:
     """Returns list from root → given category."""
     breadcrumb = []
     with _conn() as conn:
@@ -63,7 +93,9 @@ def get_category_breadcrumb(cat_id: int) -> list[dict]:
             ).fetchone()
             if not row:
                 break
-            breadcrumb.insert(0, dict(row))
+            d = dict(row)
+            _localize(d, lang, ["name"])
+            breadcrumb.insert(0, d)
             current = row["parent_id"]
     return breadcrumb
 
@@ -80,9 +112,9 @@ def category_has_children(cat_id: int) -> bool:
 # RULES
 # ─────────────────────────────────────────────
 
-def get_rules_by_category(cat_id: int) -> list[dict]:
+def get_rules_by_category(cat_id: int, lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             """SELECT r.*, s.short_code AS book_code
                FROM rules r
                LEFT JOIN source_books s ON s.id = r.source_book_id
@@ -90,87 +122,100 @@ def get_rules_by_category(cat_id: int) -> list[dict]:
                ORDER BY r.sort_order, r.title""",
             (cat_id,)
         ).fetchall())
+    return _localize_many(rows, lang, ["title", "body"])
 
 
-def get_rule(rule_id: int) -> dict | None:
+def get_rule(rule_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT r.*, s.short_code AS book_code
                FROM rules r
                LEFT JOIN source_books s ON s.id = r.source_book_id
                WHERE r.id = ?""",
             (rule_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["title", "body"])
+    return row
 
 
 # ─────────────────────────────────────────────
 # TERMS (GLOSSARY)
 # ─────────────────────────────────────────────
 
-def get_all_terms() -> list[dict]:
+def get_all_terms(lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             """SELECT t.*, s.short_code AS book_code
                FROM terms t
                LEFT JOIN source_books s ON s.id = t.source_book_id
                ORDER BY t.name""",
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "body"])
 
 
-def get_term(term_id: int) -> dict | None:
+def get_term(term_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT t.*, s.short_code AS book_code
                FROM terms t
                LEFT JOIN source_books s ON s.id = t.source_book_id
                WHERE t.id = ?""",
             (term_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["name", "body"])
+    return row
 
 
-def get_term_by_name(name: str) -> dict | None:
+def get_term_by_name(name: str, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT t.*, s.short_code AS book_code
                FROM terms t
                LEFT JOIN source_books s ON s.id = t.source_book_id
                WHERE LOWER(t.name) = LOWER(?)""",
             (name,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["name", "body"])
+    return row
 
 
-def get_linked_terms(content_type: str, content_id: int) -> list[dict]:
+def get_linked_terms(content_type: str, content_id: int, lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
-            """SELECT t.id, t.name
+        rows = _rows(conn.execute(
+            """SELECT t.id, t.name, t.name_ua, t.name_ru
                FROM content_term_links ctl
                JOIN terms t ON t.id = ctl.term_id
                WHERE ctl.content_type = ? AND ctl.content_id = ?
                ORDER BY t.name""",
             (content_type, content_id)
         ).fetchall())
+    return _localize_many(rows, lang, ["name"])
 
 
-def get_roll_tables_for_term(term_id: int) -> list[dict]:
+def get_roll_tables_for_term(term_id: int, lang: str = "en") -> list[dict]:
     """Return roll tables linked to a term via content_term_links."""
     with _conn() as conn:
-        return _rows(conn.execute(
-            """SELECT rt.id, rt.name, rt.dice_notation
+        rows = _rows(conn.execute(
+            """SELECT rt.id, rt.name, rt.name_ua, rt.name_ru, rt.dice_notation
                FROM content_term_links ctl
                JOIN roll_tables rt ON rt.id = ctl.content_id
                WHERE ctl.content_type = 'roll_table' AND ctl.term_id = ?
                ORDER BY rt.name""",
             (term_id,)
         ).fetchall())
+    return _localize_many(rows, lang, ["name"])
 
 
 # ─────────────────────────────────────────────
 # ROLL TABLES
 # ─────────────────────────────────────────────
 
-def get_roll_tables_by_category(cat_id: int) -> list[dict]:
+def get_roll_tables_by_category(cat_id: int, lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             """SELECT rt.*, s.short_code AS book_code
                FROM roll_tables rt
                LEFT JOIN source_books s ON s.id = rt.source_book_id
@@ -178,62 +223,74 @@ def get_roll_tables_by_category(cat_id: int) -> list[dict]:
                ORDER BY rt.sort_order, rt.name""",
             (cat_id,)
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "description"])
 
 
-def get_all_roll_tables() -> list[dict]:
+def get_all_roll_tables(lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             """SELECT rt.*, s.short_code AS book_code, c.name AS category_name
                FROM roll_tables rt
                LEFT JOIN source_books s ON s.id = rt.source_book_id
                LEFT JOIN categories c ON c.id = rt.category_id
                ORDER BY rt.name"""
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "description"])
 
 
-def get_roll_table(table_id: int) -> dict | None:
+def get_roll_table(table_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT rt.*, s.short_code AS book_code
                FROM roll_tables rt
                LEFT JOIN source_books s ON s.id = rt.source_book_id
                WHERE rt.id = ?""",
             (table_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["name", "description"])
+    return row
 
 
-def get_table_entries(table_id: int) -> list[dict]:
+def get_table_entries(table_id: int, lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             "SELECT * FROM roll_table_entries WHERE table_id = ? ORDER BY roll_min",
             (table_id,)
         ).fetchall())
+    return _localize_many(rows, lang, ["result_text"])
 
 
-def get_entry(entry_id: int) -> dict | None:
+def get_entry(entry_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             "SELECT * FROM roll_table_entries WHERE id = ?",
             (entry_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["result_text"])
+    return row
 
 
-def get_entry_for_roll(table_id: int, roll: int) -> dict | None:
+def get_entry_for_roll(table_id: int, roll: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT * FROM roll_table_entries
                WHERE table_id = ? AND roll_min <= ? AND roll_max >= ?""",
             (table_id, roll, roll)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["result_text"])
+    return row
 
 
 # ─────────────────────────────────────────────
 # ITEMS (EQUIPMENT)
 # ─────────────────────────────────────────────
 
-def get_items_by_type(item_type: str) -> list[dict]:
+def get_items_by_type(item_type: str, lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             """SELECT i.*, s.short_code AS book_code
                FROM items i
                LEFT JOIN source_books s ON s.id = i.source_book_id
@@ -241,23 +298,27 @@ def get_items_by_type(item_type: str) -> list[dict]:
                ORDER BY i.name""",
             (item_type,)
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "description", "special_rules"])
 
 
-def get_item(item_id: int) -> dict | None:
+def get_item(item_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT i.*, s.short_code AS book_code
                FROM items i
                LEFT JOIN source_books s ON s.id = i.source_book_id
                WHERE i.id = ?""",
             (item_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["name", "description", "special_rules"])
+    return row
 
 
-def find_items_in_text(text: str) -> list[dict]:
+def find_items_in_text(text: str, lang: str = "en") -> list[dict]:
     """Return items whose name appears (case-insensitive) in the given text."""
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             """SELECT i.*, s.short_code AS book_code
                FROM items i
                LEFT JOIN source_books s ON s.id = i.source_book_id
@@ -265,44 +326,51 @@ def find_items_in_text(text: str) -> list[dict]:
                ORDER BY i.name""",
             (text,)
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "description", "special_rules"])
 
 
 # ─────────────────────────────────────────────
 # SKILLS
 # ─────────────────────────────────────────────
 
-def get_all_skills() -> list[dict]:
+def get_all_skills(lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             "SELECT * FROM skills ORDER BY tier, name"
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "description"])
 
 
-def get_skill(skill_id: int) -> dict | None:
+def get_skill(skill_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
         row = conn.execute("SELECT * FROM skills WHERE id = ?", (skill_id,)).fetchone()
         if not row:
             return None
         skill = dict(row)
+        _localize(skill, lang, ["name", "description"])
+        # Prerequisite names — use translated name if available
+        name_col = f"name_{lang}" if lang != "en" else "name"
         prereqs = conn.execute(
-            """SELECT s.name FROM skill_prerequisites sp
+            f"""SELECT COALESCE(s.{name_col}, s.name) AS prereq_name
+               FROM skill_prerequisites sp
                JOIN skills s ON s.id = sp.prerequisite_id
                WHERE sp.skill_id = ?
                ORDER BY s.name""",
             (skill_id,)
         ).fetchall()
-        skill["prerequisite_names"] = [r["name"] for r in prereqs]
-        return skill
+        skill["prerequisite_names"] = [r["prereq_name"] for r in prereqs]
+    return skill
 
 
-def get_skill_tree() -> list[dict]:
+def get_skill_tree(lang: str = "en") -> list[dict]:
     """Returns all skills with their full prerequisite structure."""
+    name_col = f"name_{lang}" if lang != "en" else "name"
     with _conn() as conn:
         skills = _rows(conn.execute(
             "SELECT * FROM skills ORDER BY tier, name"
         ).fetchall())
         prereq_rows = _rows(conn.execute(
-            """SELECT sp.skill_id, s.name AS prereq_name
+            f"""SELECT sp.skill_id, COALESCE(s.{name_col}, s.name) AS prereq_name
                FROM skill_prerequisites sp
                JOIN skills s ON s.id = sp.prerequisite_id"""
         ).fetchall())
@@ -310,6 +378,7 @@ def get_skill_tree() -> list[dict]:
     for r in prereq_rows:
         prereq_map.setdefault(r["skill_id"], []).append(r["prereq_name"])
     for skill in skills:
+        _localize(skill, lang, ["name", "description"])
         skill["prerequisite_names"] = prereq_map.get(skill["id"], [])
     return skills
 
@@ -318,50 +387,58 @@ def get_skill_tree() -> list[dict]:
 # CLASSES
 # ─────────────────────────────────────────────
 
-def get_all_classes() -> list[dict]:
+def get_all_classes(lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             "SELECT * FROM classes ORDER BY name"
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "description", "special_abilities", "trauma_response"])
 
 
-def get_class(class_id: int) -> dict | None:
+def get_class(class_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             "SELECT * FROM classes WHERE id = ?", (class_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["name", "description", "special_abilities", "trauma_response"])
+    return row
 
 
 # ─────────────────────────────────────────────
 # SHIPS
 # ─────────────────────────────────────────────
 
-def get_all_ships() -> list[dict]:
+def get_all_ships(lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             """SELECT sh.*, s.short_code AS book_code
                FROM ships sh
                LEFT JOIN source_books s ON s.id = sh.source_book_id
                ORDER BY sh.class, sh.name"""
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "description"])
 
 
-def get_ship(ship_id: int) -> dict | None:
+def get_ship(ship_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT sh.*, s.short_code AS book_code
                FROM ships sh
                LEFT JOIN source_books s ON s.id = sh.source_book_id
                WHERE sh.id = ?""",
             (ship_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["name", "description"])
+    return row
 
 
 # ─────────────────────────────────────────────
 # LOCATIONS
 # ─────────────────────────────────────────────
 
-def get_locations_by_book(source_book_id: int, parent_id: int | None = None) -> list[dict]:
+def get_locations_by_book(source_book_id: int, parent_id: int | None = None, lang: str = "en") -> list[dict]:
     with _conn() as conn:
         if parent_id is None:
             rows = conn.execute(
@@ -377,20 +454,21 @@ def get_locations_by_book(source_book_id: int, parent_id: int | None = None) -> 
                    ORDER BY name""",
                 (source_book_id, parent_id)
             ).fetchall()
-        return _rows(rows)
+    return _localize_many(_rows(rows), lang, ["name", "description"])
 
 
-def get_child_locations(parent_id: int) -> list[dict]:
+def get_child_locations(parent_id: int, lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             "SELECT * FROM locations WHERE parent_id = ? ORDER BY name",
             (parent_id,)
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "description"])
 
 
-def get_location(loc_id: int) -> dict | None:
+def get_location(loc_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT l.*, s.short_code AS book_code, p.name AS parent_name
                FROM locations l
                LEFT JOIN source_books s ON s.id = l.source_book_id
@@ -398,15 +476,18 @@ def get_location(loc_id: int) -> dict | None:
                WHERE l.id = ?""",
             (loc_id,)
         ).fetchone())
+    if row:
+        _localize(row, lang, ["name", "description"])
+    return row
 
 
 # ─────────────────────────────────────────────
 # NPCs
 # ─────────────────────────────────────────────
 
-def get_npcs_by_book(source_book_id: int) -> list[dict]:
+def get_npcs_by_book(source_book_id: int, lang: str = "en") -> list[dict]:
     with _conn() as conn:
-        return _rows(conn.execute(
+        rows = _rows(conn.execute(
             """SELECT n.*, s.short_code AS book_code, l.name AS location_name
                FROM npcs n
                LEFT JOIN source_books s ON s.id = n.source_book_id
@@ -415,11 +496,12 @@ def get_npcs_by_book(source_book_id: int) -> list[dict]:
                ORDER BY n.name""",
             (source_book_id,)
         ).fetchall())
+    return _localize_many(rows, lang, ["name", "role", "description", "special_rules"])
 
 
-def get_npc(npc_id: int) -> dict | None:
+def get_npc(npc_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
-        return _row(conn.execute(
+        row = _row(conn.execute(
             """SELECT n.*, s.short_code AS book_code, l.name AS location_name
                FROM npcs n
                LEFT JOIN source_books s ON s.id = n.source_book_id
@@ -427,39 +509,9 @@ def get_npc(npc_id: int) -> dict | None:
                WHERE n.id = ?""",
             (npc_id,)
         ).fetchone())
-
-
-# ─────────────────────────────────────────────
-# SEARCH
-# ─────────────────────────────────────────────
-
-def save_nav_state(user_id: int, nav_current: str | None, nav_stack: list) -> None:
-    """Persist a user's nav stack to the database."""
-    with _conn() as conn:
-        conn.execute(
-            """INSERT INTO user_nav_state (user_id, nav_current, nav_stack, saved_at)
-               VALUES (?, ?, ?, ?)
-               ON CONFLICT(user_id) DO UPDATE SET
-                   nav_current = excluded.nav_current,
-                   nav_stack   = excluded.nav_stack,
-                   saved_at    = excluded.saved_at""",
-            (user_id, nav_current, json.dumps(nav_stack), int(time.time())),
-        )
-
-
-def load_nav_state(user_id: int) -> dict | None:
-    """Load a user's persisted nav stack. Returns None if no saved state."""
-    with _conn() as conn:
-        row = conn.execute(
-            "SELECT nav_current, nav_stack FROM user_nav_state WHERE user_id = ?",
-            (user_id,),
-        ).fetchone()
-    if not row:
-        return None
-    return {
-        "nav_current": row["nav_current"],
-        "nav_stack": json.loads(row["nav_stack"]),
-    }
+    if row:
+        _localize(row, lang, ["name", "role", "description", "special_rules"])
+    return row
 
 
 # ─────────────────────────────────────────────
@@ -516,3 +568,50 @@ def search_all(query: str) -> dict[str, list[dict]]:
 
     return results
 
+
+# ─────────────────────────────────────────────
+# USER NAV STATE + LANGUAGE
+# ─────────────────────────────────────────────
+
+def save_nav_state(user_id: int, nav_current: str | None, nav_stack: list, language: str = "en") -> None:
+    """Persist a user's nav stack and language preference to the database."""
+    with _conn() as conn:
+        conn.execute(
+            """INSERT INTO user_nav_state (user_id, nav_current, nav_stack, language, saved_at)
+               VALUES (?, ?, ?, ?, ?)
+               ON CONFLICT(user_id) DO UPDATE SET
+                   nav_current = excluded.nav_current,
+                   nav_stack   = excluded.nav_stack,
+                   language    = excluded.language,
+                   saved_at    = excluded.saved_at""",
+            (user_id, nav_current, json.dumps(nav_stack), language, int(time.time())),
+        )
+
+
+def load_nav_state(user_id: int) -> dict | None:
+    """Load a user's persisted nav stack and language. Returns None if no saved state."""
+    with _conn() as conn:
+        row = conn.execute(
+            "SELECT nav_current, nav_stack, language FROM user_nav_state WHERE user_id = ?",
+            (user_id,),
+        ).fetchone()
+    if not row:
+        return None
+    return {
+        "nav_current": row["nav_current"],
+        "nav_stack": json.loads(row["nav_stack"]),
+        "language": row["language"] or "en",
+    }
+
+
+def set_user_language(user_id: int, language: str) -> None:
+    """Upsert only the language field for a user."""
+    with _conn() as conn:
+        conn.execute(
+            """INSERT INTO user_nav_state (user_id, nav_current, nav_stack, language, saved_at)
+               VALUES (?, NULL, '[]', ?, ?)
+               ON CONFLICT(user_id) DO UPDATE SET
+                   language = excluded.language,
+                   saved_at = excluded.saved_at""",
+            (user_id, language, int(time.time())),
+        )
