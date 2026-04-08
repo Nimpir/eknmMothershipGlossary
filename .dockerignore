@@ -1,0 +1,9 @@
+botenv/
+__pycache__/
+*.py[cod]
+*.db
+*.sqlite
+logs/
+_docs/
+.env
+.claude/
