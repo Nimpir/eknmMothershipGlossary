@@ -211,6 +211,16 @@ CREATE TABLE IF NOT EXISTS content_term_links (
 );
 
 -- ─────────────────────────────────────────────
+-- USER NAV STATE  (persisted nav stack per user)
+-- ─────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS user_nav_state (
+    user_id     INTEGER PRIMARY KEY,
+    nav_current TEXT,
+    nav_stack   TEXT NOT NULL DEFAULT '[]',  -- JSON array of callback_data strings
+    saved_at    INTEGER NOT NULL DEFAULT 0   -- unix timestamp
+);
+
+-- ─────────────────────────────────────────────
 -- INDEXES
 -- ─────────────────────────────────────────────
 CREATE INDEX IF NOT EXISTS idx_categories_parent      ON categories(parent_id);

@@ -11,6 +11,7 @@ import logging
 import os
 import random
 import re
+import time
 
 from dotenv import load_dotenv
 from telegram import Update
@@ -34,13 +35,19 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 _GLOSSARY_CAT_ID = 21
+DEV_MODE = os.getenv("DEV_MODE", "").lower() == "true"
 
 # ─────────────────────────────────────────────
 # HELPERS
 # ─────────────────────────────────────────────
 
-async def _edit(update: Update, text: str, keyboard, parse_mode=ParseMode.HTML) -> None:
+async def _edit(update: Update, text: str, keyboard, parse_mode=ParseMode.HTML, context=None) -> None:
     """Edit the current message in-place."""
+    if DEV_MODE and context is not None:
+        stack: list = context.user_data.get("nav_stack", [])
+        current = context.user_data.get("nav_current", "—")
+        stack_lines = "\n".join(f"  {i+1}. {s}" for i, s in enumerate(reversed(stack))) or "  (empty)"
+        text += f"\n\n<code>🛠 DEV MODE\ncurrent: {current}\nstack (top→bottom):\n{stack_lines}</code>"
     try:
         await update.callback_query.edit_message_text(
             text=text,
@@ -76,7 +83,7 @@ def _roll_dice(notation: str) -> int:
 # MENU DISPLAY
 # ─────────────────────────────────────────────
 
-async def _show_main_menu(update: Update, edit: bool = False) -> None:
+async def _show_main_menu(update: Update, edit: bool = False, context=None) -> None:
     cats = db.get_top_level_categories()
     text = (
         "🚀 <b>Mothership RPG Reference</b>\n\n"
@@ -86,12 +93,12 @@ async def _show_main_menu(update: Update, edit: bool = False) -> None:
     )
     keyboard = kb.main_menu(cats)
     if edit:
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
     else:
         await _reply(update, text, keyboard)
 
 
-async def _show_category(update: Update, cat_id: int, page: int = 0) -> None:
+async def _show_category(update: Update, cat_id: int, page: int = 0, context=None) -> None:
     cat = db.get_category(cat_id)
     if not cat:
         await update.callback_query.answer("Category not found.")
@@ -128,7 +135,7 @@ async def _show_category(update: Update, cat_id: int, page: int = 0) -> None:
         skills = db.get_all_skills()
     elif slug == "glossary":
         terms = db.get_all_terms()
-        await _edit(update, f"{header}\n\nSelect a term:", kb.glossary_keyboard(terms, 0))
+        await _edit(update, f"{header}\n\nSelect a term:", kb.glossary_keyboard(terms, 0), context=context)
         return
     elif slug == "roll-tables":
         tables = db.get_all_roll_tables()
@@ -156,7 +163,7 @@ async def _show_category(update: Update, cat_id: int, page: int = 0) -> None:
         )
         if len(all_content) == 1:
             cb_type, item_id = all_content[0]
-            await _dispatch_callback(update, update.callback_query, f"{cb_type}:{item_id}")
+            await _dispatch_callback(update, update.callback_query, f"{cb_type}:{item_id}", context=context)
             return
 
     keyboard = kb.category_menu(
@@ -165,7 +172,7 @@ async def _show_category(update: Update, cat_id: int, page: int = 0) -> None:
         classes=classes, ships=ships, skills=skills,
         page=page,
     )
-    await _edit(update, header, keyboard)
+    await _edit(update, header, keyboard, context=context)
 
 
 # ─────────────────────────────────────────────
@@ -215,6 +222,9 @@ _NAV_STACK_MAX = 10
 # Callbacks that are not real pages and must never be pushed onto the stack
 _NAV_SKIP = {"noop", "back", "menu", "search"}
 
+# Pagination callbacks — update nav_current in-place without creating a history entry
+_PAGINATION_RE = re.compile(r'^(cat:\d+:page:\d+|entries:\d+:page:\d+|glossary:page:\d+)$')
+
 
 def _push_page(context: ContextTypes.DEFAULT_TYPE, new_data: str) -> None:
     """Push the current page onto the history stack, then update current."""
@@ -243,6 +253,32 @@ def _pop_page(context: ContextTypes.DEFAULT_TYPE) -> str | None:
 
 
 # ─────────────────────────────────────────────
+# NAV STATE PERSISTENCE
+# ─────────────────────────────────────────────
+
+_NAV_IDLE_FLUSH_SECONDS = 5 * 60  # flush to DB after 5 min of inactivity
+
+
+async def _flush_nav_states(context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Background job: persist nav stacks idle for > 5 minutes."""
+    now = time.time()
+    flushed = 0
+    for user_id, user_data in list(context.application.user_data.items()):
+        if not user_data.get("nav_dirty"):
+            continue
+        if now - user_data.get("nav_last_active", 0) >= _NAV_IDLE_FLUSH_SECONDS:
+            db.save_nav_state(
+                user_id,
+                user_data.get("nav_current"),
+                user_data.get("nav_stack", []),
+            )
+            user_data["nav_dirty"] = False
+            flushed += 1
+    if flushed:
+        logger.debug("nav flush  saved %d user(s)", flushed)
+
+
+# ─────────────────────────────────────────────
 # CALLBACK ROUTER
 # ─────────────────────────────────────────────
 
@@ -256,6 +292,17 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     user = update.effective_user
     logger.info("callback  user_id=%s data=%r", user.id, data)
 
+    # ── Lazy-load nav state from DB on first interaction after bot start ───
+    if "nav_loaded" not in context.user_data:
+        saved = db.load_nav_state(user.id)
+        if saved:
+            context.user_data.setdefault("nav_stack", saved["nav_stack"])
+            context.user_data.setdefault("nav_current", saved["nav_current"])
+            logger.debug("nav restore  user_id=%s current=%s depth=%d",
+                         user.id, saved["nav_current"], len(saved["nav_stack"]))
+        context.user_data["nav_loaded"] = True
+        context.user_data["nav_dirty"] = False
+
     # ── Stack management ───────────────────────
     if data == "noop":
         return
@@ -265,16 +312,25 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         if prev:
             data = prev
         else:
-            await _show_main_menu(update, edit=True)
+            context.user_data["nav_current"] = None  # clear stale current before showing main menu
+            await _show_main_menu(update, edit=True, context=context)
             return
     elif data == "menu":
         context.user_data["nav_stack"] = []
         context.user_data["nav_current"] = None
     elif data not in _NAV_SKIP:
-        _push_page(context, data)
+        if _PAGINATION_RE.match(data):
+            # Page turn within the same view — just update position, don't push history
+            context.user_data["nav_current"] = data
+        else:
+            _push_page(context, data)
+
+    # Mark nav state as changed; idle flush job will persist it after 5 min
+    context.user_data["nav_dirty"] = True
+    context.user_data["nav_last_active"] = time.time()
 
     try:
-        await _dispatch_callback(update, query, data)
+        await _dispatch_callback(update, query, data, context=context)
     except Exception:
         logger.exception("Unhandled error in callback  user_id=%s data=%r", user.id, data)
         try:
@@ -287,17 +343,18 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
             pass
 
 
-async def _dispatch_callback(update: Update, query, data: str) -> None:
+async def _dispatch_callback(update: Update, query, data: str, context=None) -> None:
     # ── Main menu ──────────────────────────────
     if data == "menu":
-        await _show_main_menu(update, edit=True)
+        await _show_main_menu(update, edit=True, context=context)
         return
 
     # ── Search prompt ──────────────────────────
     if data == "search":
         await _edit(update,
             "🔍 <b>Search</b>\n\nSend: <code>/search &lt;term&gt;</code>\n\nExample: <code>/search stress</code>",
-            kb.back_only()
+            kb.back_only(),
+            context=context,
         )
         return
 
@@ -306,7 +363,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         parts = data.split(":")
         cat_id = int(parts[1])
         page = int(parts[3]) if len(parts) == 4 and parts[2] == "page" else 0
-        await _show_category(update, cat_id, page)
+        await _show_category(update, cat_id, page, context=context)
         return
 
     # ── Glossary pagination ────────────────────
@@ -316,7 +373,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         cat = db.get_category(_GLOSSARY_CAT_ID)
         breadcrumb = db.get_category_breadcrumb(_GLOSSARY_CAT_ID)
         header = fmt.category_header(cat, breadcrumb)
-        await _edit(update, f"{header}\n\nSelect a term:", kb.glossary_keyboard(terms, page))
+        await _edit(update, f"{header}\n\nSelect a term:", kb.glossary_keyboard(terms, page), context=context)
         return
 
     # ── Rule ───────────────────────────────────
@@ -329,7 +386,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         terms = db.get_linked_terms("rule", rule_id)
         text = fmt.format_rule(rule)
         keyboard = kb.term_buttons(terms)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Term ───────────────────────────────────
@@ -342,7 +399,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         text = fmt.format_term(term)
         tables = db.get_roll_tables_for_term(term["id"])
         keyboard = kb.term_with_tables(tables)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Item ───────────────────────────────────
@@ -365,7 +422,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
                     terms = terms + [range_term]
         text = fmt.format_item(item)
         keyboard = kb.term_buttons(terms)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Roll Table — show table ────────────────
@@ -377,7 +434,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             return
         text = fmt.format_roll_table(table)
         keyboard = kb.roll_table_keyboard(table)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Roll Table — perform roll ──────────────
@@ -401,7 +458,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         items = db.find_items_in_text(entry["result_text"]) if table.get("category_id") == 5 else None
         text = fmt.format_roll_result(table, entry, roll_value)
         keyboard = kb.roll_result_keyboard(table, entry, linked_term, items=items)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Roll Table — show all entries ──────────
@@ -417,7 +474,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         total = len(entries)
         text = fmt.format_roll_table_header(table, total)
         keyboard = kb.entries_list(table, entries, page)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Roll Table — single entry detail ───────
@@ -434,7 +491,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         items = db.find_items_in_text(entry["result_text"]) if table.get("category_id") == 5 else None
         text = fmt.format_roll_result(table, entry, entry["roll_min"])
         keyboard = kb.roll_result_keyboard(table, entry, linked_term, items=items)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Class ──────────────────────────────────
@@ -447,7 +504,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         terms = db.get_linked_terms("class", class_id)
         text = fmt.format_class(cls)
         keyboard = kb.term_buttons(terms)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Skill ──────────────────────────────────
@@ -458,7 +515,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
             await query.answer("Skill not found.")
             return
         text = fmt.format_skill(skill)
-        await _edit(update, text, kb.back_only())
+        await _edit(update, text, kb.back_only(), context=context)
         return
 
     # ── Ship ───────────────────────────────────
@@ -471,7 +528,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         terms = db.get_linked_terms("ship", ship_id)
         text = fmt.format_ship(ship)
         keyboard = kb.term_buttons(terms)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Location ───────────────────────────────
@@ -494,7 +551,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         else:
             keyboard = kb.term_buttons(terms)
 
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── NPC ────────────────────────────────────
@@ -507,7 +564,7 @@ async def _dispatch_callback(update: Update, query, data: str) -> None:
         terms = db.get_linked_terms("npc", npc_id)
         text = fmt.format_npc(npc)
         keyboard = kb.npc_with_terms(npc, terms)
-        await _edit(update, text, keyboard)
+        await _edit(update, text, keyboard, context=context)
         return
 
     # ── Unknown ────────────────────────────────
@@ -545,6 +602,9 @@ def main() -> None:
 
     # Application-level error handler
     app.add_error_handler(error_handler)
+
+    # Background job: flush idle nav stacks to DB every 60 seconds
+    app.job_queue.run_repeating(_flush_nav_states, interval=60, first=60)
 
     logger.info("Mothership bot starting…")
     app.run_polling(allowed_updates=Update.ALL_TYPES)

@@ -5,6 +5,7 @@ db.py — All database query functions for the Mothership bot.
 import json
 import os
 import sqlite3
+import time
 from typing import Any
 
 DB_PATH = os.getenv("DB_PATH", "mothership.db")
@@ -426,6 +427,39 @@ def get_npc(npc_id: int) -> dict | None:
                WHERE n.id = ?""",
             (npc_id,)
         ).fetchone())
+
+
+# ─────────────────────────────────────────────
+# SEARCH
+# ─────────────────────────────────────────────
+
+def save_nav_state(user_id: int, nav_current: str | None, nav_stack: list) -> None:
+    """Persist a user's nav stack to the database."""
+    with _conn() as conn:
+        conn.execute(
+            """INSERT INTO user_nav_state (user_id, nav_current, nav_stack, saved_at)
+               VALUES (?, ?, ?, ?)
+               ON CONFLICT(user_id) DO UPDATE SET
+                   nav_current = excluded.nav_current,
+                   nav_stack   = excluded.nav_stack,
+                   saved_at    = excluded.saved_at""",
+            (user_id, nav_current, json.dumps(nav_stack), int(time.time())),
+        )
+
+
+def load_nav_state(user_id: int) -> dict | None:
+    """Load a user's persisted nav stack. Returns None if no saved state."""
+    with _conn() as conn:
+        row = conn.execute(
+            "SELECT nav_current, nav_stack FROM user_nav_state WHERE user_id = ?",
+            (user_id,),
+        ).fetchone()
+    if not row:
+        return None
+    return {
+        "nav_current": row["nav_current"],
+        "nav_stack": json.loads(row["nav_stack"]),
+    }
 
 
 # ─────────────────────────────────────────────
