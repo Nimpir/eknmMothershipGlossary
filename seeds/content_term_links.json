@@ -904,29 +904,29 @@
   },
   {
     "id": 137,
-    "content_type": "rule",
-    "content_id": 63,
+    "content_type": "category",
+    "content_id": 58,
     "term_id": 52,
     "sort_order": 1
   },
   {
     "id": 138,
-    "content_type": "rule",
-    "content_id": 63,
+    "content_type": "category",
+    "content_id": 58,
     "term_id": 53,
     "sort_order": 2
   },
   {
     "id": 139,
-    "content_type": "rule",
-    "content_id": 63,
+    "content_type": "category",
+    "content_id": 58,
     "term_id": 54,
     "sort_order": 3
   },
   {
     "id": 140,
-    "content_type": "rule",
-    "content_id": 63,
+    "content_type": "category",
+    "content_id": 58,
     "term_id": 55,
     "sort_order": 4
   },
@@ -960,22 +960,22 @@
   },
   {
     "id": 145,
-    "content_type": "rule",
-    "content_id": 64,
+    "content_type": "category",
+    "content_id": 59,
     "term_id": 56,
     "sort_order": 1
   },
   {
     "id": 146,
-    "content_type": "rule",
-    "content_id": 64,
+    "content_type": "category",
+    "content_id": 59,
     "term_id": 57,
     "sort_order": 2
   },
   {
     "id": 147,
-    "content_type": "rule",
-    "content_id": 64,
+    "content_type": "category",
+    "content_id": 59,
     "term_id": 58,
     "sort_order": 3
   },

@@ -52,10 +52,16 @@ def category_menu(
     ships: list[dict] | None = None,
     skills: list[dict] | None = None,
     terms: list[dict] | None = None,
+    term_tables: list[dict] | None = None,
     page: int = 0,
     lang: str = "en",
 ) -> InlineKeyboardMarkup:
     rows = []
+
+    # Generate button for categories that have term→table links
+    cat_action = _GEN_CAT_ACTIONS.get(category["id"])
+    if term_tables and cat_action:
+        rows.append([_btn(cat_action[0], f"gen_cat:{category['id']}")])
 
     # Interleave subcategories and rules by sort_order
     mixed = []
@@ -128,8 +134,12 @@ def term_buttons(terms: list[dict], lang: str = "en") -> InlineKeyboardMarkup:
 # Maps rule_id → (button label, result title, icon) for the generate action
 _GEN_ACTIONS: dict[int, tuple[str, str, str]] = {
     21: ("⚀ Generate Horror",    "Generated Horror",    "⚠️"),
-    63: ("🌍 Generate Planet",   "Generated Planet",    "🌍"),
-    64: ("🏘️ Generate Settlement", "Generated Settlement", "🏘️"),
+}
+
+# Maps category_id → (button label, result title, icon) for category-level generate
+_GEN_CAT_ACTIONS: dict[int, tuple[str, str, str]] = {
+    58: ("🌍 Generate Planet",      "Generated Planet",      "🌍"),
+    59: ("🏘️ Generate Settlement", "Generated Settlement", "🏘️"),
 }
 
 def rule_buttons(terms: list[dict], term_tables: list[dict], rule_id: int, lang: str = "en") -> InlineKeyboardMarkup:

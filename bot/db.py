@@ -78,8 +78,28 @@ def get_category(cat_id: int, lang: str = "en") -> dict | None:
             "SELECT * FROM categories WHERE id = ?", (cat_id,)
         ).fetchone())
     if row:
-        _localize(row, lang, ["name"])
+        _localize(row, lang, ["name", "description"])
     return row
+
+
+def get_term_tables_for_category(cat_id: int, lang: str = "en") -> list[dict]:
+    """Return [{term_name, table_id, table_name, dice_notation}] for terms linked to a category
+    that each have exactly one roll table — used to build a 'generate all' action."""
+    with _conn() as conn:
+        rows = _rows(conn.execute(
+            """SELECT t.id AS term_id, t.name AS term_name, t.name_ua AS term_name_ua,
+                      t.name_ru AS term_name_ru,
+                      rt.id AS table_id, rt.name AS table_name, rt.dice_notation
+               FROM content_term_links ctl_cat
+               JOIN terms t ON t.id = ctl_cat.term_id
+               JOIN content_term_links ctl_table ON ctl_table.term_id = t.id
+                    AND ctl_table.content_type = 'roll_table'
+               JOIN roll_tables rt ON rt.id = ctl_table.content_id
+               WHERE ctl_cat.content_type = 'category' AND ctl_cat.content_id = ?
+               ORDER BY ctl_cat.sort_order, t.name""",
+            (cat_id,)
+        ).fetchall())
+    return _localize_many(rows, lang, ["term_name"])
 
 
 def get_category_breadcrumb(cat_id: int, lang: str = "en") -> list[dict]:

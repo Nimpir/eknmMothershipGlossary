@@ -170,14 +170,20 @@ async def _show_category(update: Update, cat_id: int, page: int = 0, context=Non
             return
 
     cat_terms = db.get_linked_terms("category", cat_id, lang)
+    cat_term_tables = db.get_term_tables_for_category(cat_id, lang)
+
+    description = cat.get("description", "") or ""
+    text = f"{header}\n\n{description}" if description else header
+
     keyboard = kb.category_menu(
         cat, subcats, rules, tables,
         items=items, npcs=npcs, locations=locations,
         classes=classes, ships=ships, skills=skills,
         terms=cat_terms or None,
+        term_tables=cat_term_tables or None,
         page=page, lang=lang,
     )
-    await _edit(update, header, keyboard, context=context)
+    await _edit(update, text, keyboard, context=context)
 
 
 # ─────────────────────────────────────────────
@@ -422,6 +428,21 @@ async def _dispatch_callback(update: Update, query, data: str, context=None) -> 
             if entry:
                 results.append((tt["term_name"], entry["result_text"]))
         _, result_title, icon = kb._GEN_ACTIONS.get(rule_id, ("", "Generated Result", "🎲"))
+        text = fmt.format_generated_result(result_title, icon, results)
+        keyboard = kb.back_only(lang)
+        await _edit(update, text, keyboard, context=context)
+        return
+
+    # ── Generate Planet / Settlement (category-level generate) ─────────
+    if data.startswith("gen_cat:"):
+        cat_id = int(data.split(":")[1])
+        term_tables = db.get_term_tables_for_category(cat_id, lang)
+        results = []
+        for tt in term_tables:
+            entry = db.roll_random_entry(tt["table_id"], lang)
+            if entry:
+                results.append((tt["term_name"], entry["result_text"]))
+        _, result_title, icon = kb._GEN_CAT_ACTIONS.get(cat_id, ("", "Generated Result", "🎲"))
         text = fmt.format_generated_result(result_title, icon, results)
         keyboard = kb.back_only(lang)
         await _edit(update, text, keyboard, context=context)

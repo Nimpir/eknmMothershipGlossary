@@ -838,33 +838,5 @@
     "title_ru": "",
     "body_ua": "",
     "body_ru": ""
-  },
-  {
-    "id": 63,
-    "title": "Planets",
-    "category_id": 58,
-    "source_book_id": 2,
-    "page_number": "58",
-    "sort_order": 1,
-    "body": "Roll on each of the four tables to generate a random planet, or pick values that fit your scenario.\n\n*SURFACE* — What the planet surface is made of: Liquid, Terrestrial, or Gas.\n*SIZE & GRAVITY* — From Dwarf Planet (Light Gravity) to Giant (Crushing Gravity).\n*ATMOSPHERE* — Pristine, Terraformed, Thin, Toxic, or Corrosive.\n*CLIMATE* — From Freezing to Hellish.\n\nUse *Geological Feature* to add a notable landmark near a settlement. Use *Population, Port Class,* and *Control Faction* to flesh out settlements on the planet.",
-    "icon": "🌍",
-    "title_ua": "",
-    "title_ru": "",
-    "body_ua": "",
-    "body_ru": ""
-  },
-  {
-    "id": 64,
-    "title": "Settlements",
-    "category_id": 59,
-    "source_book_id": 2,
-    "page_number": "59",
-    "sort_order": 1,
-    "body": "Roll on each of the three tables to generate a random settlement, or pick values that fit your scenario.\n\n*TYPE* — What kind of settlement it is: mining colony, research facility, prison, etc.\n*CONDITIONS* — What is currently happening there: strikes, blockades, food shortages, etc.\n*WEIRD* — Something unusual or sinister: a doomsday cult, an android uprising, a monolith.\n\nCombine all three results to create a vivid, immediately playable location.",
-    "icon": "🏘️",
-    "title_ua": "",
-    "title_ru": "",
-    "body_ua": "",
-    "body_ru": ""
   }
 ]

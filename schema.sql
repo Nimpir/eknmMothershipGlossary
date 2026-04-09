@@ -14,14 +14,17 @@ CREATE TABLE IF NOT EXISTS source_books (
 -- CATEGORIES  (nav tree)
 -- ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS categories (
-    id          INTEGER PRIMARY KEY,
-    name        TEXT NOT NULL,
-    name_ua     TEXT,
-    name_ru     TEXT,
-    slug        TEXT NOT NULL UNIQUE,
-    parent_id   INTEGER REFERENCES categories(id),
-    sort_order  INTEGER DEFAULT 0,
-    icon        TEXT
+    id              INTEGER PRIMARY KEY,
+    name            TEXT NOT NULL,
+    name_ua         TEXT,
+    name_ru         TEXT,
+    slug            TEXT NOT NULL UNIQUE,
+    parent_id       INTEGER REFERENCES categories(id),
+    sort_order      INTEGER DEFAULT 0,
+    icon            TEXT,
+    description     TEXT,
+    description_ua  TEXT,
+    description_ru  TEXT
 );
 
 -- ─────────────────────────────────────────────
