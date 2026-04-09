@@ -259,6 +259,7 @@ CREATE TABLE IF NOT EXISTS content_term_links (
     -- class / skill / ship / npc / location
     content_id      INTEGER NOT NULL,
     term_id         INTEGER NOT NULL REFERENCES terms(id),
+    sort_order      INTEGER DEFAULT 0,
     UNIQUE(content_type, content_id, term_id)
 );
 

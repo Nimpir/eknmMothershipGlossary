@@ -57,15 +57,19 @@ def category_menu(
 ) -> InlineKeyboardMarkup:
     rows = []
 
+    # Interleave subcategories and rules by sort_order
+    mixed = []
     for sub in subcategories:
         icon = f"{sub['icon']} " if sub.get("icon") else "  "
-        rows.append([_btn(f"{icon}{sub['name']}", f"cat:{sub['id']}")])
+        mixed.append((sub.get("sort_order") or 0, f"cat:{sub['id']}", f"{icon}{sub['name']}"))
+    for r in rules:
+        icon = f"{r['icon']} " if r.get("icon") else "📄 "
+        mixed.append((r.get("sort_order") or 999, f"rule:{r['id']}", f"{icon}{r['title']}"))
+    for _, cb, label in sorted(mixed, key=lambda x: x[0]):
+        rows.append([_btn(label, cb)])
 
     content: list[tuple[str, str, str]] = []
 
-    for r in rules:
-        icon = f"{r['icon']} " if r.get("icon") else "📄 "
-        content.append((f"{icon}{r['title']}", "rule", str(r["id"])))
     for tb in tables:
         icon = f"{tb['icon']} " if tb.get("icon") else "🎲 "
         content.append((f"{icon}{tb['name']}", "table", str(tb["id"])))
@@ -117,6 +121,24 @@ def category_menu(
 def term_buttons(terms: list[dict], lang: str = "en") -> InlineKeyboardMarkup:
     """Term quick-access buttons shown below content entries."""
     rows = [[_btn(f"📖 {t_['name']}", f"term:{t_['id']}")] for t_ in terms]
+    rows.append(_back(lang))
+    return InlineKeyboardMarkup(rows)
+
+
+# Maps rule_id → (button label, result title, icon) for the generate action
+_GEN_ACTIONS: dict[int, tuple[str, str, str]] = {
+    21: ("⚀ Generate Horror",    "Generated Horror",    "⚠️"),
+    63: ("🌍 Generate Planet",   "Generated Planet",    "🌍"),
+    64: ("🏘️ Generate Settlement", "Generated Settlement", "🏘️"),
+}
+
+def rule_buttons(terms: list[dict], term_tables: list[dict], rule_id: int, lang: str = "en") -> InlineKeyboardMarkup:
+    """Rule detail keyboard — optional generate button, term shortcuts, back."""
+    rows = []
+    action = _GEN_ACTIONS.get(rule_id)
+    if term_tables and action:
+        rows.append([_btn(action[0], f"gen_horror:{rule_id}")])
+    rows += [[_btn(f"📖 {t_['name']}", f"term:{t_['id']}")] for t_ in terms]
     rows.append(_back(lang))
     return InlineKeyboardMarkup(rows)
 

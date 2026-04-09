@@ -42,6 +42,14 @@ def format_rule(rule: dict, lang: str = "en") -> str:
     return f"<b>{rule['title']}</b>{src}\n\n{body}"
 
 
+def format_generated_result(title: str, icon: str, term_results: list[tuple[str, str]]) -> str:
+    """Format a randomly generated result (Horror, Planet, Settlement, etc.)."""
+    lines = [f"{icon} <b>{title}</b>\n"]
+    for term_name, result in term_results:
+        lines.append(f"<b>{term_name}:</b> {result}")
+    return "\n".join(lines)
+
+
 # ─────────────────────────────────────────────
 # TERM
 # ─────────────────────────────────────────────

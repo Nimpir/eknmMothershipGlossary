@@ -3,642 +3,1001 @@
     "id": 1,
     "content_type": "rule",
     "content_id": 1,
-    "term_id": 1
+    "term_id": 1,
+    "sort_order": 0
   },
   {
     "id": 2,
     "content_type": "rule",
     "content_id": 1,
-    "term_id": 2
+    "term_id": 2,
+    "sort_order": 0
   },
   {
     "id": 3,
     "content_type": "rule",
     "content_id": 1,
-    "term_id": 10
+    "term_id": 10,
+    "sort_order": 0
   },
   {
     "id": 4,
     "content_type": "rule",
     "content_id": 1,
-    "term_id": 11
+    "term_id": 11,
+    "sort_order": 0
   },
   {
     "id": 5,
     "content_type": "rule",
     "content_id": 6,
-    "term_id": 45
+    "term_id": 45,
+    "sort_order": 0
   },
   {
     "id": 6,
     "content_type": "rule",
     "content_id": 7,
-    "term_id": 12
+    "term_id": 12,
+    "sort_order": 0
   },
   {
     "id": 7,
     "content_type": "rule",
     "content_id": 7,
-    "term_id": 10
+    "term_id": 10,
+    "sort_order": 0
   },
   {
     "id": 8,
     "content_type": "rule",
     "content_id": 7,
-    "term_id": 11
+    "term_id": 11,
+    "sort_order": 0
   },
   {
     "id": 9,
     "content_type": "rule",
     "content_id": 8,
-    "term_id": 13
+    "term_id": 13,
+    "sort_order": 0
   },
   {
     "id": 10,
     "content_type": "rule",
     "content_id": 8,
-    "term_id": 46
+    "term_id": 46,
+    "sort_order": 0
   },
   {
     "id": 11,
     "content_type": "rule",
     "content_id": 9,
-    "term_id": 7
+    "term_id": 7,
+    "sort_order": 0
   },
   {
     "id": 12,
     "content_type": "rule",
     "content_id": 9,
-    "term_id": 17
+    "term_id": 17,
+    "sort_order": 0
   },
   {
     "id": 13,
     "content_type": "rule",
     "content_id": 10,
-    "term_id": 33
+    "term_id": 33,
+    "sort_order": 0
   },
   {
     "id": 14,
     "content_type": "rule",
     "content_id": 10,
-    "term_id": 34
+    "term_id": 34,
+    "sort_order": 0
   },
   {
     "id": 15,
     "content_type": "rule",
     "content_id": 10,
-    "term_id": 35
+    "term_id": 35,
+    "sort_order": 0
   },
   {
     "id": 16,
     "content_type": "rule",
     "content_id": 10,
-    "term_id": 36
+    "term_id": 36,
+    "sort_order": 0
   },
   {
     "id": 17,
     "content_type": "rule",
     "content_id": 10,
-    "term_id": 37
+    "term_id": 37,
+    "sort_order": 0
   },
   {
     "id": 18,
     "content_type": "rule",
     "content_id": 11,
-    "term_id": 3
+    "term_id": 3,
+    "sort_order": 0
   },
   {
     "id": 19,
     "content_type": "rule",
     "content_id": 11,
-    "term_id": 4
+    "term_id": 4,
+    "sort_order": 0
   },
   {
     "id": 20,
     "content_type": "rule",
     "content_id": 11,
-    "term_id": 5
+    "term_id": 5,
+    "sort_order": 0
   },
   {
     "id": 21,
     "content_type": "rule",
     "content_id": 11,
-    "term_id": 14
+    "term_id": 14,
+    "sort_order": 0
   },
   {
     "id": 22,
     "content_type": "rule",
     "content_id": 12,
-    "term_id": 5
+    "term_id": 5,
+    "sort_order": 0
   },
   {
     "id": 29,
     "content_type": "rule",
     "content_id": 15,
-    "term_id": 9
+    "term_id": 9,
+    "sort_order": 0
   },
   {
     "id": 30,
     "content_type": "rule",
     "content_id": 18,
-    "term_id": 3
+    "term_id": 3,
+    "sort_order": 0
   },
   {
     "id": 31,
     "content_type": "rule",
     "content_id": 18,
-    "term_id": 22
+    "term_id": 22,
+    "sort_order": 0
   },
   {
     "id": 32,
     "content_type": "rule",
     "content_id": 19,
-    "term_id": 22
+    "term_id": 22,
+    "sort_order": 0
   },
   {
     "id": 33,
     "content_type": "rule",
     "content_id": 19,
-    "term_id": 11
+    "term_id": 11,
+    "sort_order": 0
   },
   {
     "id": 34,
     "content_type": "rule",
     "content_id": 21,
-    "term_id": 28
+    "term_id": 28,
+    "sort_order": 1
   },
   {
     "id": 35,
     "content_type": "rule",
     "content_id": 21,
-    "term_id": 29
+    "term_id": 29,
+    "sort_order": 2
   },
   {
     "id": 36,
     "content_type": "rule",
     "content_id": 21,
-    "term_id": 30
+    "term_id": 30,
+    "sort_order": 3
   },
   {
     "id": 37,
     "content_type": "rule",
     "content_id": 21,
-    "term_id": 31
+    "term_id": 31,
+    "sort_order": 4
   },
   {
     "id": 38,
     "content_type": "rule",
     "content_id": 21,
-    "term_id": 32
+    "term_id": 32,
+    "sort_order": 5
   },
   {
     "id": 39,
     "content_type": "rule",
     "content_id": 26,
-    "term_id": 38
+    "term_id": 38,
+    "sort_order": 0
   },
   {
     "id": 40,
     "content_type": "rule",
     "content_id": 26,
-    "term_id": 39
+    "term_id": 39,
+    "sort_order": 0
   },
   {
     "id": 41,
     "content_type": "rule",
     "content_id": 27,
-    "term_id": 39
+    "term_id": 39,
+    "sort_order": 0
   },
   {
     "id": 42,
     "content_type": "rule",
     "content_id": 27,
-    "term_id": 20
+    "term_id": 20,
+    "sort_order": 0
   },
   {
     "id": 43,
     "content_type": "rule",
     "content_id": 30,
-    "term_id": 26
+    "term_id": 26,
+    "sort_order": 0
   },
   {
     "id": 44,
     "content_type": "rule",
     "content_id": 30,
-    "term_id": 3
+    "term_id": 3,
+    "sort_order": 0
   },
   {
     "id": 45,
     "content_type": "rule",
     "content_id": 31,
-    "term_id": 27
+    "term_id": 27,
+    "sort_order": 0
   },
   {
     "id": 46,
     "content_type": "rule",
     "content_id": 31,
-    "term_id": 26
+    "term_id": 26,
+    "sort_order": 0
   },
   {
     "id": 47,
     "content_type": "rule",
     "content_id": 33,
-    "term_id": 25
+    "term_id": 25,
+    "sort_order": 0
   },
   {
     "id": 48,
     "content_type": "rule",
     "content_id": 33,
-    "term_id": 41
+    "term_id": 41,
+    "sort_order": 0
   },
   {
     "id": 49,
     "content_type": "rule",
     "content_id": 35,
-    "term_id": 47
+    "term_id": 47,
+    "sort_order": 0
   },
   {
     "id": 50,
     "content_type": "item",
     "content_id": 2,
-    "term_id": 35
+    "term_id": 35,
+    "sort_order": 0
   },
   {
     "id": 51,
     "content_type": "item",
     "content_id": 4,
-    "term_id": 37
+    "term_id": 37,
+    "sort_order": 0
   },
   {
     "id": 52,
     "content_type": "item",
     "content_id": 4,
-    "term_id": 18
+    "term_id": 18,
+    "sort_order": 0
   },
   {
     "id": 53,
     "content_type": "item",
     "content_id": 7,
-    "term_id": 37
+    "term_id": 37,
+    "sort_order": 0
   },
   {
     "id": 54,
     "content_type": "item",
     "content_id": 8,
-    "term_id": 35
+    "term_id": 35,
+    "sort_order": 0
   },
   {
     "id": 55,
     "content_type": "item",
     "content_id": 10,
-    "term_id": 33
+    "term_id": 33,
+    "sort_order": 0
   },
   {
     "id": 56,
     "content_type": "item",
     "content_id": 10,
-    "term_id": 34
+    "term_id": 34,
+    "sort_order": 0
   },
   {
     "id": 57,
     "content_type": "item",
     "content_id": 12,
-    "term_id": 35
+    "term_id": 35,
+    "sort_order": 0
   },
   {
     "id": 58,
     "content_type": "item",
     "content_id": 13,
-    "term_id": 35
+    "term_id": 35,
+    "sort_order": 0
   },
   {
     "id": 59,
     "content_type": "item",
     "content_id": 16,
-    "term_id": 12
+    "term_id": 12,
+    "sort_order": 0
   },
   {
     "id": 60,
     "content_type": "item",
     "content_id": 16,
-    "term_id": 35
+    "term_id": 35,
+    "sort_order": 0
   },
   {
     "id": 61,
     "content_type": "item",
     "content_id": 17,
-    "term_id": 35
+    "term_id": 35,
+    "sort_order": 0
   },
   {
     "id": 62,
     "content_type": "item",
     "content_id": 21,
-    "term_id": 12
+    "term_id": 12,
+    "sort_order": 0
   },
   {
     "id": 63,
     "content_type": "item",
     "content_id": 21,
-    "term_id": 33
+    "term_id": 33,
+    "sort_order": 0
   },
   {
     "id": 64,
     "content_type": "item",
     "content_id": 21,
-    "term_id": 34
+    "term_id": 34,
+    "sort_order": 0
   },
   {
     "id": 65,
     "content_type": "item",
     "content_id": 24,
-    "term_id": 13
+    "term_id": 13,
+    "sort_order": 0
   },
   {
     "id": 66,
     "content_type": "item",
     "content_id": 24,
-    "term_id": 18
+    "term_id": 18,
+    "sort_order": 0
   },
   {
     "id": 67,
     "content_type": "item",
     "content_id": 25,
-    "term_id": 13
+    "term_id": 13,
+    "sort_order": 0
   },
   {
     "id": 68,
     "content_type": "item",
     "content_id": 26,
-    "term_id": 13
+    "term_id": 13,
+    "sort_order": 0
   },
   {
     "id": 69,
     "content_type": "item",
     "content_id": 27,
-    "term_id": 13
+    "term_id": 13,
+    "sort_order": 0
   },
   {
     "id": 70,
     "content_type": "item",
     "content_id": 27,
-    "term_id": 46
+    "term_id": 46,
+    "sort_order": 0
   },
   {
     "id": 71,
     "content_type": "item",
     "content_id": 27,
-    "term_id": 1
+    "term_id": 1,
+    "sort_order": 0
   },
   {
     "id": 72,
     "content_type": "item",
     "content_id": 40,
-    "term_id": 16
+    "term_id": 16,
+    "sort_order": 0
   },
   {
     "id": 73,
     "content_type": "item",
     "content_id": 3,
-    "term_id": 1
+    "term_id": 1,
+    "sort_order": 0
   },
   {
     "id": 74,
     "content_type": "class",
     "content_id": 1,
-    "term_id": 15
+    "term_id": 15,
+    "sort_order": 0
   },
   {
     "id": 75,
     "content_type": "class",
     "content_id": 1,
-    "term_id": 17
+    "term_id": 17,
+    "sort_order": 0
   },
   {
     "id": 76,
     "content_type": "class",
     "content_id": 1,
-    "term_id": 19
+    "term_id": 19,
+    "sort_order": 0
   },
   {
     "id": 77,
     "content_type": "class",
     "content_id": 2,
-    "term_id": 15
+    "term_id": 15,
+    "sort_order": 0
   },
   {
     "id": 78,
     "content_type": "class",
     "content_id": 2,
-    "term_id": 2
+    "term_id": 2,
+    "sort_order": 0
   },
   {
     "id": 79,
     "content_type": "class",
     "content_id": 2,
-    "term_id": 19
+    "term_id": 19,
+    "sort_order": 0
   },
   {
     "id": 80,
     "content_type": "class",
     "content_id": 3,
-    "term_id": 15
+    "term_id": 15,
+    "sort_order": 0
   },
   {
     "id": 81,
     "content_type": "class",
     "content_id": 3,
-    "term_id": 3
+    "term_id": 3,
+    "sort_order": 0
   },
   {
     "id": 82,
     "content_type": "class",
     "content_id": 3,
-    "term_id": 20
+    "term_id": 20,
+    "sort_order": 0
   },
   {
     "id": 83,
     "content_type": "class",
     "content_id": 4,
-    "term_id": 15
+    "term_id": 15,
+    "sort_order": 0
   },
   {
     "id": 84,
     "content_type": "class",
     "content_id": 4,
-    "term_id": 1
+    "term_id": 1,
+    "sort_order": 0
   },
   {
     "id": 85,
     "content_type": "class",
     "content_id": 4,
-    "term_id": 5
+    "term_id": 5,
+    "sort_order": 0
   },
   {
     "id": 86,
     "content_type": "npc",
     "content_id": 5,
-    "term_id": 38
+    "term_id": 38,
+    "sort_order": 0
   },
   {
     "id": 87,
     "content_type": "npc",
     "content_id": 5,
-    "term_id": 39
+    "term_id": 39,
+    "sort_order": 0
   },
   {
     "id": 88,
     "content_type": "npc",
     "content_id": 5,
-    "term_id": 13
+    "term_id": 13,
+    "sort_order": 0
   },
   {
     "id": 89,
     "content_type": "npc",
     "content_id": 1,
-    "term_id": 39
+    "term_id": 39,
+    "sort_order": 0
   },
   {
     "id": 90,
     "content_type": "npc",
     "content_id": 2,
-    "term_id": 39
+    "term_id": 39,
+    "sort_order": 0
   },
   {
     "id": 91,
     "content_type": "npc",
     "content_id": 15,
-    "term_id": 26
+    "term_id": 26,
+    "sort_order": 0
   },
   {
     "id": 92,
     "content_type": "npc",
     "content_id": 15,
-    "term_id": 27
+    "term_id": 27,
+    "sort_order": 0
   },
   {
     "id": 93,
     "content_type": "npc",
     "content_id": 16,
-    "term_id": 25
+    "term_id": 25,
+    "sort_order": 0
   },
   {
     "id": 94,
     "content_type": "npc",
     "content_id": 16,
-    "term_id": 40
+    "term_id": 40,
+    "sort_order": 0
   },
   {
     "id": 95,
     "content_type": "npc",
     "content_id": 17,
-    "term_id": 40
+    "term_id": 40,
+    "sort_order": 0
   },
   {
     "id": 96,
     "content_type": "ship",
     "content_id": 3,
-    "term_id": 22
+    "term_id": 22,
+    "sort_order": 0
   },
   {
     "id": 97,
     "content_type": "ship",
     "content_id": 3,
-    "term_id": 23
+    "term_id": 23,
+    "sort_order": 0
   },
   {
     "id": 98,
     "content_type": "ship",
     "content_id": 3,
-    "term_id": 44
+    "term_id": 44,
+    "sort_order": 0
   },
   {
     "id": 99,
     "content_type": "ship",
     "content_id": 4,
-    "term_id": 22
+    "term_id": 22,
+    "sort_order": 0
   },
   {
     "id": 100,
     "content_type": "ship",
     "content_id": 4,
-    "term_id": 43
+    "term_id": 43,
+    "sort_order": 0
   },
   {
     "id": 101,
     "content_type": "location",
     "content_id": 27,
-    "term_id": 47
+    "term_id": 47,
+    "sort_order": 0
   },
   {
     "id": 102,
     "content_type": "location",
     "content_id": 28,
-    "term_id": 47
+    "term_id": 47,
+    "sort_order": 0
   },
   {
     "id": 103,
     "content_type": "location",
     "content_id": 34,
-    "term_id": 47
+    "term_id": 47,
+    "sort_order": 0
   },
   {
     "id": 104,
     "content_type": "location",
     "content_id": 21,
-    "term_id": 41
+    "term_id": 41,
+    "sort_order": 0
   },
   {
     "id": 105,
     "content_type": "location",
     "content_id": 21,
-    "term_id": 40
+    "term_id": 40,
+    "sort_order": 0
   },
   {
     "id": 106,
     "content_type": "location",
     "content_id": 23,
-    "term_id": 40
+    "term_id": 40,
+    "sort_order": 0
   },
   {
     "id": 107,
     "content_type": "roll_table",
     "content_id": 2,
-    "term_id": 33
+    "term_id": 33,
+    "sort_order": 0
   },
   {
     "id": 108,
     "content_type": "roll_table",
     "content_id": 3,
-    "term_id": 34
+    "term_id": 34,
+    "sort_order": 0
   },
   {
     "id": 109,
     "content_type": "roll_table",
     "content_id": 4,
-    "term_id": 35
+    "term_id": 35,
+    "sort_order": 0
   },
   {
     "id": 110,
     "content_type": "roll_table",
     "content_id": 5,
-    "term_id": 36
+    "term_id": 36,
+    "sort_order": 0
   },
   {
     "id": 111,
     "content_type": "roll_table",
     "content_id": 6,
-    "term_id": 37
+    "term_id": 37,
+    "sort_order": 0
   },
   {
     "id": 112,
     "content_type": "roll_table",
     "content_id": 1,
-    "term_id": 5
+    "term_id": 5,
+    "sort_order": 0
   },
   {
     "id": 113,
     "content_type": "category",
     "content_id": 1,
-    "term_id": 48
+    "term_id": 48,
+    "sort_order": 0
+  },
+  {
+    "id": 114,
+    "content_type": "roll_table",
+    "content_id": 13,
+    "term_id": 28,
+    "sort_order": 0
+  },
+  {
+    "id": 115,
+    "content_type": "roll_table",
+    "content_id": 23,
+    "term_id": 29,
+    "sort_order": 0
+  },
+  {
+    "id": 116,
+    "content_type": "roll_table",
+    "content_id": 24,
+    "term_id": 30,
+    "sort_order": 0
+  },
+  {
+    "id": 117,
+    "content_type": "roll_table",
+    "content_id": 25,
+    "term_id": 31,
+    "sort_order": 0
+  },
+  {
+    "id": 118,
+    "content_type": "roll_table",
+    "content_id": 26,
+    "term_id": 32,
+    "sort_order": 0
+  },
+  {
+    "id": 120,
+    "content_type": "roll_table",
+    "content_id": 27,
+    "term_id": 49,
+    "sort_order": 0
+  },
+  {
+    "id": 121,
+    "content_type": "rule",
+    "content_id": 58,
+    "term_id": 50,
+    "sort_order": 1
+  },
+  {
+    "id": 122,
+    "content_type": "roll_table",
+    "content_id": 28,
+    "term_id": 50,
+    "sort_order": 0
+  },
+  {
+    "id": 123,
+    "content_type": "rule",
+    "content_id": 59,
+    "term_id": 51,
+    "sort_order": 1
+  },
+  {
+    "id": 124,
+    "content_type": "roll_table",
+    "content_id": 29,
+    "term_id": 51,
+    "sort_order": 0
+  },
+  {
+    "id": 125,
+    "content_type": "rule",
+    "content_id": 59,
+    "term_id": 14,
+    "sort_order": 2
+  },
+  {
+    "id": 126,
+    "content_type": "rule",
+    "content_id": 59,
+    "term_id": 48,
+    "sort_order": 3
+  },
+  {
+    "id": 127,
+    "content_type": "rule",
+    "content_id": 60,
+    "term_id": 3,
+    "sort_order": 1
+  },
+  {
+    "id": 128,
+    "content_type": "rule",
+    "content_id": 60,
+    "term_id": 4,
+    "sort_order": 2
+  },
+  {
+    "id": 129,
+    "content_type": "rule",
+    "content_id": 60,
+    "term_id": 14,
+    "sort_order": 3
+  },
+  {
+    "id": 130,
+    "content_type": "rule",
+    "content_id": 61,
+    "term_id": 4,
+    "sort_order": 1
+  },
+  {
+    "id": 131,
+    "content_type": "rule",
+    "content_id": 62,
+    "term_id": 7,
+    "sort_order": 1
+  },
+  {
+    "id": 132,
+    "content_type": "rule",
+    "content_id": 62,
+    "term_id": 13,
+    "sort_order": 2
+  },
+  {
+    "id": 133,
+    "content_type": "rule",
+    "content_id": 62,
+    "term_id": 3,
+    "sort_order": 3
+  },
+  {
+    "id": 134,
+    "content_type": "rule",
+    "content_id": 62,
+    "term_id": 10,
+    "sort_order": 4
+  },
+  {
+    "id": 135,
+    "content_type": "rule",
+    "content_id": 62,
+    "term_id": 14,
+    "sort_order": 5
+  },
+  {
+    "id": 136,
+    "content_type": "rule",
+    "content_id": 62,
+    "term_id": 1,
+    "sort_order": 6
+  },
+  {
+    "id": 137,
+    "content_type": "rule",
+    "content_id": 63,
+    "term_id": 52,
+    "sort_order": 1
+  },
+  {
+    "id": 138,
+    "content_type": "rule",
+    "content_id": 63,
+    "term_id": 53,
+    "sort_order": 2
+  },
+  {
+    "id": 139,
+    "content_type": "rule",
+    "content_id": 63,
+    "term_id": 54,
+    "sort_order": 3
+  },
+  {
+    "id": 140,
+    "content_type": "rule",
+    "content_id": 63,
+    "term_id": 55,
+    "sort_order": 4
+  },
+  {
+    "id": 141,
+    "content_type": "roll_table",
+    "content_id": 30,
+    "term_id": 52,
+    "sort_order": 0
+  },
+  {
+    "id": 142,
+    "content_type": "roll_table",
+    "content_id": 31,
+    "term_id": 53,
+    "sort_order": 0
+  },
+  {
+    "id": 143,
+    "content_type": "roll_table",
+    "content_id": 32,
+    "term_id": 54,
+    "sort_order": 0
+  },
+  {
+    "id": 144,
+    "content_type": "roll_table",
+    "content_id": 33,
+    "term_id": 55,
+    "sort_order": 0
+  },
+  {
+    "id": 145,
+    "content_type": "rule",
+    "content_id": 64,
+    "term_id": 56,
+    "sort_order": 1
+  },
+  {
+    "id": 146,
+    "content_type": "rule",
+    "content_id": 64,
+    "term_id": 57,
+    "sort_order": 2
+  },
+  {
+    "id": 147,
+    "content_type": "rule",
+    "content_id": 64,
+    "term_id": 58,
+    "sort_order": 3
+  },
+  {
+    "id": 148,
+    "content_type": "roll_table",
+    "content_id": 39,
+    "term_id": 56,
+    "sort_order": 0
+  },
+  {
+    "id": 149,
+    "content_type": "roll_table",
+    "content_id": 40,
+    "term_id": 57,
+    "sort_order": 0
+  },
+  {
+    "id": 150,
+    "content_type": "roll_table",
+    "content_id": 41,
+    "term_id": 58,
+    "sort_order": 0
   }
 ]

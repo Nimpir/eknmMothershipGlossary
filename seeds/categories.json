@@ -88,7 +88,7 @@
     "name": "Damage & Wounds",
     "slug": "damage-wounds",
     "parent_id": 6,
-    "sort_order": 3,
+    "sort_order": 5,
     "icon": "💥",
     "name_ua": "",
     "name_ru": "",
@@ -100,7 +100,7 @@
     "name": "Wound Tables",
     "slug": "wound-tables",
     "parent_id": 6,
-    "sort_order": 4,
+    "sort_order": 6,
     "icon": "🩸",
     "name_ua": "",
     "name_ru": "",
@@ -240,23 +240,11 @@
     "name_ru": ""
   },
   {
-    "id": 23,
-    "name": "TOMBS Cycle",
-    "slug": "tombs-cycle",
-    "parent_id": 22,
-    "sort_order": 1,
-    "icon": "🔄",
-    "name_ua": "",
-    "name_ru": "",
-    "icon_ua": "",
-    "icon_ru": ""
-  },
-  {
     "id": 24,
     "name": "Random Tables",
     "slug": "warden-random",
     "parent_id": 22,
-    "sort_order": 2,
+    "sort_order": 1,
     "icon": "🎲",
     "name_ua": "",
     "name_ru": "",
@@ -268,7 +256,7 @@
     "name": "Session Prep",
     "slug": "session-prep",
     "parent_id": 22,
-    "sort_order": 3,
+    "sort_order": 2,
     "icon": "📝",
     "name_ua": "",
     "name_ru": "",
@@ -604,7 +592,7 @@
     "name": "Death & Dying",
     "slug": "death-dying",
     "parent_id": 6,
-    "sort_order": 5,
+    "sort_order": 7,
     "icon": "💀",
     "name_ua": "",
     "name_ru": ""
@@ -628,5 +616,41 @@
     "icon": "🩺",
     "name_ua": "",
     "name_ru": ""
+  },
+  {
+    "id": 57,
+    "name": "Campaign",
+    "slug": "campaign",
+    "parent_id": 22,
+    "sort_order": 3,
+    "icon": "🗺️",
+    "name_ua": "",
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
+  },
+  {
+    "id": 58,
+    "name": "Planets & Factions",
+    "slug": "planets-factions",
+    "parent_id": 24,
+    "sort_order": 1,
+    "icon": "🌍",
+    "name_ua": "",
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
+  },
+  {
+    "id": 59,
+    "name": "Settlements",
+    "slug": "settlements",
+    "parent_id": 24,
+    "sort_order": 2,
+    "icon": "🏘️",
+    "name_ua": "",
+    "name_ru": "",
+    "icon_ua": "",
+    "icon_ru": ""
   }
 ]

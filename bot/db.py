@@ -189,10 +189,62 @@ def get_linked_terms(content_type: str, content_id: int, lang: str = "en") -> li
                FROM content_term_links ctl
                JOIN terms t ON t.id = ctl.term_id
                WHERE ctl.content_type = ? AND ctl.content_id = ?
-               ORDER BY t.name""",
+               ORDER BY ctl.sort_order, t.name""",
             (content_type, content_id)
         ).fetchall())
     return _localize_many(rows, lang, ["name"])
+
+
+def get_roll_tables_for_rule(rule_id: int, lang: str = "en") -> list[dict]:
+    """Return roll tables linked directly to a rule via content_term_links (content_type='rule_table')."""
+    with _conn() as conn:
+        rows = _rows(conn.execute(
+            """SELECT rt.id, rt.name, rt.name_ua, rt.name_ru, rt.dice_notation, ctl.sort_order
+               FROM content_term_links ctl
+               JOIN roll_tables rt ON rt.id = ctl.content_id
+               WHERE ctl.content_type = 'rule_table' AND ctl.term_id = ?
+               ORDER BY ctl.sort_order, rt.name""",
+            (rule_id,)
+        ).fetchall())
+    return _localize_many(rows, lang, ["name"])
+
+
+def get_term_tables_for_rule(rule_id: int, lang: str = "en") -> list[dict]:
+    """Return [{term_name, table_id, table_name, dice_notation}] for terms linked to a rule
+    that each have exactly one roll table — used to build a 'generate all' action."""
+    with _conn() as conn:
+        rows = _rows(conn.execute(
+            """SELECT t.id AS term_id, t.name AS term_name, t.name_ua AS term_name_ua,
+                      t.name_ru AS term_name_ru,
+                      rt.id AS table_id, rt.name AS table_name, rt.dice_notation
+               FROM content_term_links ctl_rule
+               JOIN terms t ON t.id = ctl_rule.term_id
+               JOIN content_term_links ctl_table ON ctl_table.term_id = t.id
+                    AND ctl_table.content_type = 'roll_table'
+               JOIN roll_tables rt ON rt.id = ctl_table.content_id
+               WHERE ctl_rule.content_type = 'rule' AND ctl_rule.content_id = ?
+               ORDER BY ctl_rule.sort_order, t.name""",
+            (rule_id,)
+        ).fetchall())
+    return _localize_many(rows, lang, ["term_name"])
+
+
+def roll_random_entry(table_id: int, lang: str = "en") -> dict | None:
+    """Pick a random entry from a roll table by simulating a dice roll."""
+    import random
+    with _conn() as conn:
+        entries = _rows(conn.execute(
+            "SELECT * FROM roll_table_entries WHERE table_id = ? ORDER BY roll_min",
+            (table_id,)
+        ).fetchall())
+    if not entries:
+        return None
+    max_roll = entries[-1]["roll_max"]
+    roll = random.randint(entries[0]["roll_min"], max_roll)
+    for entry in entries:
+        if entry["roll_min"] <= roll <= entry["roll_max"]:
+            return _localize(entry, lang, ["result_text", "label"])
+    return _localize(entries[-1], lang, ["result_text", "label"])
 
 
 def get_roll_tables_for_term(term_id: int, lang: str = "en") -> list[dict]:

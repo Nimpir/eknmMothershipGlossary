@@ -406,8 +406,24 @@ async def _dispatch_callback(update: Update, query, data: str, context=None) -> 
             await query.answer(t(lang, "err_rule"))
             return
         terms = db.get_linked_terms("rule", rule_id, lang)
+        term_tables = db.get_term_tables_for_rule(rule_id, lang)
         text = fmt.format_rule(rule, lang)
-        keyboard = kb.term_buttons(terms, lang)
+        keyboard = kb.rule_buttons(terms, term_tables, rule_id, lang)
+        await _edit(update, text, keyboard, context=context)
+        return
+
+    # ── Generate Horror (roll all TOMBS tables at once) ────────────────
+    if data.startswith("gen_horror:"):
+        rule_id = int(data.split(":")[1])
+        term_tables = db.get_term_tables_for_rule(rule_id, lang)
+        results = []
+        for tt in term_tables:
+            entry = db.roll_random_entry(tt["table_id"], lang)
+            if entry:
+                results.append((tt["term_name"], entry["result_text"]))
+        _, result_title, icon = kb._GEN_ACTIONS.get(rule_id, ("", "Generated Result", "🎲"))
+        text = fmt.format_generated_result(result_title, icon, results)
+        keyboard = kb.back_only(lang)
         await _edit(update, text, keyboard, context=context)
         return
 
