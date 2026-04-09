@@ -169,8 +169,12 @@ async def _show_category(update: Update, cat_id: int, page: int = 0, context=Non
             await _dispatch_callback(update, update.callback_query, f"{cb_type}:{item_id}", context=context)
             return
 
-    cat_terms = db.get_linked_terms("category", cat_id, lang)
     cat_term_tables = db.get_term_tables_for_category(cat_id, lang)
+    # Don't show term shortcuts for generate-chain terms (they'd duplicate table buttons)
+    if cat_term_tables:
+        cat_terms = None
+    else:
+        cat_terms = db.get_linked_terms("category", cat_id, lang) or None
 
     description = cat.get("description", "") or ""
     text = f"{header}\n\n{description}" if description else header
@@ -179,7 +183,7 @@ async def _show_category(update: Update, cat_id: int, page: int = 0, context=Non
         cat, subcats, rules, tables,
         items=items, npcs=npcs, locations=locations,
         classes=classes, ships=ships, skills=skills,
-        terms=cat_terms or None,
+        terms=cat_terms,
         term_tables=cat_term_tables or None,
         page=page, lang=lang,
     )
