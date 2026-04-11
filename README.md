@@ -6,11 +6,11 @@ A Telegram inline-keyboard bot that serves as a table-side handbook for the **Mo
 
 ## Features
 
-- **Rules browser** — Combat, Stress & Panic, Survival & Hazards, Medical Care, and more
-- **Glossary** — 47 indexed terms with paginated navigation
+- **Rules browser** — Combat, Stress & Panic, Survival & Hazards, Medical Care, Downtime, and more
+- **Glossary** — Indexed terms with paginated navigation
 - **Equipment** — Weapons, Armor, Gear & Tools with stats and costs
 - **Skills** — Full 42-skill tree (Trained / Expert / Master) with prerequisites
-- **Roll tables** — 22 tables (Panic, Wounds, Loadouts, Trinkets, Patches, and module-specific tables)
+- **Roll tables** — Panic, Wounds, Loadouts, Trinkets, Patches, Planets, Settlements, and module-specific tables; entries are manually browsable or rolled randomly
 - **Ships** — Ship catalogue with stat blocks
 - **Modules** — Locations and NPCs for ABH, Dead Planet, Gradient Descent, and A Pound of Flesh
 - **Dice roller** — `/roll d10`, `/roll 2d10`, `/roll d100`
@@ -74,8 +74,13 @@ Set `DEV_MODE=true` during development to show the live navigation stack on ever
 # Install dependencies
 pip install -r requirements.txt
 
-# Seed the database
+# Initialize the schema and create the root page
 python seed.py
+
+# Populate content (run scripts in order — see scripts/ directory)
+python scripts/add_psw_character.py
+python scripts/add_psw_skills.py
+# ... etc.
 
 # Start the bot
 python -m bot.bot
@@ -114,10 +119,18 @@ mothership/
 │   ├── db.py               # All SQLite query functions
 │   ├── formatters.py       # Message text builders (HTML parse mode)
 │   ├── keyboards.py        # InlineKeyboardMarkup builders
+│   ├── parsers.py          # Structured parsers for subinfo_fixed values (cost, damage, etc.)
+│   ├── i18n.py             # Translation strings and label resolution
 │   └── logging_setup.py    # Rotating file + console logging
-├── seeds/                  # JSON seed data (one file per table)
+├── scripts/                # One-off DB population scripts (run in order)
+│   ├── add_psw_*.py        # Player's Survival Guide content
+│   ├── add_character_page.py
+│   ├── add_content_links.py
+│   └── update_nav_and_descriptions.py
+├── books/                  # Context and reference docs for source books
+├── _docs/                  # Developer reference (schema, db context)
 ├── schema.sql              # Full DB schema
-├── seed.py                 # Drops and recreates the DB from seed files
+├── seed.py                 # Creates schema + root page (P1) — run once
 ├── Dockerfile
 ├── docker-compose.yml
 ├── update.sh               # Pull + rebuild + restart helper
