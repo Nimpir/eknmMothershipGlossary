@@ -64,6 +64,12 @@ def _push(context: ContextTypes.DEFAULT_TYPE, entry: dict) -> None:
     s = _stack(context)
     if s and s[-1] == entry:
         return
+    # If the destination is already somewhere in the stack, truncate back to
+    # it instead of pushing a duplicate — prevents A→B→A→B…cycle growth.
+    for i, e in enumerate(s):
+        if e == entry:
+            del s[i + 1:]
+            return
     s.append(entry)
     if len(s) > NAV_MAX:
         s.pop(0)
