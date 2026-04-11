@@ -167,9 +167,9 @@ def roll_result_keyboard(
 
 def lang_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup([
-        [_btn("🇬🇧 English",    "setlang:en")],
-        [_btn("🇺🇦 Українська", "setlang:ua")],
-        [_btn("🇷🇺 Русский",    "setlang:ru")],
+        [_btn("English",    "setlang:en")],
+        [_btn("Українська", "setlang:ua")],
+        [_btn("Русский",    "setlang:ru")],
     ])
 
 
