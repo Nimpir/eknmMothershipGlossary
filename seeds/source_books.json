@@ -1,9 +1,0 @@
-[
-  {"id": 1, "short_code": "PSG", "title": "Player's Survival Guide",      "page_count": 44},
-  {"id": 2, "short_code": "WOM", "title": "Warden's Operations Manual",   "page_count": 60},
-  {"id": 3, "short_code": "ABH", "title": "Another Bug Hunt",             "page_count": 44},
-  {"id": 4, "short_code": "GD",  "title": "Gradient Descent",             "page_count": 64},
-  {"id": 5, "short_code": "ST",  "title": "Shipbreaker's Toolkit",        "page_count": 44},
-  {"id": 6, "short_code": "APF", "title": "A Pound of Flesh",             "page_count": 52},
-  {"id": 7, "short_code": "DP",  "title": "Dead Planet",                  "page_count": 52}
-]
