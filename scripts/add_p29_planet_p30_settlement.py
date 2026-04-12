@@ -33,6 +33,9 @@ def _seed(conn: sqlite3.Connection) -> None:
         INSERT OR IGNORE INTO pages (id, icon, source_slug, source_page, linked_pages)
         VALUES (29, '🪐', 'wom', 58, '[]')
     """)
+    conn.execute("""
+        UPDATE pages SET workflow_steps = '[199,207,208,209]' WHERE id = 29
+    """)
     for lang, name in (("en", "Planet"), ("ru", "Планета"), ("ua", "Планета")):
         conn.execute("""
             INSERT OR IGNORE INTO page_i18n (page_id, lang, name)
@@ -43,6 +46,9 @@ def _seed(conn: sqlite3.Connection) -> None:
     conn.execute("""
         INSERT OR IGNORE INTO pages (id, icon, source_slug, source_page, linked_pages)
         VALUES (30, '🏘️', 'wom', 58, '[]')
+    """)
+    conn.execute("""
+        UPDATE pages SET workflow_steps = '[200,201,202,203,204,205,210,211]' WHERE id = 30
     """)
     for lang, name in (("en", "Settlement"), ("ru", "Поселение"), ("ua", "Поселення")):
         conn.execute("""

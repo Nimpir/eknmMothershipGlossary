@@ -37,6 +37,7 @@ def get_page(page_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
         row = _row(conn.execute(
             """SELECT p.id, p.icon, p.source_slug, p.source_page, p.linked_pages,
+                      p.workflow_steps,
                       COALESCE(i18n.name, en.name) AS name,
                       COALESCE(i18n.desc, en.desc)  AS desc
                FROM pages p
@@ -46,8 +47,17 @@ def get_page(page_id: int, lang: str = "en") -> dict | None:
             (lang, page_id)
         ).fetchone())
     if row:
-        row["linked_pages"] = json.loads(row["linked_pages"]) if row["linked_pages"] else []
+        row["linked_pages"]   = json.loads(row["linked_pages"])   if row["linked_pages"]   else []
+        row["workflow_steps"] = json.loads(row["workflow_steps"]) if row["workflow_steps"] else None
     return row
+
+
+def get_workflow_contents(page_id: int, lang: str = "en") -> list[dict] | None:
+    """Return ordered list of full content dicts for a workflow page, or None if no workflow."""
+    page = get_page(page_id, lang)
+    if not page or not page.get("workflow_steps"):
+        return None
+    return [c for cid in page["workflow_steps"] if (c := get_content(cid, lang)) is not None]
 
 
 def get_pages_by_ids(page_ids: list[int], lang: str = "en") -> list[dict]:
@@ -115,7 +125,8 @@ def get_content(content_id: int, lang: str = "en") -> dict | None:
         if row["dice"] and dice_entries:
             for i, entry in enumerate(row["dice"]["entries"]):
                 if i < len(dice_entries) and dice_entries[i]:
-                    entry["text"] = dice_entries[i]
+                    raw = dice_entries[i]
+                    entry["text"] = raw["text"] if isinstance(raw, dict) else raw
     return row
 
 

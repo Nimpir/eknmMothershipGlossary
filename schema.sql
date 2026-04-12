@@ -14,11 +14,12 @@ CREATE TABLE IF NOT EXISTS sources (
 -- PAGES
 -- ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS pages (
-    id           INTEGER PRIMARY KEY,
-    icon         TEXT,
-    source_slug  TEXT    REFERENCES sources(slug) ON DELETE SET NULL,
-    source_page  INTEGER,
-    linked_pages JSON    NOT NULL DEFAULT '[]'
+    id             INTEGER PRIMARY KEY,
+    icon           TEXT,
+    source_slug    TEXT    REFERENCES sources(slug) ON DELETE SET NULL,
+    source_page    INTEGER,
+    linked_pages   JSON    NOT NULL DEFAULT '[]',
+    workflow_steps JSON
 );
 
 CREATE TABLE IF NOT EXISTS page_i18n (
