@@ -1,7 +1,8 @@
 """
 scripts/add_psw_weapons.py
 Seed Weapons & Damage from the Player's Survival Guide quick-reference table.
-Run after schema init: python scripts/add_psw_weapons.py
+Run after add_psw_combat.py (range/wound content IDs C31-C40 must exist for related links).
+Run: python scripts/add_psw_weapons.py
 """
 
 import json
