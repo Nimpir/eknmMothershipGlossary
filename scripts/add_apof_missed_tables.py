@@ -4,12 +4,19 @@ A Pound of Flesh — missed rollable tables:
   - Update C217 (Infection Rules) with Infection Table dice
   - C326 Cybernetic Mutations (d100, back cover)
   - C327 Random Search (d100, back cover)
-  - C328 Space Station Noteworthy Locations (d100, pg. 50-51)
+  - C328 Noteworthy Locations — Refuel/Repair (d100, pg. 50-51)
   - C329 Dry Dock Rumors (d10, pg. 10)
   - C330 Ships Currently Docked (d10, pg. 11)
   - C331 Jobs for The Babushka (d10, pg. 14)
   - C332 The Docket (d10, pg. 26)
   - C333 Accused & What They Can Pay (d10, pg. 27)
+  - C334 Noteworthy Locations — Port/Market (d100, pg. 50-51)
+  - C335 Noteworthy Locations — Colony/Habitat (d100, pg. 50-51)
+  - C336 Noteworthy Locations — Military (d100, pg. 50-51)
+  - C337 Noteworthy Locations — Mining/Factory (d100, pg. 50-51)
+  - C338 Noteworthy Locations — Corporate/Research (d100, pg. 50-51)
+  - C339 Noteworthy Locations — Prison (d100, pg. 50-51)
+  - C340 Noteworthy Locations — Religious (d100, pg. 50-51)
 Run: python scripts/add_apof_missed_tables.py
 """
 import json
@@ -322,51 +329,144 @@ RANDOM_SEARCH_UA = [
 ]
 
 # ---------------------------------------------------------------------------
-# C328 — Space Station Noteworthy Locations (d100)
-# Combined multi-column format:
-# Refuel/Repair | Port/Market | Colony | Military | Mining | Corp | Prison | Religious
+# C328–C340 — Space Station Noteworthy Locations (d100, pp. 50-51)
+# 8 individual tables, one per station type column.
 # ---------------------------------------------------------------------------
-def _loc(a, b, c, d, e, f, g, h):
-    return (
-        f"Refuel/Repair: {a} | Port/Market: {b} | Colony: {c} | Military: {d} | "
-        f"Mining: {e} | Corp/Research: {f} | Prison: {g} | Religious: {h}"
-    )
+def _e(groups: list, singles: list) -> list:
+    """18 groups of 5 (00-04..85-89) + 10 singles (90-99)."""
+    entries = []
+    for i, text in enumerate(groups):
+        lo = i * 5
+        entries.append({"min": lo, "max": lo + 4, "text": text})
+    for i, text in enumerate(singles):
+        entries.append({"min": 90 + i, "max": 90 + i, "text": text})
+    return entries
 
 
-NOTEWORTHY_LOCATIONS_EN = [
-    {"min": 0,  "max": 4,  "text": _loc("Dry Dock", "Food Stand", "Farming Unit", "Admin Offices", "Material Processing", "Offices", "Ruined Cellblock", "Prayer Gardens")},
-    {"min": 5,  "max": 9,  "text": _loc("Vehicle Repair", "Dry Dock", "Food Court", "Drop Station", "Shipping Warehouse", "Open Floor Plan Office", "Administration Offices", "Observatory")},
-    {"min": 10, "max": 14, "text": _loc("Chop Shop", "Fence for Stolen Goods", "Slickscreen", "Training Rooms", "Storage Warehouse", "Cubicles", "Morgue", "Cellarium")},
-    {"min": 15, "max": 19, "text": _loc("Bars", "Black Market", "Bar/Club", "Shooting Range", "Dry Dock", "Testing Lab", "Riot Armory", "Chapter House")},
-    {"min": 20, "max": 24, "text": _loc("Showers", "Re-Sleeving Facility", "Slaughterhouse", "Command Center", "Assembly Line", "AI Computer Banks", "Guard Quarters", "Dorter")},
-    {"min": 25, "max": 29, "text": _loc("Capsule Motel", "Cybermod Shop", "Seed/Gene Storage", "Defensive Weaponry", "Metal Refinery", "Laboratory", "High Security Area", "Refectory")},
-    {"min": 30, "max": 34, "text": _loc("Navigation Library", "Imports Warehouse", "Sleeping Units", "Vehicle Repair Center", "Air Scrubber", "Quarantine Room", "Isolation Chambers", "Infirmary")},
-    {"min": 35, "max": 39, "text": _loc("Warp Core Storage", "Designer Drugs", "Meeting Square", "Brig", "Water Reclamation", "Data Analysis Office", "Cryostorage", "Kitchens")},
-    {"min": 40, "max": 44, "text": _loc("Teamster Union Hall", "Gene Therapy", "Aquaponics Tanks", "Troopship Carrier", "Sleeping Pods", "Android Storage", "VR Exercise Yard", "Lavatorium")},
-    {"min": 45, "max": 49, "text": _loc("Military Lounge", "Holotat Shop", "Markets", "Barracks", "Cafeteria", "Warehouse", "Prison Cells", "Misericord")},
-    {"min": 50, "max": 54, "text": _loc("Commercial Travel", "Glass Blower", "School/Training Facilities", "Interrogation Rooms", "Showers/Soakers", "Shipping & Receiving", "Group Dormitory", "Scriptorium")},
-    {"min": 55, "max": 59, "text": _loc("Private Hangar", "Technobladesmith", "Library/Research Lab", "Medbay", "Corp. Conference Room", "Mail Rooms", "Quarantine Unit", "Calefactory")},
-    {"min": 60, "max": 64, "text": _loc("Showers", "Slaughter Yard", "Upscale Housing", "R&D Department", "Garage/Hangar", "Meeting Rooms", "Solitary Confinement", "Musalla")},
-    {"min": 65, "max": 69, "text": _loc("Metal Foundry", "Fabric Loom", "Security Outpost", "Drop-tank Hangar", "Geology Lab", "Clean Room", "Canteen", "Minaret")},
-    {"min": 70, "max": 74, "text": _loc("Ore Trade/Refinery", "Sweatshop", "Clinic", "Mess Hall", "Records/Maps/Blueprints", "Employee Housing", "Gruel Kitchen", "Prayer Hall")},
-    {"min": 75, "max": 79, "text": _loc("Food Court", "Gambling House", "Factory", "Officer's Lounge", "Slickscreen", "Hazardous Materials", "Labor Camp", "Ablution Fountains")},
-    {"min": 80, "max": 84, "text": _loc("Fuel Bays/Warp Cores", "Dance Club", "Greenhouse", '"Off-base" Housing', "Fighting Ring", "Cryostorage", "Execution Chambers", "Chinjusha")},
-    {"min": 85, "max": 89, "text": _loc("Slickscreens", "Teamster Bar", "Turret Emplacement", "Master Computer", "Android Maintenance", "Containment Lab", "Scrap Metal Workshop", "Three Gate")},
-    {"min": 90, "max": 90, "text": _loc("Red Light District", "Specimens & Oddities", "Red Light District", "Diplomatic Embassy", "Conjugal Trailers", "Private Offices", "Slickscreen Classrooms", "Bell Tower")},
-    {"min": 91, "max": 91, "text": _loc("Black Market", "Specimens & Oddities", "Brig", "Officer's Quarters", "Xenobio Lab", "Luxurious Boardroom", "Illegal Human Testing", "Shrine")},
-    {"min": 92, "max": 92, "text": _loc("Tiny Chapel", "Red Light District", "Power Station", "Weapon Testing", "Extraction Point", "High Security Vault", "Mind Wipe Lab", "Lecture Hall")},
-    {"min": 93, "max": 93, "text": _loc("Weapons Fabrication", "Military Black Site", "Pharmalab", "Fighter Squadron", "Infraction Cells", "Illegal DNA Splicing Lab", "Mass Grave", "Grand Reliquary")},
-    {"min": 94, "max": 94, "text": _loc("Advanced R&D", "Navigator Guildhouse", "Governor's Mansion", "Ammunition Storage", "Cloning Facility", "Embryonic Storage", "Reprogramming Facility", "Massive Statue")},
-    {"min": 95, "max": 95, "text": _loc("Experimental FTL Lab", "Decorative Rugs", "Armory", "Re-Sleeving Facility", "Communications", "Morgue", "Military Black Site", "Secret Chambers")},
-    {"min": 96, "max": 96, "text": _loc("Astronavigator Terminals", "Tea Shop", "Temple", "Cryochambers", "Exosuit Hangar/Repair", "Animal Testing Pens", "AI Prison Server", "Palatial Gardens")},
-    {"min": 97, "max": 97, "text": _loc("Station Overseer", "Old Earth Antique Shop", "Courthouse/Records", "Intelligence Facility", "Life Support", "Killteam Barracks", "Android Scrapyard", "Scourging Room")},
-    {"min": 98, "max": 98, "text": _loc("Holding Cells", "Custom Androids", "Landing Strip", "Exomech Hangar", "Laser Drilling Array", "Experiment #237", "Commissary", "Bishop's Manor")},
-    {"min": 99, "max": 99, "text": _loc("Power Station", "Ship Designer", "Communication Array", "Massive Weapon", "Company Store", "Mega-AI Brain", "Crematorium", "Unmarked Prison Cell")},
+# (id, icon, name_en, name_ru, name_ua, groups, singles)
+# ru/ua use English as placeholder per Rule 1
+NOTEWORTHY_LOCATION_TABLES = [
+    (
+        328, "🔧",
+        "Noteworthy Locations — Refuel/Repair",
+        "Примечательные места — Дозаправка/Ремонт",
+        "Примітні місця — Дозаправка/Ремонт",
+        ["Dry Dock", "Vehicle Repair", "Chop Shop", "Bars", "Showers",
+         "Capsule Motel", "Navigation Library", "Warp Core Storage",
+         "Teamster Union Hall", "Military Lounge", "Commercial Travel",
+         "Private Hangar", "Showers", "Metal Foundry", "Ore Trade / Refinery",
+         "Food Court", "Fuel Bays / Warp Cores", "Slickscreens"],
+        ["Red Light District", "Black Market", "Tiny Chapel",
+         "Weapons Fabrication", "Advanced R&D", "Experimental FTL Lab",
+         "Astronavigator Terminals", "Station Overseer", "Holding Cells",
+         "Power Station"],
+    ),
+    (
+        334, "🏬",
+        "Noteworthy Locations — Port/Market",
+        "Примечательные места — Порт/Рынок",
+        "Примітні місця — Порт/Ринок",
+        ["Food Stand", "Dry Dock", "Fence for Stolen Goods", "Black Market",
+         "Re-Sleeving Facility", "Cybermod Shop", "Imports Warehouse",
+         "Designer Drugs", "Gene Therapy", "Holotat Shop", "Glass Blower",
+         "Technobladesmith", "Slaughter Yard", "Fabric Loom", "Sweatshop",
+         "Gambling House", "Dance Club", "Teamster Bar"],
+        ["Cassette Library", "Specimens & Oddities", "Red Light District",
+         "Military Black Site", "Navigator Guildhouse", "Decorative Rugs",
+         "Tea Shop", "Old Earth Antique Shop", "Custom Androids", "Ship Designer"],
+    ),
+    (
+        335, "🏘️",
+        "Noteworthy Locations — Colony/Habitat",
+        "Примечательные места — Колония/Жильё",
+        "Примітні місця — Колонія/Житло",
+        ["Farming Unit", "Food Court", "Slickscreen", "Bar/Club",
+         "Slaughterhouse", "Seed/Gene Storage", "Sleeping Units",
+         "Meeting Square", "Aquaponics Tanks", "Markets",
+         "School/Training Facilities", "Library/Research Lab",
+         "Upscale Housing", "Security Outpost", "Clinic",
+         "Factory", "Greenhouse", "Turret Emplacement"],
+        ["Red Light District", "Brig", "Power Station", "Pharmalab",
+         "Governor's Mansion", "Armory", "Temple", "Courthouse/Records",
+         "Landing Strip", "Communication Array"],
+    ),
+    (
+        336, "⚔️",
+        "Noteworthy Locations — Military",
+        "Примечательные места — Военная база",
+        "Примітні місця — Військова база",
+        ["Admin Offices", "Drop Station", "Training Rooms", "Shooting Range",
+         "Command Center", "Defensive Weaponry", "Vehicle Repair Center",
+         "Brig", "Troopship Carrier", "Barracks", "Interrogation Rooms",
+         "Medbay", "R&D Department", "Drop-tank Hangar", "Mess Hall",
+         "Officer's Lounge", '"Off-base" Housing', "Master Computer"],
+        ["Diplomatic Embassy", "Officer's Quarters", "Weapon Testing",
+         "Fighter Squadron", "Ammunition Storage", "Re-Sleeving Facility",
+         "Cryochambers", "Intelligence Facility", "Exomech Hangar",
+         "Massive Weapon"],
+    ),
+    (
+        337, "⛏️",
+        "Noteworthy Locations — Mining/Factory",
+        "Примечательные места — Шахта/Завод",
+        "Примітні місця — Шахта/Завод",
+        ["Material Processing", "Shipping Warehouse", "Storage Warehouse",
+         "Dry Dock", "Assembly Line", "Metal Refinery", "Air Scrubber",
+         "Water Reclamation", "Sleeping Pods", "Cafeteria",
+         "Showers/Soakers", "Corp. Conference Room", "Garage/Hangar",
+         "Geology Lab", "Records/Maps/Blueprints", "Slickscreen",
+         "Fighting Ring", "Android Maintenance"],
+        ["Conjugal Trailers", "Xenobio Lab", "Extraction Point",
+         "Infraction Cells", "Cloning Facility", "Communications",
+         "Exosuit Hangar/Repair", "Life Support", "Laser Drilling Array",
+         "Company Store"],
+    ),
+    (
+        338, "🔬",
+        "Noteworthy Locations — Corporate/Research",
+        "Примечательные места — Корпоративная станция",
+        "Примітні місця — Корпоративна станція",
+        ["Offices", "Open Floor Plan Office", "Cubicles", "Testing Lab",
+         "AI Computer Banks", "Laboratory", "Quarantine Room",
+         "Data Analysis Office", "Android Storage", "Warehouse",
+         "Shipping & Receiving", "Mail Rooms", "Meeting Rooms",
+         "Clean Room", "Employee Housing", "Hazardous Materials",
+         "Cryostorage", "Containment Lab"],
+        ["Private Offices", "Luxurious Boardroom", "High Security Vault",
+         "Illegal DNA Splicing Lab", "Embryonic Storage", "Morgue",
+         "Animal Testing Pens", "Killteam Barracks", "Experiment #237",
+         "Mega-AI Brain"],
+    ),
+    (
+        339, "🔒",
+        "Noteworthy Locations — Prison",
+        "Примечательные места — Тюрьма",
+        "Примітні місця — Тюрма",
+        ["Ruined Cellblock", "Administration Offices", "Morgue",
+         "Riot Armory", "Guard Quarters", "High Security Area",
+         "Isolation Chambers", "Cryostorage", "VR Exercise Yard",
+         "Prison Cells", "Group Dormitory", "Quarantine Unit",
+         "Solitary Confinement", "Canteen", "Gruel Kitchen",
+         "Labor Camp", "Execution Chambers", "Scrap Metal Workshop"],
+        ["Slickscreen Classrooms", "Illegal Human Testing", "Mind Wipe Lab",
+         "Mass Grave", "Reprogramming Facility", "Military Black Site",
+         "AI Prison Server", "Android Scrapyard", "Commissary", "Crematorium"],
+    ),
+    (
+        340, "⛪",
+        "Noteworthy Locations — Religious",
+        "Примечательные места — Религиозная станция",
+        "Примітні місця — Релігійна станція",
+        ["Prayer Gardens", "Observatory", "Cellarium", "Chapter House",
+         "Dorter", "Refectory", "Infirmary", "Kitchens", "Lavatorium",
+         "Misericord", "Scriptorium", "Calefactory", "Musalla",
+         "Minaret", "Prayer Hall", "Ablution Fountains",
+         "Chinjusha", "Three Gate"],
+        ["Bell Tower", "Shrine", "Lecture Hall", "Grand Reliquary",
+         "Massive Statue", "Secret Chambers", "Palatial Gardens",
+         "Scourging Room", "Bishop's Manor", "Unmarked Prison Cell"],
+    ),
 ]
-
-# ru/ua use English text as placeholder per Rule 1
-NOTEWORTHY_LOCATIONS_RU = NOTEWORTHY_LOCATIONS_EN
-NOTEWORTHY_LOCATIONS_UA = NOTEWORTHY_LOCATIONS_EN
 
 # ---------------------------------------------------------------------------
 # C329 — Dry Dock Rumors (d10, pg. 10)
@@ -573,31 +673,15 @@ def _seed(conn: sqlite3.Connection) -> None:
         desc_ua="Кидайте при обшуку тіла або мародерстві на Мрії Просперо.",
     )
 
-    # ── C328 Space Station Noteworthy Locations (P38, sort=14) ───────────────
-    _upsert_content(
-        conn, 328, "🗺️",
-        NOTEWORTHY_LOCATIONS_EN, NOTEWORTHY_LOCATIONS_RU, NOTEWORTHY_LOCATIONS_UA,
-        "Space Station Noteworthy Locations", "Примечательные локации станции", "Визначні локації станції",
-        "d100", 38, 14,
-        desc_en=(
-            "Roll d100 for each noteworthy location on your station (see Space Station Layout for how many). "
-            "Each entry shows all 8 station type columns — pick the one matching your station type:\n"
-            "1–3: Refuel/Repair | 4: Port/Market | 5: Colony | 6: Military | "
-            "7: Mining | 8: Corp/Research | 9: Prison | 10: Religious"
-        ),
-        desc_ru=(
-            "Бросайте d100 для каждой примечательной локации (кол-во см. в Схеме Станции). "
-            "Каждый результат содержит все 8 типов — выберите соответствующий:\n"
-            "1–3: Дозаправка/Ремонт | 4: Порт/Рынок | 5: Колония | 6: Военная | "
-            "7: Горнодобывающая | 8: Корпоративная | 9: Тюрьма | 10: Религиозная"
-        ),
-        desc_ua=(
-            "Кидайте d100 для кожної визначної локації (кількість — у Схемі Станції). "
-            "Кожен результат містить усі 8 типів — оберіть відповідний:\n"
-            "1–3: Заправка/Ремонт | 4: Порт/Ринок | 5: Колонія | 6: Військова | "
-            "7: Гірничодобувна | 8: Корпоративна | 9: Тюрма | 10: Релігійна"
-        ),
-    )
+    # ── C328–C340 Noteworthy Locations, one table per station type (P38) ────────
+    for i, (cid, icon, name_en, name_ru, name_ua, groups, singles) in enumerate(NOTEWORTHY_LOCATION_TABLES):
+        entries = _e(groups, singles)
+        _upsert_content(
+            conn, cid, icon,
+            entries, entries, entries,
+            name_en, name_ru, name_ua,
+            "d100", 38, 14 + i,
+        )
 
     # ── C329 Dry Dock Rumors (P42, sort=2) ───────────────────────────────────
     _upsert_content(
@@ -665,8 +749,9 @@ def _seed(conn: sqlite3.Connection) -> None:
         (332, 240, "related", 0),   # The Docket → 07 The Court
         (333, 240, "related", 0),   # Accused & What They Can Pay → 07 The Court
         (333, 332, "related", 1),   # Accused & What They Can Pay → The Docket
-        (328, 305, "related", 0),   # Noteworthy Locations → Space Station Structure
-        (328, 306, "related", 1),   # Noteworthy Locations → Space Station Issues
+        # Noteworthy Locations tables (C328–C340) → Structure + Issues
+        *[(cid, 305, "related", 0) for cid, *_ in NOTEWORTHY_LOCATION_TABLES],
+        *[(cid, 306, "related", 1) for cid, *_ in NOTEWORTHY_LOCATION_TABLES],
         (217, 252, "related", 0),   # Infection Rules → Chokespawn
     ]
     for from_id, to_id, label, sort in links:
@@ -686,7 +771,7 @@ def run() -> None:
         print(
             "Done — C217 updated with Infection Table dice; "
             "C326 (Cybernetic Mutations), C327 (Random Search), "
-            "C328 (Space Station Noteworthy Locations), C329 (Dry Dock Rumors), "
+            "C328–C340 (Noteworthy Locations ×8), C329 (Dry Dock Rumors), "
             "C330 (Ships Currently Docked), C331 (Jobs for The Babushka), "
             "C332 (The Docket), C333 (Accused & What They Can Pay) added. "
             "12 content links added."
