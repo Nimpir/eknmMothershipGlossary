@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS pages (
     source_slug    TEXT    REFERENCES sources(slug) ON DELETE SET NULL,
     source_page    INTEGER,
     linked_pages   JSON    NOT NULL DEFAULT '[]',
-    workflow_steps JSON
+    workflow_steps JSON,
+    image_url      TEXT
 );
 
 CREATE TABLE IF NOT EXISTS page_i18n (
@@ -163,5 +164,6 @@ CREATE TABLE IF NOT EXISTS user_state (
     nav_stack   JSON    NOT NULL DEFAULT '[]',
     last_msg_id INTEGER,
     last_query  TEXT,
+    msg_ids     JSON    NOT NULL DEFAULT '[]',
     updated_at  INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
 );

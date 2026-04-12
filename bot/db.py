@@ -28,6 +28,20 @@ def _rows(rows: list[sqlite3.Row]) -> list[dict]:
     return [dict(r) for r in rows]
 
 
+def _migrate() -> None:
+    """Apply lightweight schema migrations for columns added after initial deploy."""
+    with _conn() as conn:
+        cols = {row[1] for row in conn.execute("PRAGMA table_info(user_state)").fetchall()}
+        if "msg_ids" not in cols:
+            conn.execute(
+                "ALTER TABLE user_state ADD COLUMN msg_ids JSON NOT NULL DEFAULT '[]'"
+            )
+            logger.info("migration: added user_state.msg_ids")
+
+
+_migrate()
+
+
 # ─────────────────────────────────────────────
 # PAGES
 # ─────────────────────────────────────────────
@@ -37,7 +51,7 @@ def get_page(page_id: int, lang: str = "en") -> dict | None:
     with _conn() as conn:
         row = _row(conn.execute(
             """SELECT p.id, p.icon, p.source_slug, p.source_page, p.linked_pages,
-                      p.workflow_steps,
+                      p.workflow_steps, p.image_url,
                       COALESCE(i18n.name, en.name) AS name,
                       COALESCE(i18n.desc, en.desc)  AS desc
                FROM pages p
@@ -205,7 +219,7 @@ def get_user_state(user_id: int) -> dict | None:
     """Load persisted user state. Returns None if no record."""
     with _conn() as conn:
         row = _row(conn.execute(
-            "SELECT lang, nav_stack, last_msg_id, last_query FROM user_state WHERE user_id = ?",
+            "SELECT lang, nav_stack, last_msg_id, last_query, msg_ids FROM user_state WHERE user_id = ?",
             (user_id,)
         ).fetchone())
     if not row:
@@ -215,6 +229,11 @@ def get_user_state(user_id: int) -> dict | None:
     except json.JSONDecodeError:
         logger.warning("Bad JSON in nav_stack for user %s", user_id)
         row["nav_stack"] = []
+    try:
+        row["msg_ids"] = json.loads(row["msg_ids"]) if row["msg_ids"] else []
+    except json.JSONDecodeError:
+        logger.warning("Bad JSON in msg_ids for user %s", user_id)
+        row["msg_ids"] = []
     return row
 
 
@@ -224,18 +243,21 @@ def save_user_state(
     nav_stack: list,
     last_msg_id: int | None = None,
     last_query: str | None = None,
+    msg_ids: list | None = None,
 ) -> None:
     with _conn() as conn:
         conn.execute(
-            """INSERT INTO user_state (user_id, lang, nav_stack, last_msg_id, last_query, updated_at)
-               VALUES (?, ?, ?, ?, ?, ?)
+            """INSERT INTO user_state (user_id, lang, nav_stack, last_msg_id, last_query, msg_ids, updated_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?)
                ON CONFLICT(user_id) DO UPDATE SET
                    lang        = excluded.lang,
                    nav_stack   = excluded.nav_stack,
                    last_msg_id = excluded.last_msg_id,
                    last_query  = excluded.last_query,
+                   msg_ids     = excluded.msg_ids,
                    updated_at  = excluded.updated_at""",
-            (user_id, lang, json.dumps(nav_stack), last_msg_id, last_query, int(time.time()))
+            (user_id, lang, json.dumps(nav_stack), last_msg_id, last_query,
+             json.dumps(msg_ids or []), int(time.time()))
         )
 
 

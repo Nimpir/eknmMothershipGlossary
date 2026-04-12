@@ -86,7 +86,20 @@ def _reset(context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def _save(user_id: int, context: ContextTypes.DEFAULT_TYPE) -> None:
-    db.save_user_state(user_id, lang=_lang(context), nav_stack=_stack(context))
+    db.save_user_state(
+        user_id,
+        lang=_lang(context),
+        nav_stack=_stack(context),
+        msg_ids=context.user_data.get("msg_ids", []),
+    )
+
+
+def _track_msg(context: ContextTypes.DEFAULT_TYPE, msg_id: int) -> None:
+    ids = context.user_data.setdefault("msg_ids", [])
+    if msg_id not in ids:
+        ids.append(msg_id)
+    if len(ids) > 100:
+        context.user_data["msg_ids"] = ids[-100:]
 
 
 def _load(user_id: int, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -99,11 +112,13 @@ def _load(user_id: int, context: ContextTypes.DEFAULT_TYPE) -> None:
             "nav_stack",
             state["nav_stack"] or [{"t": "p", "id": HOME_PAGE_ID}]
         )
+        context.user_data.setdefault("msg_ids", state.get("msg_ids") or [])
         logger.debug("state loaded  user_id=%s depth=%d lang=%s",
                      user_id, len(context.user_data["nav_stack"]), context.user_data["lang"])
     else:
         context.user_data.setdefault("lang", DEFAULT_LANG)
         context.user_data.setdefault("nav_stack", [{"t": "p", "id": HOME_PAGE_ID}])
+        context.user_data.setdefault("msg_ids", [])
     context.user_data["_loaded"] = True
 
 
@@ -156,12 +171,14 @@ async def _edit(update: Update, text: str, keyboard, context=None) -> None:
     # Delete it and send a fresh text message instead.
     if msg.photo:
         await msg.delete()
-        await context.bot.send_message(
+        sent = await context.bot.send_message(
             chat_id=msg.chat_id,
             text=_truncate(text),
             reply_markup=keyboard,
             parse_mode=ParseMode.HTML,
         )
+        if context is not None:
+            _track_msg(context, sent.message_id)
         return
 
     try:
@@ -175,23 +192,54 @@ async def _edit(update: Update, text: str, keyboard, context=None) -> None:
             raise
 
 
-async def _send(update: Update, text: str, keyboard) -> None:
-    await update.message.reply_text(
+async def _send(update: Update, text: str, keyboard, context=None) -> None:
+    msg = await update.message.reply_text(
         text=text,
         reply_markup=keyboard,
         parse_mode=ParseMode.HTML,
     )
+    if context is not None:
+        _track_msg(context, msg.message_id)
+
+
+async def _send_image(update: Update, text: str, keyboard, image_path: str, context=None) -> None:
+    """Send a new photo card (used on initial render, not a callback edit)."""
+    if DEV_MODE and context is not None:
+        s     = context.user_data.get("nav_stack", [])
+        lines = "\n".join(f"  {i+1}. {e}" for i, e in enumerate(reversed(s))) or "  (empty)"
+        text += f"\n\n<code>🛠 DEV\n{lines}</code>"
+    try:
+        with open(image_path, "rb") as f:
+            sent = await update.message.reply_photo(
+                photo=f,
+                caption=_truncate(text, _CAP_MAX),
+                reply_markup=keyboard,
+                parse_mode=ParseMode.HTML,
+            )
+    except Exception:
+        logger.warning("Failed to send image card: %s", image_path)
+        sent = await update.message.reply_text(
+            text=_truncate(text),
+            reply_markup=keyboard,
+            parse_mode=ParseMode.HTML,
+        )
+    if context is not None:
+        _track_msg(context, sent.message_id)
 
 
 async def _show_image_result(
     update: Update, text: str, keyboard, image_path: str, context
 ) -> None:
     """Replace the current message with a photo card (caption + keyboard)."""
+    if DEV_MODE:
+        s     = context.user_data.get("nav_stack", [])
+        lines = "\n".join(f"  {i+1}. {e}" for i, e in enumerate(reversed(s))) or "  (empty)"
+        text += f"\n\n<code>🛠 DEV\n{lines}</code>"
     msg = update.callback_query.message
     await msg.delete()
     try:
         with open(image_path, "rb") as f:
-            await context.bot.send_photo(
+            sent = await context.bot.send_photo(
                 chat_id=msg.chat_id,
                 photo=f,
                 caption=_truncate(text, _CAP_MAX),
@@ -200,12 +248,13 @@ async def _show_image_result(
             )
     except Exception:
         logger.warning("Failed to send image card: %s", image_path)
-        await context.bot.send_message(
+        sent = await context.bot.send_message(
             chat_id=msg.chat_id,
             text=_truncate(text),
             reply_markup=keyboard,
             parse_mode=ParseMode.HTML,
         )
+    _track_msg(context, sent.message_id)
 
 
 # ─────────────────────────────────────────────
@@ -229,10 +278,16 @@ async def _render_page(update: Update, page_id: int, context, edit: bool = True)
     keyboard     = kb.page_keyboard(child_pages, contents, lang, depth,
                                     page_id=page_id, has_workflow=has_workflow)
 
-    if edit:
+    image_path = page.get("image_url")
+    if image_path and os.path.isfile(image_path):
+        if edit:
+            await _show_image_result(update, text, keyboard, image_path, context)
+        else:
+            await _send_image(update, text, keyboard, image_path, context)
+    elif edit:
         await _edit(update, text, keyboard, context=context)
     else:
-        await _send(update, text, keyboard)
+        await _send(update, text, keyboard, context=context)
 
 
 async def _render_content(update: Update, content_id: int, context, page: int = 0) -> None:
@@ -251,7 +306,11 @@ async def _render_content(update: Update, content_id: int, context, page: int = 
     text     = fmt.format_dice_table(content, lang) if has_dice else fmt.format_content(content, lang)
     keyboard = kb.content_keyboard(links, lang, depth, content_id=content_id, has_dice=has_dice, entries=entries, page=page)
 
-    await _edit(update, text, keyboard, context=context)
+    image_path = content.get("image_url")
+    if image_path and os.path.isfile(image_path):
+        await _show_image_result(update, text, keyboard, image_path, context)
+    else:
+        await _edit(update, text, keyboard, context=context)
 
 
 async def _render_current(update: Update, context, edit: bool = True) -> None:
@@ -270,6 +329,15 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     logger.info("/start  user_id=%s username=%s", user.id, user.username)
     _load(user.id, context)
+
+    # Delete all previous bot messages for a clean session start
+    chat_id = update.effective_chat.id
+    for msg_id in context.user_data.pop("msg_ids", []):
+        try:
+            await context.bot.delete_message(chat_id=chat_id, message_id=msg_id)
+        except Exception:
+            pass
+
     _reset(context)
     _save(user.id, context)
     await _render_page(update, HOME_PAGE_ID, context, edit=False)
@@ -279,7 +347,7 @@ async def cmd_lang(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
     logger.info("/lang  user_id=%s", user.id)
     lang = _lang(context)
-    await _send(update, f"{t(lang, 'lang_title')}\n\n{t(lang, 'lang_select')}", kb.lang_keyboard())
+    await _send(update, f"{t(lang, 'lang_title')}\n\n{t(lang, 'lang_select')}", kb.lang_keyboard(), context=context)
 
 
 async def cmd_search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -293,7 +361,7 @@ async def cmd_search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     results  = db.search(query, lang)
     text     = fmt.format_search_results(query, results, lang)
     keyboard = kb.search_results_keyboard(results, lang)
-    await _send(update, text, keyboard)
+    await _send(update, text, keyboard, context=context)
 
 
 async def cmd_roll(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

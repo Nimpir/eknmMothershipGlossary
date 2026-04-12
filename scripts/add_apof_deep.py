@@ -1,7 +1,9 @@
 """
 scripts/add_apof_deep.py
-A Pound of Flesh — P36 The Deep: Doptown, The Choke, The Sink, Life Support 01,
-The Burrows, Caliban's Heart, Chokespawn table, and Choke encounter table.
+A Pound of Flesh — Deep locations: Doptown (C245) and The Choke (C247) are placed
+on P35 (The Station). Their sub-items (C246, C248–C253) are linked via content_links.
+The Sink, Life Support 01, The Burrows, Caliban's Heart, Chokespawn, and encounter
+tables are seeded here but accessible only through content_links from C247.
 Run after add_apof_source_pages.py.
 Run: python scripts/add_apof_deep.py
 """
@@ -14,7 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 DB_PATH = os.getenv("DB_PATH", "mothership.db")
 
-PAGE_ID = 36  # P36 The Deep
+PAGE_ID = 36  # P36 is the source page for this content; C245/C247 land on P35
 
 # ── Content items ────────────────────────────────────────────────────────────
 # Each tuple: (id, icon, slug, sort_order, dice_sides_or_None,
@@ -573,6 +575,42 @@ ITEMS = [
 ]
 
 
+BASE = "images/A Pound of Flesh/ProsperosDreamLocs"
+CONTENT_IMAGES: dict[int, str] = {
+    245: f"{BASE}/9.DopTown.png",
+    248: f"{BASE}/10.TheSink.png",
+    249: f"{BASE}/TheSinkLocs/LifeSupport.png",
+    250: f"{BASE}/TheSinkLocs/TheBurrows.png",
+    251: f"{BASE}/TheSinkLocs/CalibansHeart.png",
+}
+
+# Items NOT inserted into P36 page_contents.
+# C245/C247 go to P35 (see P35_PLACEMENTS below).
+# C246, C248–C253 are accessible only via content_links from their parents.
+SUB_ITEMS = {
+    245, 247,         # Doptown/The Choke → placed on P35, not P36
+    246,              # Doptown NPCs & Encounters → sub of C245
+    248, 249, 250, 251, 252, 253,  # Choke sub-locations → sub of C247
+}
+
+# C245/C247 are placed on P35 (The Station) at these sort positions.
+P35_PLACEMENTS = [
+    (245, 22),   # 09 Doptown
+    (247, 23),   # 10 The Choke
+]
+
+# Forward content_links: (from_id, to_id, sort_order)
+SUB_LINKS = [
+    (245, 246, 0),   # 09 Doptown → Doptown NPCs & Encounters
+    (247, 248, 0),   # 10 The Choke → The Sink (see_also set by update script)
+    (247, 249, 1),   # 10 The Choke → Life Support 01
+    (247, 250, 2),   # 10 The Choke → The Burrows
+    (247, 251, 3),   # 10 The Choke → Caliban's Heart
+    (247, 252, 4),   # 10 The Choke → Chokespawn
+    (247, 253, 5),   # 10 The Choke → The Choke/Sink Encounters
+]
+
+
 def _insert_content(conn: sqlite3.Connection, page_id: int, item: tuple) -> None:
     (cid, icon, slug, sort_order, dice_sides,
      name_en, name_ru, name_ua,
@@ -580,11 +618,17 @@ def _insert_content(conn: sqlite3.Connection, page_id: int, item: tuple) -> None
      dice_en, dice_ru, dice_ua) = item
 
     dice_json = json.dumps({"sides": dice_sides}) if dice_sides else None
+    image_url = CONTENT_IMAGES.get(cid)
 
     conn.execute("""
-        INSERT OR IGNORE INTO contents (id, icon, source_slug, source_page, dice, sort_order)
-        VALUES (?, ?, 'apof', NULL, ?, ?)
-    """, (cid, icon, dice_json, sort_order))
+        INSERT OR IGNORE INTO contents (id, icon, source_slug, source_page, dice, sort_order, image_url)
+        VALUES (?, ?, 'apof', NULL, ?, ?, ?)
+    """, (cid, icon, dice_json, sort_order, image_url))
+    if image_url:
+        conn.execute(
+            "UPDATE contents SET image_url = ? WHERE id = ? AND image_url IS NULL",
+            (image_url, cid),
+        )
 
     for lang, name, desc, dice_entries in [
         ("en", name_en, desc_en, dice_en),
@@ -597,15 +641,29 @@ def _insert_content(conn: sqlite3.Connection, page_id: int, item: tuple) -> None
             VALUES (?, ?, ?, ?, ?)
         """, (cid, lang, name, desc, entries_json))
 
-    conn.execute("""
-        INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order)
-        VALUES (?, ?, ?)
-    """, (page_id, cid, sort_order))
+    if cid not in SUB_ITEMS:
+        conn.execute("""
+            INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order)
+            VALUES (?, ?, ?)
+        """, (page_id, cid, sort_order))
 
 
 def _seed(conn: sqlite3.Connection) -> None:
     for item in ITEMS:
         _insert_content(conn, PAGE_ID, item)
+
+    # Place Doptown and The Choke on P35 (The Station), not P36
+    for cid, sort_order in P35_PLACEMENTS:
+        conn.execute(
+            "INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order) VALUES (35, ?, ?)",
+            (cid, sort_order),
+        )
+
+    for from_id, to_id, sort in SUB_LINKS:
+        conn.execute(
+            "INSERT OR IGNORE INTO content_links (from_content_id, to_content_id, label_key, sort_order) VALUES (?, ?, 'related', ?)",
+            (from_id, to_id, sort),
+        )
 
 
 def run() -> None:

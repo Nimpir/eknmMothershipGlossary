@@ -228,7 +228,7 @@ PAGE_CONTENT_ORDER = [
     (30, 205, 6),   # P30 Settlement — Settlement Type
     (30, 210, 7),   # P30 Settlement — Settlement Conditions
     (30, 211, 8),   # P30 Settlement — Settlement Weird
-    (28, 206, 1),   # P28 Random Generators — Random Lore
+    (28, 206, 13),  # P28 Random Generators — Random Lore
 ]
 
 

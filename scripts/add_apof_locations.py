@@ -1,7 +1,7 @@
 """
 scripts/add_apof_locations.py
-A Pound of Flesh — P35 "The Station" with 8 location sub-pages (P42-P49).
-Each location sub-page owns its content items; P35 links to all sub-pages.
+A Pound of Flesh — P35 "The Station" with 8 locations as content items
+placed directly on P35 (flat structure, no sub-pages).
 Run after add_apof_source_pages.py.
 Run: python scripts/add_apof_locations.py
 """
@@ -28,13 +28,7 @@ CONTENTS = [
             "LOSHE (Dockmaster): COMBAT 55 (Exoskeleton bash 4d10 DMG) | INSTINCT 60 | HITS 3 (40)\n"
             "Exoskeleton: 4 arms, each capable of attacking or firing a weapon in one round. Reapable. Worth 40kcr.\n"
             "Personally oversees every ship. Hub of station information. Calm voice, always smoking. Wants to keep "
-            "the dock running smoothly and get his 1-year sobriety chip.\n\n"
-            "SHIPS DOCKED (d10): 1=Conquer All (looking for gunmen, leaves tomorrow, 200cr/day) | "
-            "2=Bartzabel (strikebreakers, 100cr/day) | 3=Decade of Therion (blockade runner, 1kcr/ticket) | "
-            "4=Horns of Baphomet (rescue mission, looking for The Defiance) | 5=In the Absence ov Light "
-            "(needs 2 scientists, 50kcr) | 6=Ov Fire and Void (smuggler, 1.5kcr + 10%) | "
-            "7=Daimonos (needs 100 Sycorax doses) | 8=Alas Lord is Upon Me (mining crew, 1% share) | "
-            "9=Inner Sanctum (Solarian pilgrimage) | 10=From the Pagan Vastlands (sensitive cargo, 500cr/day)",
+            "the dock running smoothly and get his 1-year sobriety chip.",
 
             "Сухой Dok — сотни маленьких портов. Искры летят; судостроители снуют по лесам над кораблями.\n\n"
             "КЛЮЧЕВЫЕ ЗОНЫ:\n"
@@ -44,13 +38,7 @@ CONTENTS = [
             "4. АНГАРНЫЙ ОТСЕК — Стоянка вашего корабля. 10% шанс кражи груза без охраны Tempest.\n\n"
             "ЛОШЕ (Начальник дока): БОЙ 55 (Удар экзоскелета 4d10 урона) | ИНСТИНКТ 60 | ОЗ 3 (40)\n"
             "Экзоскелет: 4 руки, каждая может атаковать или стрелять за раунд. Можно изъять. Стоит 40 ккр.\n"
-            "Лично проверяет каждый корабль. Источник информации о станции. Спокойный голос, всегда курит сигары.\n\n"
-            "КОРАБЛИ В ДОКЕ (d10): 1=Покори всё (ищет стрелков, 200 кр/день) | "
-            "2=Барцабель (штрейкбрехеры, 100 кр/день) | 3=Декада Ифриона (блокадопрорыватель, 1 ккр/билет) | "
-            "4=Рога Бафомета (спасательная миссия) | 5=В Отсутствии Света (нужны 2 учёных, 50 ккр) | "
-            "6=Огонь и Пустота (контрабандист, 1.5 ккр + 10%) | 7=Даймонос (нужны 100 доз Сикораха) | "
-            "8=Увы, Господь надо мной (горнодобытчики, 1% прибыли) | 9=Внутреннее Святилище (паломники-Соляриане) | "
-            "10=Из Языческих Пустошей (деликатный груз, 500 кр/день)",
+            "Лично проверяет каждый корабль. Источник информации о станции. Спокойный голос, всегда курит сигары.",
 
             "Сухий Dok — сотні маленьких портів. Іскри летять; суднобудівники снують по риштуванню над кораблями.\n\n"
             "КЛЮЧОВІ ЗОНИ:\n"
@@ -60,13 +48,7 @@ CONTENTS = [
             "4. АНГАРНИЙ ВІДСІК — Стоянка вашого корабля. 10% шанс крадіжки вантажу без охорони Tempest.\n\n"
             "ЛОШЕ (Начальник дока): БІЙ 55 (Удар екзоскелета 4d10 шкоди) | ІНСТИНКТ 60 | ОЗ 3 (40)\n"
             "Екзоскелет: 4 руки, кожна може атакувати або стріляти за раунд. Можна вилучити. Вартість 40 ккр.\n"
-            "Особисто перевіряє кожен корабель. Джерело інформації про станцію. Спокійний голос, завжди курить сигари.\n\n"
-            "КОРАБЛІ В ДОКУ (d10): 1=Підкори всіх (шукає стрільців, 200 кр/день) | "
-            "2=Барцабель (штрейкбрехери, 100 кр/день) | 3=Декада Іфріона (блокадопрорив, 1 ккр/квиток) | "
-            "4=Роги Бафомета (рятувальна місія) | 5=У Відсутності Світла (потрібні 2 вчені, 50 ккр) | "
-            "6=Вогонь і Порожнеча (контрабандист, 1.5 ккр + 10%) | 7=Даймонос (потрібні 100 доз Сикораху) | "
-            "8=Та Господь наді мною (шахтарі, 1% прибутку) | 9=Внутрішнє Святилище (паломники-Соляріани) | "
-            "10=З Поганських Пустошів (делікатний вантаж, 500 кр/день)",
+            "Особисто перевіряє кожен корабель. Джерело інформації про станцію. Спокійний голос, завжди курить сигари.",
         ),
     },
     {
@@ -166,13 +148,7 @@ CONTENTS = [
             "8. BABUSHKA'S ROOM — Photo of Zhenya as a real boy. Note: 'Vera — one more trip and Y will let me home.'\n"
             "9. CYBERMOD STORAGE & REAPER BARN — Back tunnel to The Choke. 2d10 of each cybermod in stock.\n\n"
             "THE BABUSHKA: COMBAT 25 (Sawed-Off 2d10 DMG or MegaTranq) | INSTINCT 90 | HITS 2 (45)\n"
-            "Cyber Savant: On any hit, may shut down one cybermod of target for the encounter.\n\n"
-            "BABUSHKA JOBS (d10):\n"
-            "1–4: Bring 1d5 infected corpses for study. 2kcr each. Don't get sick.\n"
-            "5–6: Sycorax pickup from The Farm — talk to Ukko/Ukka only. 3kcr.\n"
-            "7–8: House call — mutated patient died, collect evidence. 15kcr. Don't get sick.\n"
-            "9: Track down Dr. Bancali in Doptown. Free cybermod.\n"
-            "10: Yandee wants Babushka for a meeting. Provide protection. 40kcr.",
+            "Cyber Savant: On any hit, may shut down one cybermod of target for the encounter.",
 
             "Завалена мусором и грязью. Управляется легендарным кибернетическим хирургом БАБУШКОЙ "
             "и её голографическим ИИ-ребёнком ЖЕНЕЙ. Нужен допуск — не должен быть на плохом счету у Яндея.\n\n"
@@ -183,13 +159,7 @@ CONTENTS = [
             "8. КОМНАТА БАБУШКИ — Фото Жени маленьким. Записка: «Вера — ещё один рейс, и Я отпустит домой».\n"
             "9. ХРАНЕНИЕ ИМПЛАНТОВ — Тоннель в Удавку. 2d10 каждого кибермода в запасе.\n\n"
             "БАБУШКА: БОЙ 25 (Обрез 2d10 / МегаТранк) | ИНСТИНКТ 90 | ОЗ 2 (45)\n"
-            "Кибер-Мастер: При любом попадании отключает один имплант цели на время боя.\n\n"
-            "ЗАДАНИЯ БАБУШКИ (d10):\n"
-            "1–4: Принести 1d5 заражённых трупов для изучения. 2 ккр/штука. Не заразиться.\n"
-            "5–6: Забрать Сикорах с Фермы — только через Укко/Укку. 3 ккр.\n"
-            "7–8: Вызов на дом — мутировавший пациент умер, собрать улики. 15 ккр.\n"
-            "9: Найти доктора Банкали в Доптауне. Бесплатный имплант.\n"
-            "10: Яндей вызывает Бабушку. Обеспечить охрану. 40 ккр.",
+            "Кибер-Мастер: При любом попадании отключает один имплант цели на время боя.",
 
             "Завалена сміттям і брудом. Керується легендарним кібернетичним хірургом БАБУСЕЮ "
             "та її голографічним ШІ-дитям ЖЕНЕЮ. Потрібен допуск — не повинен бути на поганому рахунку у Яндея.\n\n"
@@ -200,13 +170,7 @@ CONTENTS = [
             "8. КІМНАТА БАБУСІ — Фото Жені маленьким. Записка: «Віра — ще один рейс, і Я відпустить додому».\n"
             "9. ЗБЕРІГАННЯ ІМПЛАНТІВ — Тунель до Задуші. 2d10 кожного кіберімпланта в запасі.\n\n"
             "БАБУСЯ: БІЙ 25 (Обріз 2d10 / МегаТранк) | ІНСТИНКТ 90 | ОЗ 2 (45)\n"
-            "Кібер-Майстер: При будь-якому влученні вимикає один імплант цілі на час бою.\n\n"
-            "ЗАВДАННЯ БАБУСІ (d10):\n"
-            "1–4: Принести 1d5 заражених трупів для вивчення. 2 ккр/штука. Не заразитися.\n"
-            "5–6: Забрати Сикорах з Ферми — лише через Укко/Укку. 3 ккр.\n"
-            "7–8: Виклик додому — мутований пацієнт помер, зібрати докази. 15 ккр.\n"
-            "9: Знайти доктора Банкалі в Доптауні. Безкоштовний імплант.\n"
-            "10: Яндей викликає Бабусю. Забезпечити охорону. 40 ккр.",
+            "Кібер-Майстер: При будь-якому влученні вимикає один імплант цілі на час бою.",
         ),
     },
     {
@@ -773,19 +737,42 @@ CONTENTS = [
 ]
 
 
+# Sub-items linked via content_links — not direct P35 buttons.
+SUB_ITEMS = {231, 234, 236, 238, 239, 241, 243, 244}
+
+BASE = "images/A Pound of Flesh/ProsperosDreamLocs"
+CONTENT_IMAGES: dict[int, str] = {
+    229: f"{BASE}/1.DryDock.png",
+    230: f"{BASE}/2.TheStellarBurn.png",
+    232: f"{BASE}/3.TheChopShop.png",
+    233: f"{BASE}/4.TheIceBox.png",
+    235: f"{BASE}/5.TheFarm.png",
+    237: f"{BASE}/6.CanyonHeavyMarket.png",
+    240: f"{BASE}/7.TheCourt.png",
+    242: f"{BASE}/8.TempestCompanyHQ.png",
+}
+
+
 def _insert_content(conn: sqlite3.Connection, page_id: int, item: dict, sort_override: int | None = None) -> None:
-    cid        = item["id"]
-    icon       = item["icon"]
-    src_page   = item.get("source_page")
-    sort_order = sort_override if sort_override is not None else item.get("sort_order", cid)
-    dice_data  = item.get("dice")
-    dice_json  = json.dumps(dice_data) if dice_data else None
+    cid           = item["id"]
+    icon          = item["icon"]
+    src_page      = item.get("source_page")
+    item_sort     = item.get("sort_order", cid)    # natural sort order for contents table
+    page_sort     = sort_override if sort_override is not None else item_sort  # for page_contents
+    dice_data     = item.get("dice")
+    dice_json     = json.dumps(dice_data) if dice_data else None
+    image_url     = CONTENT_IMAGES.get(cid)
 
     conn.execute("""
         INSERT OR IGNORE INTO contents
-            (id, icon, source_slug, source_page, dice, sort_order)
-        VALUES (?, ?, 'apof', ?, ?, ?)
-    """, (cid, icon, src_page, dice_json, sort_order))
+            (id, icon, source_slug, source_page, dice, sort_order, image_url)
+        VALUES (?, ?, 'apof', ?, ?, ?, ?)
+    """, (cid, icon, src_page, dice_json, item_sort, image_url))
+    if image_url:
+        conn.execute(
+            "UPDATE contents SET image_url = ? WHERE id = ? AND image_url IS NULL",
+            (image_url, cid),
+        )
 
     names = item["name"]
     descs = item["desc"]
@@ -807,54 +794,63 @@ def _insert_content(conn: sqlite3.Connection, page_id: int, item: dict, sort_ove
             VALUES (?, ?, ?, ?, ?)
         """, (cid, lang, names[i], descs[i] if descs else None, de_json))
 
-    conn.execute("""
-        INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order)
-        VALUES (?, ?, ?)
-    """, (page_id, cid, sort_order))
+    if cid not in SUB_ITEMS:
+        conn.execute("""
+            INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order)
+            VALUES (?, ?, ?)
+        """, (page_id, cid, page_sort))
 
 
-# Maps content item IDs to their location sub-page.
-# (page_id, icon, en_name, ru_name, ua_name, [content_ids in order])
-LOCATION_PAGES = [
-    (42, "🛸", "01 Dry Dock",              "01 Сухой Dok",             "01 Сухий Dok",             [229]),
-    (43, "🍹", "02 The Stellar Burn",       "02 Звёздный Ожог",         "02 Зоряний Опік",          [230, 231]),
-    (44, "🔪", "03 The Chop Shop",          "03 Мастерская",            "03 Майстерня",             [232]),
-    (45, "❄️", "04 The Ice Box",            "04 Морозильник",           "04 Морозильник",           [233, 234]),
-    (46, "🌿", "05 The Farm",              "05 Ферма",                 "05 Ферма",                 [235, 236]),
-    (47, "🖥️", "06 CANYONHEAVY.market",    "06 CANYONHEAVY.market",    "06 CANYONHEAVY.market",    [237, 238, 239]),
-    (48, "⚔️", "07 The Court",             "07 Суд",                   "07 Суд",                   [240, 241]),
-    (49, "🏛️", "08 Tempest Company HQ",    "08 Штаб Tempest Company",  "08 Штаб Tempest Company",  [242, 243, 244]),
+# Direct buttons on P35 — one per location.
+# Sub-items (C231, C234, C236, C238-239, C241, C243-244) and dice tables
+# (C329-C333) are linked via content_links from their parent location.
+P35_CONTENT_ORDER = [
+    (229,  1),
+    (230,  4),
+    (232,  6),
+    (233,  8),
+    (235, 10),
+    (237, 12),
+    (240, 15),
+    (242, 19),
 ]
 
-# content_id → (parent_page_id, sort_order_within_page)
-_CONTENT_PAGE_MAP: dict[int, tuple[int, int]] = {}
-for _page_id, _, _, _, _, _cids in LOCATION_PAGES:
-    for _so, _cid in enumerate(_cids, start=1):
-        _CONTENT_PAGE_MAP[_cid] = (_page_id, _so)
+# content_id → (parent_page_id, sort_order_on_page)
+_CONTENT_PAGE_MAP: dict[int, tuple[int, int]] = {
+    cid: (35, so) for cid, so in P35_CONTENT_ORDER
+}
 
 
 def _seed(conn: sqlite3.Connection) -> None:
-    # Create location sub-pages with i18n
-    for page_id, icon, en, ru, ua, _ in LOCATION_PAGES:
-        conn.execute(
-            "INSERT OR IGNORE INTO pages (id, icon, source_slug, source_page, linked_pages) VALUES (?, ?, 'apof', 35, '[]')",
-            (page_id, icon),
-        )
-        for lang, name in [("en", en), ("ru", ru), ("ua", ua)]:
-            conn.execute(
-                "INSERT OR IGNORE INTO page_i18n (page_id, lang, name) VALUES (?, ?, ?)",
-                (page_id, lang, name),
-            )
-
-    # Insert content items into their sub-pages
+    # Insert content items; sub-items get content/i18n only (no page_contents)
     for item in CONTENTS:
-        parent_page, sub_sort = _CONTENT_PAGE_MAP[item["id"]]
+        cid = item["id"]
+        mapping = _CONTENT_PAGE_MAP.get(cid)
+        parent_page = mapping[0] if mapping else 35
+        sub_sort = mapping[1] if mapping else cid
         _insert_content(conn, page_id=parent_page, item=item, sort_override=sub_sort)
 
-    # Set P35 linked_pages; clear any stale page_contents on P35
-    linked = json.dumps([p[0] for p in LOCATION_PAGES])
-    conn.execute("UPDATE pages SET linked_pages = ? WHERE id = 35", (linked,))
-    conn.execute("DELETE FROM page_contents WHERE page_id = 35")
+    # Ensure P35 has no linked_pages
+    conn.execute("UPDATE pages SET linked_pages = '[]' WHERE id = 35")
+
+    # Sub-item links: each location's secondary content accessible from its parent.
+    # Only links between items created by THIS script (C229–C244).
+    # Links to C329–C333 (from add_apof_missed_tables.py) are created there instead.
+    sub_links = [
+        (230, 231, 0),   # 02 The Stellar Burn → Heaven/Ecstasy
+        (233, 234, 0),   # 04 The Ice Box → Ice Box Services
+        (235, 236, 0),   # 05 The Farm → Sycorax
+        (237, 238, 0),   # 06 CANYONHEAVY.market → CANYONHEAVY Missions
+        (237, 239, 1),   # 06 CANYONHEAVY.market → CANYONHEAVY Stock
+        (240, 241, 0),   # 07 The Court → Pit Fighters
+        (242, 243, 0),   # 08 Tempest Company HQ → Tempest Missions
+        (242, 244, 1),   # 08 Tempest Company HQ → Tempest Roster
+    ]
+    for from_id, to_id, sort in sub_links:
+        conn.execute(
+            "INSERT OR IGNORE INTO content_links (from_content_id, to_content_id, label_key, sort_order) VALUES (?, ?, 'related', ?)",
+            (from_id, to_id, sort),
+        )
 
 
 def run() -> None:
@@ -863,7 +859,7 @@ def run() -> None:
     try:
         _seed(conn)
         conn.commit()
-        print(f"Done — {len(CONTENTS)} content items across 8 location sub-pages (P42–P49); P35 updated.")
+        print(f"Done — {len(CONTENTS)} location content items added directly to P35 (flat structure).")
     finally:
         conn.close()
 

@@ -120,9 +120,9 @@ def _seed(conn: sqlite3.Connection) -> None:
         conn.execute(
             "INSERT OR IGNORE INTO contents (id, icon, source_slug, source_page, dice, sort_order)"
             " VALUES (?, ?, 'wom', 2, ?, ?)",
-            (cid, icon, dice_json, cid),
+            (cid, icon, dice_json, col_idx + 2),
         )
-        conn.execute("UPDATE contents SET dice=? WHERE id=?", (dice_json, cid))
+        conn.execute("UPDATE contents SET dice=?, sort_order=? WHERE id=?", (dice_json, col_idx + 2, cid))
 
         for lang, name, desc in [
             ("en", name_en, desc_en),

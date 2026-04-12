@@ -1,8 +1,8 @@
 """
 scripts/update_station_structure.py
-Restructure P35 The Station: create 8 location sub-pages (P42-P49),
-move each location's content items to its sub-page, and replace
-P35's page_contents with linked_pages pointing to the new pages.
+Flatten P35 The Station: remove sub-pages P42-P49 if they exist and place
+all 8 location content items directly on P35 (no intermediate pages).
+Idempotent — safe to re-run on any DB state.
 Run: python scripts/update_station_structure.py
 """
 import json, os, sqlite3
@@ -11,62 +11,52 @@ from dotenv import load_dotenv
 load_dotenv()
 DB_PATH = os.getenv("DB_PATH", "mothership.db")
 
-# New pages: (page_id, icon, en_name, ru_name, ua_name, content_ids)
-LOCATION_PAGES = [
-    (42, "🛸", "01 Dry Dock",               "01 Сухой Dok",                "01 Сухий Dok",                [229]),
-    (43, "🍹", "02 The Stellar Burn",        "02 Звёздный Ожог",            "02 Зоряний Опік",             [230, 231]),
-    (44, "🔪", "03 The Chop Shop",           "03 Мастерская",               "03 Майстерня",                [232]),
-    (45, "❄️", "04 The Ice Box",             "04 Морозильник",              "04 Морозильник",              [233, 234]),
-    (46, "🌿", "05 The Farm",               "05 Ферма",                    "05 Ферма",                    [235, 236]),
-    (47, "🖥️", "06 CANYONHEAVY.market",     "06 CANYONHEAVY.market",       "06 CANYONHEAVY.market",       [237, 238, 239]),
-    (48, "⚔️", "07 The Court",              "07 Суд",                      "07 Суд",                      [240, 241]),
-    (49, "🏛️", "08 Tempest Company HQ",     "08 Штаб Tempest Company",     "08 Штаб Tempest Company",     [242, 243, 244]),
-]
-
 STATION_PAGE_ID = 35
-NEW_LINKED_PAGES = [p[0] for p in LOCATION_PAGES]
+SUB_PAGE_IDS = [42, 43, 44, 45, 46, 47, 48, 49]
+
+# Direct P35 buttons — one per location (8 total).
+# Sub-items (C231, C234, C236, C238, C239, C241, C243, C244) and dice tables
+# (C329–C333) are accessible only via content_links from their parent location.
+P35_CONTENT_ORDER = [
+    (229,  1),
+    (230,  4),
+    (232,  6),
+    (233,  8),
+    (235, 10),
+    (237, 12),
+    (240, 15),
+    (242, 19),
+]
 
 
 def run() -> None:
     conn = sqlite3.connect(DB_PATH)
     conn.execute("PRAGMA foreign_keys = ON")
     try:
-        _seed(conn)
+        _migrate(conn)
         conn.commit()
-        print("Done — 8 location pages created (P42–P49), P35 restructured.")
+        print("Done — P35 flat structure ensured; P42-P49 removed if present.")
     finally:
         conn.close()
 
 
-def _seed(conn: sqlite3.Connection) -> None:
-    # 1. Create new location pages with i18n
-    for page_id, icon, en, ru, ua, _ in LOCATION_PAGES:
+def _migrate(conn: sqlite3.Connection) -> None:
+    placeholders = ",".join("?" * len(SUB_PAGE_IDS))
+
+    # Remove sub-pages if they still exist
+    conn.execute(f"DELETE FROM page_contents WHERE page_id IN ({placeholders})", SUB_PAGE_IDS)
+    conn.execute(f"DELETE FROM page_i18n WHERE page_id IN ({placeholders})", SUB_PAGE_IDS)
+    conn.execute(f"DELETE FROM pages WHERE id IN ({placeholders})", SUB_PAGE_IDS)
+
+    # Clear P35 linked_pages
+    conn.execute("UPDATE pages SET linked_pages = '[]' WHERE id = ?", (STATION_PAGE_ID,))
+
+    # Place content directly on P35
+    for content_id, sort_order in P35_CONTENT_ORDER:
         conn.execute(
-            "INSERT OR IGNORE INTO pages (id, icon, source_slug, source_page, linked_pages) VALUES (?, ?, 'apof', 35, '[]')",
-            (page_id, icon),
+            "INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order) VALUES (?, ?, ?)",
+            (STATION_PAGE_ID, content_id, sort_order),
         )
-        for lang, name in [("en", en), ("ru", ru), ("ua", ua)]:
-            conn.execute(
-                "INSERT OR IGNORE INTO page_i18n (page_id, lang, name) VALUES (?, ?, ?)",
-                (page_id, lang, name),
-            )
-
-    # 2. Remove all existing page_contents for P35
-    conn.execute("DELETE FROM page_contents WHERE page_id = ?", (STATION_PAGE_ID,))
-
-    # 3. Add page_contents for each new location page
-    for page_id, _, _, _, _, content_ids in LOCATION_PAGES:
-        for sort_order, content_id in enumerate(content_ids, start=1):
-            conn.execute(
-                "INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order) VALUES (?, ?, ?)",
-                (page_id, content_id, sort_order),
-            )
-
-    # 4. Update P35 linked_pages
-    conn.execute(
-        "UPDATE pages SET linked_pages = ? WHERE id = ?",
-        (json.dumps(NEW_LINKED_PAGES), STATION_PAGE_ID),
-    )
 
 
 if __name__ == "__main__":

@@ -24,7 +24,7 @@ SOURCE = (3, "apof", "A Pound of Flesh", "module")
 #  desc_en, desc_ru, desc_ua)
 PAGES = [
     (
-        31, "🏙️", "apof", None, json.dumps([32, 33, 34, 35, 36, 37, 38]),
+        31, "🏙️", "apof", None, json.dumps([32, 33, 34, 35, 37, 38]),
         "A Pound of Flesh",
         "Фунт плоти",
         "Фунт плоті",
@@ -64,18 +64,18 @@ PAGES = [
         "The Station",
         "Станция",
         "Станція",
-        "The eight major locations on the upper levels of Prospero's Dream.",
-        "Восемь ключевых локаций на верхних уровнях Мечты Просперо.",
-        "Вісім ключових локацій на верхніх рівнях Мрії Просперо.",
+        "All ten major locations of Prospero's Dream — eight station sections, Doptown, and The Choke.",
+        "Все десять ключевых локаций Мечты Просперо — восемь зон станции, Доптаун и Удавка.",
+        "Всі десять ключових локацій Мрії Просперо — вісім зон станції, Доптаун і Задуша.",
     ),
     (
         36, "☠️", "apof", 30, json.dumps([]),
         "The Deep",
         "Глубина",
         "Глибина",
-        "Doptown and the depths of The Choke — Doptown, The Sink, Life Support 01, The Burrows, and Caliban's Heart.",
-        "Доптаун и глубины Удавки — Доптаун, Провал, Система жизнеобеспечения 01, Норы и Сердце Калибана.",
-        "Доптаун та глибини Задуші — Доптаун, Провал, Система життєзабезпечення 01, Нори та Серце Калібана.",
+        "Previously housed Doptown and The Choke — both now accessible from The Station (P35).",
+        "Ранее содержал Доптаун и Удавку — обе локации теперь доступны через Станцию (P35).",
+        "Раніше містив Доптаун і Задушу — обидві локації тепер доступні через Станцію (P35).",
     ),
     (
         37, "🔧", "apof", 16, json.dumps([39, 40]),
@@ -170,6 +170,15 @@ def _seed(conn: sqlite3.Connection) -> None:
         )
     _add_linked_page(conn, parent_id=41, child_id=31)
     _add_linked_page(conn, parent_id=1, child_id=41)
+
+    # Set P35 overview image (idempotent UPDATE — safe to re-run)
+    try:
+        conn.execute("ALTER TABLE pages ADD COLUMN image_url TEXT")
+    except Exception:
+        pass  # Column already exists
+    conn.execute(
+        "UPDATE pages SET image_url = 'images/A Pound of Flesh/ProsperosDream.png' WHERE id = 35"
+    )
 
 
 def run() -> None:

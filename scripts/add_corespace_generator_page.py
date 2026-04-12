@@ -237,7 +237,7 @@ def _seed(conn: sqlite3.Connection) -> None:
         )
 
     # 4. Create C315–C319 and place on P52
-    for sort, (cid, icon, names, entries_by_lang) in enumerate(DICE_TABLES, start=1):
+    for sort, (cid, icon, names, entries_by_lang) in enumerate(DICE_TABLES, start=2):
         en_entries = _entries(entries_by_lang["en"])
         dice_json = json.dumps({"die": "d10", "entries": en_entries}, ensure_ascii=False)
 

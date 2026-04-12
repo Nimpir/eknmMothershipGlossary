@@ -529,6 +529,10 @@ def _seed(conn: sqlite3.Connection) -> None:
     for pid in (3, 4, 5):
         _add_linked_page(conn, parent_id=1, child_id=pid)
 
+    # P3 (Combat) links to P5 (Range & Distance) and P4 (Wounds & Death) as sub-pages
+    _add_linked_page(conn, parent_id=3, child_id=5)
+    _add_linked_page(conn, parent_id=3, child_id=4)
+
     # ── Contents ──────────────────────────────────────────────────────────────
     content_ids = [c["id"] for c in CONTENTS]
     conn.execute(

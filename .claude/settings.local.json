@@ -103,7 +103,9 @@
       "Bash(git stash:*)",
       "Bash(git -C c:/Git/mothership log main..dev/v3 --oneline)",
       "Bash(grep -r \"except\\\\|try\" /c/Git/mothership/bot/*.py)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(git rm:*)",
+      "Bash(gh pr create --title 'Fix bot crash: add job-queue extra to PTB' --body ':*)"
     ]
   },
   "spinnerTipsEnabled": true

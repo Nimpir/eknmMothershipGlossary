@@ -686,56 +686,56 @@ def _seed(conn: sqlite3.Connection) -> None:
             "d100", None, None,
         )
 
-    # ── C329 Dry Dock Rumors (P42, sort=2) ───────────────────────────────────
+    # ── C329 Dry Dock Rumors (sub-item of C229, not on P35 directly) ─────────
     _upsert_content(
         conn, 329, "👂",
         DRY_DOCK_RUMORS_EN, DRY_DOCK_RUMORS_RU, DRY_DOCK_RUMORS_UA,
         "Dry Dock Rumors", "Слухи на Доке", "Чутки в Доці",
-        "d10", 42, 2,
+        "d10", None, None,
         desc_en="Sem will dispense a rumor for 1kcr if you've bought a drink. Loshe also shares rumors freely.",
         desc_ru="Сем расскажет слух за 1 ткр, если купите выпивку. Лоше тоже охотно делится слухами.",
         desc_ua="Сем поділиться чуткою за 1 ткр, якщо купите напій. Лоше також охоче ділиться чутками.",
     )
 
-    # ── C330 Ships Currently Docked (P42, sort=3) ────────────────────────────
+    # ── C330 Ships Currently Docked (sub-item of C229, not on P35 directly) ──
     _upsert_content(
         conn, 330, "⚓",
         SHIPS_DOCKED_EN, SHIPS_DOCKED_RU, SHIPS_DOCKED_UA,
         "Ships Currently Docked", "Пришвартованные корабли", "Пришвартовані кораблі",
-        "d10", 42, 3,
+        "d10", None, None,
         desc_en="Roll to see which ship is currently docked and what work they're offering.",
         desc_ru="Бросайте, чтобы узнать, какой корабль стоит у дока и какую работу предлагает.",
         desc_ua="Кидайте, щоб дізнатись, який корабель стоїть у доці та яку роботу пропонує.",
     )
 
-    # ── C331 Jobs for The Babushka (P44, sort=2) ─────────────────────────────
+    # ── C331 Jobs for The Babushka (sub-item of C232, not on P35 directly) ───
     _upsert_content(
         conn, 331, "📋",
         BABUSHKA_JOBS_EN, BABUSHKA_JOBS_RU, BABUSHKA_JOBS_UA,
         "Jobs for The Babushka", "Работа от Бабушки", "Робота від Бабусі",
-        "d10", 44, 2,
+        "d10", None, None,
         desc_en="Work available from The Babushka at The Chop Shop. Appointments through Zhenya.",
         desc_ru="Работа от Бабушки в Разделочной. Запись через Женю.",
         desc_ua="Робота від Бабусі в Розбірній. Запис через Женю.",
     )
 
-    # ── C332 The Docket (P48, sort=3) ────────────────────────────────────────
+    # ── C332 The Docket (sub-item of C240, not on P35 directly) ─────────────
     _upsert_content(
         conn, 332, "⚖️",
         DOCKET_EN, DOCKET_RU, DOCKET_UA,
         "The Docket", "Список Дел", "Список Справ",
-        "d10", 48, 3,
+        "d10", None, None,
         desc_en="Roll to determine today's trial matchup in The Court. Gambling on outcomes is common.",
         desc_ru="Бросайте для определения поединка в суде. На исходы активно делают ставки.",
         desc_ua="Кидайте для визначення двобою у Суді. Ставки на результат — звичайна справа.",
     )
 
-    # ── C333 Accused & What They Can Pay (P48, sort=4) ───────────────────────
+    # ── C333 Accused & What They Can Pay (sub-item of C240, not on P35 directly)
     _upsert_content(
         conn, 333, "💰",
         ACCUSED_PAY_EN, ACCUSED_PAY_RU, ACCUSED_PAY_UA,
         "Accused & What They Can Pay", "Обвиняемый и Его Предложение", "Обвинувачений та Його Пропозиція",
-        "d10", 48, 4,
+        "d10", None, None,
         desc_en="Roll to see who is in The Holding Cells and what they can offer an Advocate.",
         desc_ru="Бросайте, чтобы узнать, кто в камерах и что они могут предложить адвокату.",
         desc_ua="Кидайте, щоб дізнатись, хто в камерах і що вони можуть запропонувати адвокату.",
@@ -746,11 +746,16 @@ def _seed(conn: sqlite3.Connection) -> None:
         (326, 254, "related", 0),   # Cybernetic Mutations → Installation Rules
         (326, 255, "related", 1),   # Cybernetic Mutations → Cybermod Malfunctions
         (326, 256, "related", 2),   # Cybernetic Mutations → Cybermod Panic Table
-        (329, 229, "related", 0),   # Dry Dock Rumors → 01 Dry Dock
-        (330, 229, "related", 0),   # Ships Currently Docked → 01 Dry Dock
-        (331, 232, "related", 0),   # Jobs for The Babushka → 03 The Chop Shop
-        (332, 240, "related", 0),   # The Docket → 07 The Court
-        (333, 240, "related", 0),   # Accused & What They Can Pay → 07 The Court
+        (229, 329, "related", 0),   # 01 Dry Dock → Dry Dock Rumors
+        (229, 330, "related", 1),   # 01 Dry Dock → Ships Currently Docked
+        (329, 229, "related", 0),   # Dry Dock Rumors → 01 Dry Dock (back)
+        (330, 229, "related", 0),   # Ships Currently Docked → 01 Dry Dock (back)
+        (232, 331, "related", 0),   # 03 The Chop Shop → Jobs for The Babushka
+        (240, 332, "related", 1),   # 07 The Court → The Docket  (forward; sort 0 = Pit Fighters from add_apof_locations)
+        (240, 333, "related", 2),   # 07 The Court → Accused & What They Can Pay
+        (331, 232, "related", 0),   # Jobs for The Babushka → 03 The Chop Shop (back)
+        (332, 240, "related", 0),   # The Docket → 07 The Court (back)
+        (333, 240, "related", 0),   # Accused & What They Can Pay → 07 The Court (back)
         (333, 332, "related", 1),   # Accused & What They Can Pay → The Docket
         # Noteworthy Locations tables (C328–C340) → Structure + Issues
         *[(cid, 305, "related", 0) for cid, *_ in NOTEWORTHY_LOCATION_TABLES],
