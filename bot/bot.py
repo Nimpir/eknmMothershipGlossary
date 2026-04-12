@@ -128,14 +128,15 @@ def _roll(notation: str) -> int:
 # ─────────────────────────────────────────────
 
 _TG_MAX = 4096
+_CAP_MAX = 1024          # Telegram photo caption limit
 _TRUNCATION_MARKER = "\n\n<i>…</i>"
 
 
-def _truncate(text: str) -> str:
-    """Trim text to Telegram's 4096-char limit, cutting at a line boundary."""
-    if len(text) <= _TG_MAX:
+def _truncate(text: str, limit: int = _TG_MAX) -> str:
+    """Trim text to the given char limit, cutting at a line boundary."""
+    if len(text) <= limit:
         return text
-    cutoff = _TG_MAX - len(_TRUNCATION_MARKER)
+    cutoff = limit - len(_TRUNCATION_MARKER)
     trimmed = text[:cutoff]
     last_nl = trimmed.rfind("\n")
     if last_nl > 0:
@@ -148,6 +149,21 @@ async def _edit(update: Update, text: str, keyboard, context=None) -> None:
         s     = context.user_data.get("nav_stack", [])
         lines = "\n".join(f"  {i+1}. {e}" for i, e in enumerate(reversed(s))) or "  (empty)"
         text += f"\n\n<code>🛠 DEV\n{lines}</code>"
+
+    msg = update.callback_query.message
+
+    # If the current message is a photo card, we can't edit_message_text on it.
+    # Delete it and send a fresh text message instead.
+    if msg.photo:
+        await msg.delete()
+        await context.bot.send_message(
+            chat_id=msg.chat_id,
+            text=_truncate(text),
+            reply_markup=keyboard,
+            parse_mode=ParseMode.HTML,
+        )
+        return
+
     try:
         await update.callback_query.edit_message_text(
             text=_truncate(text),
@@ -165,6 +181,31 @@ async def _send(update: Update, text: str, keyboard) -> None:
         reply_markup=keyboard,
         parse_mode=ParseMode.HTML,
     )
+
+
+async def _show_image_result(
+    update: Update, text: str, keyboard, image_path: str, context
+) -> None:
+    """Replace the current message with a photo card (caption + keyboard)."""
+    msg = update.callback_query.message
+    await msg.delete()
+    try:
+        with open(image_path, "rb") as f:
+            await context.bot.send_photo(
+                chat_id=msg.chat_id,
+                photo=f,
+                caption=_truncate(text, _CAP_MAX),
+                reply_markup=keyboard,
+                parse_mode=ParseMode.HTML,
+            )
+    except Exception:
+        logger.warning("Failed to send image card: %s", image_path)
+        await context.bot.send_message(
+            chat_id=msg.chat_id,
+            text=_truncate(text),
+            reply_markup=keyboard,
+            parse_mode=ParseMode.HTML,
+        )
 
 
 # ─────────────────────────────────────────────
@@ -380,10 +421,14 @@ async def _dispatch(update: Update, data: str, context) -> None:
             entries[-1],
         )
 
-        depth    = len(_stack(context))
-        text     = fmt.format_roll_result(content, roll_value, entry, lang)
-        keyboard = kb.roll_result_keyboard(content_id, entry.get("links", []), lang, depth)
-        await _edit(update, text, keyboard, context=context)
+        depth      = len(_stack(context))
+        text       = fmt.format_roll_result(content, roll_value, entry, lang)
+        keyboard   = kb.roll_result_keyboard(content_id, entry.get("links", []), lang, depth)
+        image_path = entry.get("image")
+        if image_path and os.path.isfile(image_path):
+            await _show_image_result(update, text, keyboard, image_path, context)
+        else:
+            await _edit(update, text, keyboard, context=context)
         return
 
     # ── Paginate dice table entries ─────────────────
@@ -417,11 +462,15 @@ async def _dispatch(update: Update, data: str, context) -> None:
         if not (0 <= idx < len(entries)):
             await update.callback_query.answer(t(lang, "err_not_found"))
             return
-        entry    = entries[idx]
-        depth    = len(_stack(context))
-        text     = fmt.format_roll_result(content, 0, entry, lang, picked=True)
-        keyboard = kb.roll_result_keyboard(content_id, entry.get("links", []), lang, depth)
-        await _edit(update, text, keyboard, context=context)
+        entry      = entries[idx]
+        depth      = len(_stack(context))
+        text       = fmt.format_roll_result(content, 0, entry, lang, picked=True)
+        keyboard   = kb.roll_result_keyboard(content_id, entry.get("links", []), lang, depth)
+        image_path = entry.get("image")
+        if image_path and os.path.isfile(image_path):
+            await _show_image_result(update, text, keyboard, image_path, context)
+        else:
+            await _edit(update, text, keyboard, context=context)
         return
 
     # ── Roll all workflow steps ─────────────────────
