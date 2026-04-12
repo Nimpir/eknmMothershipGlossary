@@ -634,10 +634,11 @@ def _upsert_content(
                DO UPDATE SET name=excluded.name, desc=excluded.desc, dice_entries=excluded.dice_entries""",
             (cid, lang, name, desc, de_json),
         )
-    conn.execute(
-        "INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order) VALUES (?, ?, ?)",
-        (page_id, cid, sort_order),
-    )
+    if page_id is not None:
+        conn.execute(
+            "INSERT OR IGNORE INTO page_contents (page_id, content_id, sort_order) VALUES (?, ?, ?)",
+            (page_id, cid, sort_order),
+        )
 
 
 def _seed(conn: sqlite3.Connection) -> None:
@@ -673,14 +674,16 @@ def _seed(conn: sqlite3.Connection) -> None:
         desc_ua="Кидайте при обшуку тіла або мародерстві на Мрії Просперо.",
     )
 
-    # ── C328–C340 Noteworthy Locations, one table per station type (P38) ────────
-    for i, (cid, icon, name_en, name_ru, name_ua, groups, singles) in enumerate(NOTEWORTHY_LOCATION_TABLES):
+    # ── C328–C340 Noteworthy Locations, one table per station type ───────────────
+    # Not placed on any page directly — accessed via C341 content links
+    # (see add_noteworthy_locations_intro.py).
+    for cid, icon, name_en, name_ru, name_ua, groups, singles in NOTEWORTHY_LOCATION_TABLES:
         entries = _e(groups, singles)
         _upsert_content(
             conn, cid, icon,
             entries, entries, entries,
             name_en, name_ru, name_ua,
-            "d100", 38, 14 + i,
+            "d100", None, None,
         )
 
     # ── C329 Dry Dock Rumors (P42, sort=2) ───────────────────────────────────
