@@ -4,11 +4,13 @@ Queries for the pages / contents schema.
 """
 
 import json
+import logging
 import os
 import sqlite3
 import time
 
 DB_PATH = os.getenv("DB_PATH", "mothership.db")
+logger  = logging.getLogger(__name__)
 
 
 def _conn() -> sqlite3.Connection:
@@ -88,10 +90,28 @@ def get_content(content_id: int, lang: str = "en") -> dict | None:
             (lang, content_id)
         ).fetchone())
     if row:
-        row["subinfo_fixed"] = json.loads(row["subinfo_fixed"]) if row["subinfo_fixed"] else []
-        row["dice"]          = json.loads(row["dice"])          if row["dice"]          else None
-        row["subinfo_text"]  = json.loads(row["subinfo_text"])  if row["subinfo_text"]  else []
-        dice_entries         = json.loads(row.pop("dice_entries")) if row.get("dice_entries") else None
+        cid = row.get("id")
+        try:
+            row["subinfo_fixed"] = json.loads(row["subinfo_fixed"]) if row["subinfo_fixed"] else []
+        except json.JSONDecodeError:
+            logger.warning("Bad JSON in subinfo_fixed for content %s", cid)
+            row["subinfo_fixed"] = []
+        try:
+            row["dice"] = json.loads(row["dice"]) if row["dice"] else None
+        except json.JSONDecodeError:
+            logger.warning("Bad JSON in dice for content %s", cid)
+            row["dice"] = None
+        try:
+            row["subinfo_text"] = json.loads(row["subinfo_text"]) if row["subinfo_text"] else []
+        except json.JSONDecodeError:
+            logger.warning("Bad JSON in subinfo_text for content %s", cid)
+            row["subinfo_text"] = []
+        try:
+            dice_entries = json.loads(row.pop("dice_entries")) if row.get("dice_entries") else None
+        except json.JSONDecodeError:
+            logger.warning("Bad JSON in dice_entries for content %s", cid)
+            dice_entries = None
+            row.pop("dice_entries", None)
         if row["dice"] and dice_entries:
             for i, entry in enumerate(row["dice"]["entries"]):
                 if i < len(dice_entries) and dice_entries[i]:
@@ -179,7 +199,11 @@ def get_user_state(user_id: int) -> dict | None:
         ).fetchone())
     if not row:
         return None
-    row["nav_stack"] = json.loads(row["nav_stack"]) if row["nav_stack"] else []
+    try:
+        row["nav_stack"] = json.loads(row["nav_stack"]) if row["nav_stack"] else []
+    except json.JSONDecodeError:
+        logger.warning("Bad JSON in nav_stack for user %s", user_id)
+        row["nav_stack"] = []
     return row
 
 
@@ -202,6 +226,16 @@ def save_user_state(
                    updated_at  = excluded.updated_at""",
             (user_id, lang, json.dumps(nav_stack), last_msg_id, last_query, int(time.time()))
         )
+
+
+def cleanup_user_state(days: int = 90) -> int:
+    """Delete user_state rows not updated within the given number of days."""
+    cutoff = int(time.time()) - days * 86400
+    with _conn() as conn:
+        cursor = conn.execute(
+            "DELETE FROM user_state WHERE updated_at < ?", (cutoff,)
+        )
+    return cursor.rowcount
 
 
 def set_user_lang(user_id: int, lang: str) -> None:

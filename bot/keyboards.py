@@ -14,6 +14,8 @@ Callback data format:
     noop            do nothing
 """
 
+import math
+
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from .i18n import t, label
@@ -110,14 +112,12 @@ def content_keyboard(
 
         # Pagination row (only shown when table has more than one page)
         if total > _ENTRIES_PER_PAGE:
+            total_pages = math.ceil(total / _ENTRIES_PER_PAGE)
             pag: list[InlineKeyboardButton] = []
             if page > 0:
-                prev_start = (page - 1) * _ENTRIES_PER_PAGE
-                prev_end   = min(prev_start + _ENTRIES_PER_PAGE, total)
-                pag.append(_btn(f"◀ {prev_start + 1}–{prev_end}", f"pick_page:{content_id}:{page - 1}"))
+                pag.append(_btn(f"◀ {page}/{total_pages}", f"pick_page:{content_id}:{page - 1}"))
             if end < total:
-                next_end = min(end + _ENTRIES_PER_PAGE, total)
-                pag.append(_btn(f"{end + 1}–{next_end} ▶", f"pick_page:{content_id}:{page + 1}"))
+                pag.append(_btn(f"{page + 2}/{total_pages} ▶", f"pick_page:{content_id}:{page + 1}"))
             if pag:
                 rows.append(pag)
 
@@ -149,8 +149,11 @@ def roll_result_keyboard(
     rows: list[list[InlineKeyboardButton]] = []
 
     for lk in entry_links:
-        name = lk.get("label") or str(lk.get("id", "?"))
-        rows.append([_btn(name, f"c:{lk['id']}")])
+        link_id = lk.get("id")
+        if link_id is None:
+            continue
+        name = lk.get("label") or str(link_id)
+        rows.append([_btn(name, f"c:{link_id}")])
 
     # Back goes to the table, not the parent page
     nav = [_btn(t(lang, "btn_back"), f"back_table:{content_id}")]

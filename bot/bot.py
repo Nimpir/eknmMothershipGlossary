@@ -116,8 +116,10 @@ def _roll(notation: str) -> int:
     m = re.match(r"^(\d*)d(\d+)$", notation)
     if not m:
         return 1
-    count = int(m.group(1)) if m.group(1) else 1
+    count = min(int(m.group(1)) if m.group(1) else 1, 100)
     sides = int(m.group(2))
+    if sides < 2:
+        return 1
     return sum(random.randint(1, sides) for _ in range(count))
 
 
@@ -307,13 +309,19 @@ async def _dispatch(update: Update, data: str, context) -> None:
 
     # ── Back to dice table (from roll/pick result) ──
     if data.startswith("back_table:"):
-        content_id = int(data[11:])
+        try:
+            content_id = int(data[11:])
+        except ValueError:
+            return
         await _render_content(update, content_id, context)
         return
 
     # ── Navigate to page ────────────────────────────
     if data.startswith("p:"):
-        page_id = int(data[2:])
+        try:
+            page_id = int(data[2:])
+        except ValueError:
+            return
         _push(context, {"t": "p", "id": page_id})
         _save(uid, context)
         await _render_page(update, page_id, context)
@@ -321,7 +329,10 @@ async def _dispatch(update: Update, data: str, context) -> None:
 
     # ── Navigate to content ─────────────────────────
     if data.startswith("c:"):
-        content_id = int(data[2:])
+        try:
+            content_id = int(data[2:])
+        except ValueError:
+            return
         _push(context, {"t": "c", "id": content_id})
         _save(uid, context)
         await _render_content(update, content_id, context)
@@ -329,7 +340,10 @@ async def _dispatch(update: Update, data: str, context) -> None:
 
     # ── Roll on dice table ──────────────────────────
     if data.startswith("roll:"):
-        content_id = int(data[5:])
+        try:
+            content_id = int(data[5:])
+        except ValueError:
+            return
         content    = db.get_content(content_id, lang)
         if not content or not content.get("dice"):
             await update.callback_query.answer(t(lang, "err_not_found"))
@@ -344,7 +358,7 @@ async def _dispatch(update: Update, data: str, context) -> None:
         die_name   = dice.get("die", f"d{max(e.get('max', 1) for e in entries)}")
         roll_value = _roll(die_name)
         entry      = next(
-            (e for e in entries if e.get("min", 0) <= roll_value <= e.get("max", 0)),
+            (e for e in entries if e.get("min", 1) <= roll_value <= e.get("max", e.get("min", 1))),
             entries[-1],
         )
 
@@ -356,17 +370,27 @@ async def _dispatch(update: Update, data: str, context) -> None:
 
     # ── Paginate dice table entries ─────────────────
     if data.startswith("pick_page:"):
-        _, cid_s, pg_s = data.split(":", 2)
-        content_id = int(cid_s)
-        page       = int(pg_s)
+        parts = data.split(":", 2)
+        if len(parts) != 3:
+            return
+        try:
+            content_id = int(parts[1])
+            page       = int(parts[2])
+        except ValueError:
+            return
         await _render_content(update, content_id, context, page=page)
         return
 
     # ── Pick entry from dice table ──────────────────
     if data.startswith("pick:"):
-        _, cid_s, idx_s = data.split(":", 2)
-        content_id = int(cid_s)
-        idx        = int(idx_s)
+        parts = data.split(":", 2)
+        if len(parts) != 3:
+            return
+        try:
+            content_id = int(parts[1])
+            idx        = int(parts[2])
+        except ValueError:
+            return
         content    = db.get_content(content_id, lang)
         if not content or not content.get("dice"):
             await update.callback_query.answer(t(lang, "err_not_found"))
@@ -393,6 +417,12 @@ async def _dispatch(update: Update, data: str, context) -> None:
 # ─────────────────────────────────────────────
 # ERROR HANDLER
 # ─────────────────────────────────────────────
+
+async def _cleanup_job(context: ContextTypes.DEFAULT_TYPE) -> None:
+    deleted = db.cleanup_user_state(days=90)
+    if deleted:
+        logger.info("cleanup_user_state removed %d stale rows", deleted)
+
 
 async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
     logger.exception("PTB error  update=%s", update, exc_info=context.error)
@@ -424,6 +454,8 @@ def main() -> None:
     app.add_handler(CommandHandler("roll",   cmd_roll))
     app.add_handler(CallbackQueryHandler(callback_handler))
     app.add_error_handler(error_handler)
+
+    app.job_queue.run_repeating(_cleanup_job, interval=86400, first=300)
 
     logger.info("Mothership bot starting…")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
