@@ -127,6 +127,22 @@ def _roll(notation: str) -> int:
 # SEND / EDIT HELPERS
 # ─────────────────────────────────────────────
 
+_TG_MAX = 4096
+_TRUNCATION_MARKER = "\n\n<i>…</i>"
+
+
+def _truncate(text: str) -> str:
+    """Trim text to Telegram's 4096-char limit, cutting at a line boundary."""
+    if len(text) <= _TG_MAX:
+        return text
+    cutoff = _TG_MAX - len(_TRUNCATION_MARKER)
+    trimmed = text[:cutoff]
+    last_nl = trimmed.rfind("\n")
+    if last_nl > 0:
+        trimmed = trimmed[:last_nl]
+    return trimmed + _TRUNCATION_MARKER
+
+
 async def _edit(update: Update, text: str, keyboard, context=None) -> None:
     if DEV_MODE and context is not None:
         s     = context.user_data.get("nav_stack", [])
@@ -134,7 +150,7 @@ async def _edit(update: Update, text: str, keyboard, context=None) -> None:
         text += f"\n\n<code>🛠 DEV\n{lines}</code>"
     try:
         await update.callback_query.edit_message_text(
-            text=text,
+            text=_truncate(text),
             reply_markup=keyboard,
             parse_mode=ParseMode.HTML,
         )
@@ -165,10 +181,12 @@ async def _render_page(update: Update, page_id: int, context, edit: bool = True)
             await update.callback_query.answer(t(lang, "err_not_found"))
         return
 
-    child_pages = db.get_pages_by_ids(page["linked_pages"], lang)
-    contents    = db.get_page_contents(page_id, lang)
-    text        = fmt.format_page(page, lang)
-    keyboard    = kb.page_keyboard(child_pages, contents, lang, depth)
+    child_pages  = db.get_pages_by_ids(page["linked_pages"], lang)
+    contents     = db.get_page_contents(page_id, lang)
+    text         = fmt.format_page(page, lang)
+    has_workflow = bool(page.get("workflow_steps"))
+    keyboard     = kb.page_keyboard(child_pages, contents, lang, depth,
+                                    page_id=page_id, has_workflow=has_workflow)
 
     if edit:
         await _edit(update, text, keyboard, context=context)
@@ -404,6 +422,53 @@ async def _dispatch(update: Update, data: str, context) -> None:
         text     = fmt.format_roll_result(content, 0, entry, lang, picked=True)
         keyboard = kb.roll_result_keyboard(content_id, entry.get("links", []), lang, depth)
         await _edit(update, text, keyboard, context=context)
+        return
+
+    # ── Roll all workflow steps ─────────────────────
+    if data.startswith("rollall:"):
+        try:
+            page_id = int(data[8:])
+        except ValueError:
+            return
+        contents = db.get_workflow_contents(page_id, lang)
+        if not contents:
+            await update.callback_query.answer(t(lang, "err_not_found"))
+            return
+
+        rolls = []
+        for content in contents:
+            dice = content.get("dice")
+            if not dice:
+                continue
+            entries = dice.get("entries", [])
+            if not entries:
+                continue
+            die_name   = dice.get("die", f"d{max(e.get('max', 1) for e in entries)}")
+            roll_value = _roll(die_name)
+            entry      = next(
+                (e for e in entries if e.get("min", 1) <= roll_value <= e.get("max", e.get("min", 1))),
+                entries[-1],
+            )
+            rolls.append({"content": content, "roll_value": roll_value, "entry": entry})
+
+        if not rolls:
+            await update.callback_query.answer(t(lang, "err_not_found"))
+            return
+
+        page     = db.get_page(page_id, lang)
+        depth    = len(_stack(context))
+        text     = fmt.format_rollall_result(page, rolls, lang)
+        keyboard = kb.rollall_keyboard(page_id, lang, depth)
+        await _edit(update, text, keyboard, context=context)
+        return
+
+    # ── Back to page (from roll-all result) ────────
+    if data.startswith("back_page:"):
+        try:
+            page_id = int(data[10:])
+        except ValueError:
+            return
+        await _render_page(update, page_id, context)
         return
 
     # ── noop ────────────────────────────────────────

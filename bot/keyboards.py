@@ -2,16 +2,18 @@
 keyboards.py — Inline keyboard builders for the Mothership bot.
 
 Callback data format:
-    p:<id>          navigate to page
-    c:<id>          navigate to content
-    roll:<id>       roll on content's dice table
+    p:<id>             navigate to page
+    c:<id>             navigate to content
+    roll:<id>          roll on content's dice table
+    rollall:<id>       roll all workflow steps for a page
     pick:<id>:<i>      select entry i from content's dice table
     pick_page:<id>:<p> switch to page p of entry buttons
     back_table:<id>    return to dice table from a roll/pick result
+    back_page:<id>     return to page from roll-all result
     back               pop nav stack
     home               reset to main page
-    setlang:<xx>    set language
-    noop            do nothing
+    setlang:<xx>       set language
+    noop               do nothing
 """
 
 import math
@@ -57,9 +59,14 @@ def page_keyboard(
     contents: list[dict],
     lang: str,
     depth: int,
+    page_id: int | None = None,
+    has_workflow: bool = False,
 ) -> InlineKeyboardMarkup:
-    """Page screen: child pages + contents + nav."""
+    """Page screen: Roll All (if workflow) + child pages + contents + nav."""
     rows: list[list[InlineKeyboardButton]] = []
+
+    if has_workflow and page_id is not None:
+        rows.append([_btn(t(lang, "btn_roll_all"), f"rollall:{page_id}")])
 
     for p in child_pages:
         icon = p.get("icon") or ""
@@ -157,6 +164,28 @@ def roll_result_keyboard(
 
     # Back goes to the table, not the parent page
     nav = [_btn(t(lang, "btn_back"), f"back_table:{content_id}")]
+    if depth > 2:
+        nav.append(_btn(t(lang, "btn_home"), "home"))
+    rows.append(nav)
+
+    return InlineKeyboardMarkup(rows)
+
+
+# ─────────────────────────────────────────────
+# ROLL-ALL RESULT KEYBOARD
+# ─────────────────────────────────────────────
+
+def rollall_keyboard(
+    page_id: int,
+    lang: str,
+    depth: int,
+) -> InlineKeyboardMarkup:
+    """After a Roll All: re-roll + back to page + home."""
+    rows: list[list[InlineKeyboardButton]] = []
+
+    rows.append([_btn(t(lang, "btn_reroll_all"), f"rollall:{page_id}")])
+
+    nav = [_btn(t(lang, "btn_back"), f"back_page:{page_id}")]
     if depth > 2:
         nav.append(_btn(t(lang, "btn_home"), "home"))
     rows.append(nav)

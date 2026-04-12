@@ -90,7 +90,15 @@ def format_content(content: dict, lang: str) -> str:
         parts.append(_esc(desc))
 
     # subinfo_fixed — stats/dice/cost/mass (never translated)
-    fixed: list[dict] = content.get("subinfo_fixed") or []
+    raw_fixed = content.get("subinfo_fixed") or []
+    # Normalise legacy flat-dict format {"cost": "x", "slots": "y"} → list of objects
+    if isinstance(raw_fixed, dict):
+        _TYPE_HINTS = {"cost": "cost", "mass": "mass"}
+        raw_fixed = [
+            {"label_key": k, "value": v, "type": _TYPE_HINTS.get(k, "stat")}
+            for k, v in raw_fixed.items()
+        ]
+    fixed: list[dict] = raw_fixed
     if fixed:
         lines = []
         for entry in fixed:
@@ -187,6 +195,36 @@ def format_roll_result(content: dict, roll_value: int, entry: dict, lang: str, p
         link_line = "\n" + " · ".join(f"<i>{n}</i>" for n in names if n)
 
     return f"🎲 <b>{die.upper()}</b>  {header}\n\n{body}{link_line}"
+
+
+# ─────────────────────────────────────────────
+# ROLL-ALL RESULT
+# ─────────────────────────────────────────────
+
+def format_rollall_result(page: dict, rolls: list[dict], lang: str) -> str:
+    """Combined result for rolling all workflow steps on a page.
+
+    rolls: list of {"content": dict, "roll_value": int, "entry": dict}
+    """
+    icon      = page.get("icon") or ""
+    page_name = _esc(page.get("name") or "")
+    header    = f"🎲 <b>{icon} {page_name}</b>".strip() if icon else f"🎲 <b>{page_name}</b>"
+
+    parts = [header]
+    for r in rolls:
+        content    = r["content"]
+        roll_value = r["roll_value"]
+        entry      = r["entry"]
+
+        c_icon = content.get("icon") or ""
+        c_name = _esc(content.get("name") or "")
+        die    = _esc((content.get("dice") or {}).get("die", "d?"))
+        text   = _esc(entry.get("text", ""))
+
+        title = f"{c_icon} <b>{c_name}</b>".strip() if c_icon else f"<b>{c_name}</b>"
+        parts.append(f"{title}  ·  <code>{die.upper()}</code> → <b>{roll_value}</b>\n{text}")
+
+    return "\n\n".join(parts)
 
 
 # ─────────────────────────────────────────────
